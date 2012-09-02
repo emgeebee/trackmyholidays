@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>Holiday Tracker</title>
+
+		<link rel="stylesheet" type="text/css" href="css/holidayTracker.css" />
+		<link rel="stylesheet" type="text/css" href="css/fonts-min.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/AIRIntrospector.js"></script>
+		<script type="text/javascript" src="js/AIRAliases.js"></script>
+		<script type="text/javascript" src="js/yahoo-dom-event.js"></script>
+		<script type="text/javascript" src="js/date-math.js"></script>
+		<script type="text/javascript" src="js/calendar-min.js"></script>
+		<script type="text/javascript" src="js/jquery.js"></script>
+	</head>
+
+	<body class="yui-skin-sam">
+		<header>
+			<div class="title">
+				<h1>Holiday Tracker</h1>
+				<p id="yearPeriod" title="current year"></p>
+			</div>
+			<a href="#" id="prevYear" title="previous year" class="yearControl yearback btn-info btn btn-small"><</a>
+			<a href="#" id="nextYear" title="next year" class="yearControl yearforward btn-info btn btn-small">></a>
+		</header>
+		<div class="infobox">
+			<span class="planningColumn">Days left to plan</span>
+			<span id="totalSpareDays"></span>
+			<span id="totalSpareHours" class="tooltip"></span>
+		</div>
+		<div id="calendarContainer"></div>
+		<div id="buttons">
+			<a href="#" id="save" class="btn btn-warning">Save to file</a>
+			<a href="#" id="config" class="btn btn-info">Config</a>
+		</div>
+		<div id="selectOptions" class="hidden">
+			<div class="selectedDateBox">Date Selected: <span id="selectedDate"></span></div>
+			Description: <input type="text" id="dateDescription" /> 
+			<button click="alert('please select a date first')" id="selectButton" class="hidden btn btn-warning">Select</button>
+			<button click="alert('please select a date first')" id="updateButton" class="hidden btn btn-warning">Update</button>
+			<button click="alert('please select a date first')" id="deselectButton" class="hidden btn btn-warning">Deselect</button>
+		</div>
+
+		<div id="controls">
+			<div id="timePlanner">
+				<table>
+					<tr class="minor">
+						<td class="planningColumn">Holiday year start</td>
+						<td>
+							<select id="monthstart">
+								<option value="01">Jan</option>
+								<option value="02">Feb</option>
+								<option value="03">Mar</option>
+								<option value="04">Apr</option>
+								<option value="05">May</option>
+								<option value="06">Jun</option>
+								<option value="07">Jul</option>
+								<option value="08">Aug</option>
+								<option value="09">Sep</option>
+								<option value="10">Oct</option>
+								<option value="11">Nov</option>
+								<option value="12">Dec</option>
+							</select>
+						</td>
+						<td>
+							<a href="#" class="btn btn-small" id="updateYearStart">Update</a>
+						</td>
+					</tr>
+					<tr>
+						<th class="planningColumnTitleMain"></th>
+						<th class="planningColumnTitle timeTableDays">Days</th>
+						<th class="planningColumnTitle timeTableHours">Hours</th>
+					</tr>
+					<tr class="minor">
+						<td class="planningColumn">Planned holidays</td>
+						<td class="timeTableDays"><span id="daysPlanned"></span></td>
+						<td><span id="hoursPlanned"></span></td>
+					</tr>
+					<tr class="minor">
+						<td class="planningColumn">Taken holidays</td>
+						<td class="timeTableDays"><span id="daysTakenSoFar"></span></td>
+						<td><span id="hoursTakenSoFar"></span></td>
+					</tr>
+					<tr class="major">
+						<td class="planningColumn">Total holidays</td>
+						<td class="timeTableDays"><span id="totalDays"></span></td>
+						<td><span id="totalHours"></span></td>
+					</tr>
+					<tr class="minor">
+						<td class="planningColumn">Hours allowed per year</td>
+						<td class="timeTableDays"><span id="daysAllowed"></span></td>
+						<td><input type="text" id="timeAllowed" name="timeAllowed"/></td>
+					</tr>
+					<tr class="minor">
+						<td class="planningColumn">Hours carried over</td>
+						<td class="timeTableDays"><span id="carriedOverDays"></span></td>
+						<td><input type="text" id="carriedOver" name="carriedOver"/></td>
+					</tr>
+				</table>
+				<div id="control-buttons">
+					<a href="#" class="btn btn-warning" id="control-close">Close</a>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/holidayCalendar.js"></script>
+	</body>
+</html>

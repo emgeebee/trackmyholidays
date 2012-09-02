@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?><holidays issue="0.5">
+	<bankHolidaydateList id="2008">
+		<bankHolidayList>
+			<bankHoliday id="5/25/2009">
+				<notes>Spring Bank Holiday </notes>
+			</bankHoliday>
+			<bankHoliday id="12/24/2008">
+				<notes>Christmas Eve</notes>
+			</bankHoliday>
+			<bankHoliday id="12/25/2008">
+				<notes>Christmas Day</notes>
+			</bankHoliday>
+			<bankHoliday id="12/26/2008">
+				<notes>Boxing Day</notes>
+			</bankHoliday>
+			<bankHoliday id="1/1/2009">
+				<notes>NY Day</notes>
+			</bankHoliday>
+			<bankHoliday id="4/10/2009">
+				<notes>Good Friday</notes>
+			</bankHoliday>
+			<bankHoliday id="4/13/2009">
+				<notes>Easter Monday</notes>
+			</bankHoliday>
+			<bankHoliday id="5/4/2009">
+				<notes>May Day</notes>
+			</bankHoliday>
+			<bankHoliday id="8/31/2009">
+				<notes>Summer Bank Holiday </notes>
+			</bankHoliday>
+		</bankHolidayList>
+	</bankHolidaydateList>
+	<bankHolidaydateList id="2009">
+		<bankHolidayList>
+			<bankHoliday id="5/24/2010">
+				<notes>Spring Bank Holiday </notes>
+			</bankHoliday>
+			<bankHoliday id="12/24/2009">
+				<notes>Christmas Eve</notes>
+			</bankHoliday>
+			<bankHoliday id="12/25/2009">
+				<notes>Christmas Day</notes>
+			</bankHoliday>
+			<bankHoliday id="12/28/2009">
+				<notes>Boxing Day</notes>
+			</bankHoliday>
+			<bankHoliday id="1/1/2010">
+				<notes>NY Day</notes>
+			</bankHoliday>
+			<bankHoliday id="4/2/2010">
+				<notes>Good Friday</notes>
+			</bankHoliday>
+			<bankHoliday id="4/05/2010">
+				<notes>Easter Monday</notes>
+			</bankHoliday>
+			<bankHoliday id="5/3/2010">
+				<notes>May Day</notes>
+			</bankHoliday>
+			<bankHoliday id="8/30/2010">
+				<notes>Summer Bank Holiday </notes>
+			</bankHoliday>
+		</bankHolidayList>
+	</bankHolidaydateList>
+	<bankHolidaydateList id="2010">
+		<bankHolidayList>
+			<bankHoliday id="5/30/2011">
+				<notes>Spring Bank Holiday </notes>
+			</bankHoliday>
+			<bankHoliday id="12/27/2010">
+				<notes>Christmas Day</notes>
+			</bankHoliday>
+			<bankHoliday id="12/28/2010">
+				<notes>Boxing Day</notes>
+			</bankHoliday>
+			<bankHoliday id="1/3/2011">
+				<notes>NY Day</notes>
+			</bankHoliday>
+			<bankHoliday id="4/22/2011">
+				<notes>Good Friday</notes>
+			</bankHoliday>
+			<bankHoliday id="4/25/2011">
+				<notes>Easter Monday</notes>
+			</bankHoliday>
+			<bankHoliday id="5/2/2011">
+				<notes>May Day</notes>
+			</bankHoliday>
+			<bankHoliday id="8/29/2011">
+				<notes>Summer Bank Holiday </notes>
+			</bankHoliday>
+		</bankHolidayList>
+	</bankHolidaydateList>
+</holidays>

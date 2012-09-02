@@ -1,0 +1,42 @@
+body {
+	margin: 5px;
+	padding: 0;
+	position: relative;
+}
+h1 {
+	text-align: center;
+}
+#controls{
+	padding-top: 10px;
+	clear:both;
+}
+.selectedDateBox{
+	font-size:x-large;
+}
+.hidden {
+	display: none;
+}
+.yearControl{
+	font-size:16pt;
+	font-weight:bold;
+}
+#yearControlBox{
+	width: 150px;
+	margin: 0 auto;
+	position: relative;
+	display: block;
+}
+.calnavleft, .calnavright {display:none;}
+#timePlanner{
+	border:solid black 1px;
+	padding: 0;
+	float: right;
+	width: 400px;
+}
+.timeTableDays{
+	background: #11dd11;
+}
+#Save{
+	margin: 10px 0 0 0;
+	padding: 0;
+}

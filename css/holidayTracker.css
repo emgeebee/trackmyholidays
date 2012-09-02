@@ -1,0 +1,199 @@
+html, body {
+height: 100%;
+position: relative;
+}
+
+body {
+	margin: 5px;
+	padding: 0;
+	position: relative;
+	font-family: "Verdana", Geneva, sans-serif;
+}
+h1 {
+	text-align: center;
+}
+.title{
+	text-align: center;
+}
+.infobox{
+	background-color: #2F96B4;
+	text-align: center;
+	width: 140px;
+	margin: 0 auto;
+	padding: 5px 10px;
+	color: #FFFFFF;
+  	-moz-border-radius: 3px;
+  	-webkit-border-radius: 3px;
+  	border-radius: 3px;
+}
+.hidden {
+	display: none;
+}
+.yearControl{
+	margin-top: 5px;
+	font-style: bold;
+}
+#yearPeriod{
+	display: inline;
+	padding: 4px 15px 4px;
+	background-color: #2F96B4;
+	color: #FFFFFF;
+}
+header{
+	width: 320px;
+	margin: 10px auto 5px;
+	position: relative;
+	display: block;
+}
+header a:link{
+	border: 0;
+}
+header a.yearforward{
+	position: absolute;
+	bottom: -2px;
+	right: 80px;
+  	-moz-border-top-left-radius: 0px;
+  	-webkit-border-top-left-radius: 0px;
+  	border-top-left-radius: 0px;
+  	-moz-border-bottom-left-radius: 0px;
+  	-webkit-border-bottom-left-radius: 0px;
+  	border-bottom-left-radius: 0px;
+}
+header a.yearback{
+	position: absolute;
+	bottom: -2px;
+	left: 80px;
+  	-moz-border-top-right-radius: 0px;
+  	-webkit-border-top-right-radius: 0px;
+  	border-top-right-radius: 0px;
+  	-moz-border-bottom-right-radius: 0px;
+  	-webkit-border-bottom-right-radius: 0px;
+  	border-bottom-right-radius: 0px;
+}
+.calnavleft, .calnavright {display:none;}
+#controls{
+	position: absolute;
+	top: -10px;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	color: #FFFFFF;
+	padding: 0;
+  	display: block;
+	background-color: rgba(0,0,0,0.8);
+}
+input{
+	margin-top: 10px;
+}
+.timeTableDays{
+	background: #24748C;
+	width: 100px;
+}
+.timeTableHours, #monthstart{
+	width: 100px;
+}
+#save, #config{
+	margin: 10px;
+	padding: 0;
+	float: left;
+	display: block;
+	width: 160px;
+}
+.planningColumn{
+	text-align: right;
+}
+.planningColumnTitleMain{
+	width: 50%;
+	text-align: center;
+}
+.planningColumnTitle{
+	width: 25%;
+	text-align: center;
+}
+#carriedOver, #timeAllowed{
+	width: 40px;
+}
+#buttons{
+	margin-right: 25px;
+	float: right;
+	clear: both;
+}
+#control-buttons{
+	text-align: right;
+}
+.btn:first-child{
+	margin-left: 0;
+}
+#selectOptions{
+	width: 320px;
+	margin: 10px;
+	background-color: #2F96B4;
+	color: #FFFFFF;
+	padding: 10px;
+	float: left;
+  	-moz-border-radius: 3px;
+  	-webkit-border-radius: 3px;
+  	border-radius: 3px;
+	-moz-box-shadow: 5px 5px 5px #888;
+	-webkit-box-shadow: 5px 5px 5px #888;
+	box-shadow: 5px 5px 5px #888;
+}
+.selectedDateBox{
+	margin: 10px;
+	margin-left: 0;
+}
+.selectedDate{
+	color: #FFFFFF;
+}
+#timePlanner{
+	padding: 10px;
+	width: 420px;
+	margin: 0 auto;
+	background-color: #2F96B4;
+  	-moz-border-radius: 5px;
+  	-webkit-border-radius: 5px;
+  	border-radius: 5px;
+	margin-top: 150px;
+}
+
+td{
+	padding: 5px;
+}
+table{
+	opacity: 1;
+    -webkit-opacity:1;  
+    -moz-opacity:1;
+	border-spacing: 5px;
+	text-align: center;
+	background-color: #2F96B4;
+}
+
+
+.groupcal{
+	float: left;
+	margin: 10px 10px;
+}
+.calcell{
+	background-color: #B0C4DE;
+	width: 17px;
+}
+.selectable{
+	background-color: transparent;
+}
+.highlight4{
+	background-color: #2F96B4;
+}
+.highlight3{
+	background-color: #FFD700;
+}
+.selected{
+	background-color: #FFEBCD;
+	box-shadow: inset 0px 0px 10px #FFD700;
+	-moz-box-shadow: inset 0px 0px 10px #FFD700;
+	-webkit-box-shadow:	inset 0px 0px 10px #FFD700;
+}
+.today{
+	box-shadow: inset 0px 0px 3px #66CDAA;
+	-moz-box-shadow: inset 0px 0px 3px #66CDAA;
+	-webkit-box-shadow:	inset 0px 0px 3px #66CDAA;
+}
