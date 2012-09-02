@@ -214,7 +214,6 @@ function renderDatesToCalendar(){
 
 function doLoad() {
 	if(!hasStartMonthBeenChanged){
-	air.Introspector.Console.log('loading');
 		var file = air.File.applicationStorageDirectory.resolvePath("dateList.xml");
 		if (file.exists) {
 			var fileStream = new air.FileStream();
@@ -292,7 +291,7 @@ function loadServerDates(){
 			}
 
 			if(parseFloat(serverVersion) > parseFloat(localVersion)){
-				bankHolidayYears = $(responseXML).find('bankHolidaydateList');
+				bankHolidayXml = responseXML;
 				var serializer = new XMLSerializer();
 				var outputString = serializer.serializeToString($(responseXML));
 				var xmlStartTag = '<\?xml version="1.0" encoding="utf-8"\?\>';
@@ -301,6 +300,7 @@ function loadServerDates(){
 				fileStream.open(file, air.FileMode.WRITE);
 				fileStream.writeUTFBytes(xmlOutputString);
 				fileStream.close();
+
 				alert('New bank holiday dates added from server');
 				loadBankHolidaysFromXml();
 				renderDatesToCalendar();
@@ -346,8 +346,6 @@ function writeDatesBackToXML(){
 
 function saveXML() {
 	writeDatesBackToXML();
-	updateCarriedOverTime();
-	updateTimeAllowed();
 	var serializer = new XMLSerializer();
 	var outputString = serializer.serializeToString($xml[0]);
 	if (outputString.substring(0,4) == "<hol") {
@@ -550,6 +548,7 @@ function updateTotalSpareDays(){
 	var sum = parseFloat(parseFloat(timeAllowed) + parseFloat(carriedOver) -  parseFloat(hoursPlanned) - parseFloat(hoursTaken));
 	totalSpareHoursHTML.html(sum);
 	totalSpareDaysHTML.html(parseFloat(sum/7.5));
+	saveXML();
 }
 
 function prevYear(){
@@ -598,7 +597,6 @@ function setHTMLVariables(){
 }
 
 function setButtons(){
-	$('#save').click(function(){saveXML()});
 	$('#prevYear').click(function(){prevYear()});
 	$('#nextYear').click(function(){nextYear()});
 	carriedOverHoursHTML.change(function(){updateCarriedOverTime()});

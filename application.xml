@@ -23,7 +23,7 @@
 	<name>Holiday Tracker</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
-	<version>1.0</version>
+	<version>1.1</version>
 
 	<!-- Description, displayed in the AIR application installer. Optional. -->
 	<description></description>
@@ -49,13 +49,13 @@
 		<visible>true</visible>
 
 		<!-- Whether the user can minimize the window. Optional. Default true. -->
-		<minimizable>false</minimizable>
+		<minimizable>true</minimizable>
 
 		<!-- Whether the user can maximize the window. Optional. Default true. -->
 		<maximizable>false</maximizable>
 
 		<!-- Whether the user can resize the window. Optional. Default true. -->
-		<resizable>false</resizable>
+		<resizable>true</resizable>
 
 		<!-- The window's initial width. Optional. -->
 		<width>1300</width>
