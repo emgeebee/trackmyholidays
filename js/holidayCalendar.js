@@ -6,6 +6,7 @@ YAHOO.namespace("calendar");
 
 //XML variables
 var xml;
+var $xml;
 var dates;
 var bankHolidayXml;
 var currentYearNode;
@@ -158,8 +159,8 @@ function loadHolidaysFromXml (){
 		selectedDate = $(this);
 		holidayDate = selectedDate.attr('id');
 		dateRange = "";
-		if(selectedDate.attr('dateRange')){
-			dateRange = selectedDate.attr('dateRange');
+		if(selectedDate.attr('daterange')){
+			dateRange = selectedDate.attr('daterange');
 		}
 		dateRangeFormattedString = "";
 		if(selectedDate.attr('daterangeformatted')){
@@ -231,7 +232,6 @@ function doLoad() {
 		xmldoc = $.parseXML(xmlString);
 		$xml = $( xmldoc );
 	}
-
 	setYear();
 	loadHolidaysFromXml();
 	loadBankHolidaysFromXml();
@@ -289,11 +289,10 @@ function loadServerDates(){
 			if($(bankHolidayXml).find('holidays').attr('issue')){
 				localVersion = $(bankHolidayXml).find('holidays').attr('issue');
 			}
-
 			if(parseFloat(serverVersion) > parseFloat(localVersion)){
 				bankHolidayXml = responseXML;
 				var serializer = new XMLSerializer();
-				var outputString = serializer.serializeToString($(responseXML));
+				var outputString = serializer.serializeToString($(responseXML)[0]);
 				var xmlStartTag = '<\?xml version="1.0" encoding="utf-8"\?\>';
 				var xmlOutputString = xmlStartTag.concat(outputString);
 				fileStream = new air.FileStream(); 
@@ -318,20 +317,17 @@ function defaultXMLString(){
 
 function writeDatesBackToXML(){
 	if(hasStartMonthBeenChanged){
-		$('[dateList]', $xml).remove();
+		$xml.find('dateList').remove();
 	}
 	if($('[id='+currentYear+']', $xml).length > 0){
-		$('[id='+currentYear+']', $xml).children().remove();
+		$xml.find('[id='+currentYear+']').empty();
 	} else {
 		var dateListNode = $('<dateList></dateList>');
 		dateListNode.attr('id', currentYear).appendTo($xml.find('holidays'));
 	}
-	currentYearNode = $('[id='+currentYear+']', $xml);
-
 	for (date in dateList){
 		if(dateList[date].isHoliday){
-			var dateNode = $('<date></date>');
-			dateNode
+			$('<date></date>')
 				.attr('id', date)
 				.attr('dateRangeFormatted', dateRange[dateList[date].dateRange]['dateRangeFormattedString'])
 				.attr('notes', dateRange[dateList[date].dateRange]['holidayNotes'])
@@ -340,7 +336,7 @@ function writeDatesBackToXML(){
 		}
 	}
 	if(month != 0){
-		var appendedYearStartNode = $xml.find('holidays').attr('yearStart', month);
+		$xml.find('holidays').attr('yearStart', month);
 	}
 }
 
@@ -445,19 +441,22 @@ function mySelectCell(dateRange, formattedString){
 	}
 	renderDatesToCalendar();
 	populateControlBox(date , 1, dateRange, formattedString);
+	saveXML();
 };
 
 function myUpdateCell(dateString){
 	window.dateRange[dateString].holidayNotes = $('#dateDescription').val();
+	saveXML();
 };
 
 function myDeselectCell(dateString){
-	var dateArray = dateString.split(',');
+	dateArray = dateString.split(',');
 	for (var i = 0; i < dateArray.length; i++){
 		dateListObject.removeHoliday(dateArray[i]);
 	}
 	renderDatesToCalendar();
 	populateControlBox("" , 0, "", "");
+	saveXML();
 };
 
 function workingDateFromDateObject(date){
@@ -548,7 +547,6 @@ function updateTotalSpareDays(){
 	var sum = parseFloat(parseFloat(timeAllowed) + parseFloat(carriedOver) -  parseFloat(hoursPlanned) - parseFloat(hoursTaken));
 	totalSpareHoursHTML.html(sum);
 	totalSpareDaysHTML.html(parseFloat(sum/7.5));
-	saveXML();
 }
 
 function prevYear(){
@@ -599,14 +597,23 @@ function setHTMLVariables(){
 function setButtons(){
 	$('#prevYear').click(function(){prevYear()});
 	$('#nextYear').click(function(){nextYear()});
-	carriedOverHoursHTML.change(function(){updateCarriedOverTime()});
-	hoursAllowedHTML.change(function(){updateTimeAllowed()});
+	carriedOverHoursHTML.change(function(){
+		updateCarriedOverTime();
+		saveXML();
+	});
+	hoursAllowedHTML.change(function(){
+		updateTimeAllowed();
+		saveXML();
+	});
 	$('#updateYearStart').click(function(){
 		setMonth();
 	})
 	$('#config,#control-close').click(function(){
 		$('#controls').toggle();
 	});
+	$('#dayshourscolumn').click(function(){
+		$('.timeTableDays,.timeTableHours').toggle();
+	})
 }
 
 function setMonth(){
@@ -623,10 +630,12 @@ function setMonth(){
 		YAHOO.calendar.cal1.setMonth(month);
 		YAHOO.calendar.cal1.render();
 		updateTotalSpareDays();
+		saveXML();
 	}
 }
 
 YAHOO.calendar.init = function(){
+air.Introspector.Console.log('start');
 	setHTMLVariables();
 	YAHOO.calendar.cal1 = new YAHOO.widget.CalendarGroup("calendarContainer", {
 		PAGES: 12
@@ -635,7 +644,9 @@ YAHOO.calendar.init = function(){
 
 	//YAHOO.calendar.cal1.cfg.setProperty('MULTI_SELECT', true);
 	YAHOO.calendar.cal1.setYear(currentYear);
+air.Introspector.Console.log('0');
 	loadServerDates();
+air.Introspector.Console.log('1');
 	doLoad();
 	setButtons();
 	YAHOO.calendar.cal1.setMonth(month);

@@ -85,12 +85,19 @@ header a.yearback{
 input{
 	margin-top: 10px;
 }
-.timeTableDays{
-	background: #24748C;
+#monthstart{
 	width: 100px;
 }
-.timeTableHours, #monthstart{
-	width: 100px;
+.timeTableHours, table tr .timeTableHours{
+	display: none;
+}
+table tr input.timeTableHours{
+	padding: 0;
+	margin: 0;
+	line-height: 10px;
+}
+table td{
+	padding: 3px;
 }
 #save, #config{
 	margin: 10px;
@@ -156,9 +163,6 @@ input{
 	margin-top: 150px;
 }
 
-td{
-	padding: 5px;
-}
 table{
 	opacity: 1;
     -webkit-opacity:1;  

@@ -7,7 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="css/holidayTracker.css" />
 		<link rel="stylesheet" type="text/css" href="css/fonts-min.css" />
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-		<!--<script type="text/javascript" src="js/AIRIntrospector.js"></script>-->
+		<script type="text/javascript" src="js/AIRIntrospector.js"></script>
 		<script type="text/javascript" src="js/AIRAliases.js"></script>
 		<script type="text/javascript" src="js/yahoo-dom-event.js"></script>
 		<script type="text/javascript" src="js/date-math.js"></script>
@@ -68,33 +68,27 @@
 					</tr>
 					<tr>
 						<th class="planningColumnTitleMain"></th>
-						<th class="planningColumnTitle timeTableDays">Days</th>
-						<th class="planningColumnTitle timeTableHours">Hours</th>
+						<th id='dayshourscolumn' class="planningColumnTitle"><span class='btn timeTableDays'>Days</span><span class='btn timeTableHours'>Hours</span></th>
 					</tr>
 					<tr class="minor">
 						<td class="planningColumn">Planned holidays</td>
-						<td class="timeTableDays"><span id="daysPlanned"></span></td>
-						<td><span id="hoursPlanned"></span></td>
+						<td><span id="daysPlanned" class="timeTableDays"></span><span id="hoursPlanned" class="timeTableHours"></span></td>
 					</tr>
 					<tr class="minor">
 						<td class="planningColumn">Taken holidays</td>
-						<td class="timeTableDays"><span id="daysTakenSoFar"></span></td>
-						<td><span id="hoursTakenSoFar"></span></td>
+						<td><span id="daysTakenSoFar" class="timeTableDays"></span><span id="hoursTakenSoFar" class="timeTableHours"></span></td>
 					</tr>
 					<tr class="major">
 						<td class="planningColumn">Total holidays</td>
-						<td class="timeTableDays"><span id="totalDays"></span></td>
-						<td><span id="totalHours"></span></td>
+						<td><span id="totalDays" class="timeTableDays"></span><span id="totalHours" class="timeTableHours"></span></td>
 					</tr>
 					<tr class="minor">
-						<td class="planningColumn">Hours allowed per year</td>
-						<td class="timeTableDays"><span id="daysAllowed"></span></td>
-						<td><input type="text" id="timeAllowed" name="timeAllowed"/></td>
+						<td class="planningColumn">Yearly allowance</td>
+						<td><span id="daysAllowed" class="timeTableDays"></span><input type="number" id="timeAllowed" name="timeAllowed" class="timeTableHours" /></td>
 					</tr>
 					<tr class="minor">
-						<td class="planningColumn">Hours carried over</td>
-						<td class="timeTableDays"><span id="carriedOverDays"></span></td>
-						<td><input type="text" id="carriedOver" name="carriedOver"/></td>
+						<td class="planningColumn">Carried over time</td>
+						<td><span id="carriedOverDays" class="timeTableDays"></span><input type="number" id="carriedOver" name="carriedOver" class="timeTableHours" /></td>
 					</tr>
 				</table>
 				<div id="control-buttons">
