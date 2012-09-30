@@ -82,58 +82,6 @@ function dateRangeObject (title, dateRangeFormattedString){
 	return this;
 }
 
-function AddClassName(objElement, strClass, blnMayAlreadyExist) {
-	if ( objElement.className ){
-		var arrList = objElement.className.split(' ');
-		if ( blnMayAlreadyExist ){
-			var strClassUpper = strClass.toUpperCase();
-			// find all instances and remove them
-			for ( var i = 0; i < arrList.length; i++ ){
-				// if class found
-				if ( arrList[i].toUpperCase() == strClassUpper ){
-					// remove array item
-					arrList.splice(i, 1);
-					// decrement loop counter as we have adjusted the array's contents
-					i--;
-				}
-			}
-		}
-		// add the new class to end of list
-		arrList[arrList.length] = strClass;
-		// add the new class to beginning of list
-		//arrList.splice(0, 0, strClass);
-		// assign modified class name attribute
-		objElement.className = arrList.join(' ');
-	} else {
-		// assign modified class name attribute
-		objElement.className = strClass;
-	}
-}
-
-function RemoveClassName(objElement, strClass) {
-	// if there is a class
-	if ( objElement.className ){
-		// the classes are just a space separated list, so first get the list
-		var arrList = objElement.className.split(' ');
-		// get uppercase class for comparison purposes
-		var strClassUpper = strClass.toUpperCase();
-		// find all instances and remove them
-		for ( var i = 0; i < arrList.length; i++ ){
-			// if class found
-			if ( arrList[i].toUpperCase() == strClassUpper ){
-				// remove array item
-				arrList.splice(i, 1);
-				// decrement loop counter as we have adjusted the array's contents
-				i--;
-			}
-		}
-		// assign modified class name attribute
-		objElement.className = arrList.join(' ');
-	}
-	// if there was no class
-	// there is nothing to remove
-}
-
 function loadHolidaysFromXml (){
 
 	dateListObject.clearDateList();
@@ -405,6 +353,21 @@ function selectDateRange(operation, workingDate){
 }
 
 var populateControlBox = function(date, type, dateRange, formattedString){
+
+	$('.groupcal').removeClass('selectedGroup');
+	$('.selected').parents('.groupcal').addClass('selectedgroup');
+	$('#wrapper').addClass('focused');
+	if($('.selectedgroup.last-of-type').length > 0){
+		$('#nextMonth').hide();
+	} else {
+		$('#nextMonth').show();
+	}
+	if($('.selectedgroup.first-of-type').length > 0){
+		$('#prevMonth').hide();
+	} else {
+		$('#prevMonth').show();
+	}
+
 	var dateTitle = "";
 	$('#selectedDate').html(formattedString);
 	if (type == 1) {
@@ -442,11 +405,15 @@ function mySelectCell(dateRange, formattedString){
 	renderDatesToCalendar();
 	populateControlBox(date , 1, dateRange, formattedString);
 	saveXML();
+	$('.groupcal').removeClass('selectedgroup');
+	$('#wrapper').removeClass('focused');
 };
 
 function myUpdateCell(dateString){
 	window.dateRange[dateString].holidayNotes = $('#dateDescription').val();
 	saveXML();
+	$('.groupcal').removeClass('selectedgroup');
+	$('#wrapper').removeClass('focused');
 };
 
 function myDeselectCell(dateString){
@@ -457,6 +424,8 @@ function myDeselectCell(dateString){
 	renderDatesToCalendar();
 	populateControlBox("" , 0, "", "");
 	saveXML();
+	$('.groupcal').removeClass('selectedgroup');
+	$('#wrapper').removeClass('focused');
 };
 
 function workingDateFromDateObject(date){
@@ -613,6 +582,28 @@ function setButtons(){
 	});
 	$('#dayshourscolumn').click(function(){
 		$('.timeTableDays,.timeTableHours').toggle();
+	});
+	$('#closefocus').click(function(){
+		$('.groupcal').removeClass('selectedgroup');
+		$('#wrapper').removeClass('focused');
+	});
+	$('#nextMonth').click(function(){
+		$('.selectedgroup').removeClass('selectedgroup').next().addClass('selectedgroup');
+		if($('.selectedgroup.last-of-type').length > 0){
+			$('#nextMonth').hide();
+		} else {
+			$('#nextMonth').show();
+		}
+		$('#prevMonth').show();
+	});
+	$('#prevMonth').click(function(){
+		$('.selectedgroup').removeClass('selectedgroup').prev().addClass('selectedgroup');
+		if($('.selectedgroup.first-of-type').length > 0){
+			$('#prevMonth').hide();
+		} else {
+			$('#prevMonth').show();
+		}
+		$('#nextMonth').show();
 	})
 }
 

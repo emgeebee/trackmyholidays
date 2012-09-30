@@ -5,8 +5,9 @@
 		<title>Holiday Tracker</title>
 
 		<link rel="stylesheet" type="text/css" href="css/holidayTracker.css" />
-		<link rel="stylesheet" type="text/css" href="css/fonts-min.css" />
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/fonts-min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
 		<script type="text/javascript" src="js/AIRIntrospector.js"></script>
 		<script type="text/javascript" src="js/AIRAliases.js"></script>
 		<script type="text/javascript" src="js/yahoo-dom-event.js"></script>
@@ -17,30 +18,36 @@
 
 	<body class="yui-skin-sam">
 		<header>
-			<div class="title">
-				<h1>Holiday Tracker</h1>
-				<p id="yearPeriod" title="current year"></p>
+			<h1>Holiday Tracker</h1>
+			<h4 class="infobox">
+				<span class="planningColumn">Days left to plan</span>
+				<span id="totalSpareDays"></span>
+				<span id="totalSpareHours" class="tooltip"></span>
+			</h4>
+			<div id='yearControlBlock'>
+				<a href="#" id="prevYear" title="previous year" class="yearControl yearback btn-info btn-small btn"><</a>
+				<h4 id="yearPeriod" title="current year"></h4>
+				<a href="#" id="nextYear" title="next year" class="yearControl yearforward btn-info btn-small btn">></a>
 			</div>
-			<a href="#" id="prevYear" title="previous year" class="yearControl yearback btn-info btn btn-small"><</a>
-			<a href="#" id="nextYear" title="next year" class="yearControl yearforward btn-info btn btn-small">></a>
 		</header>
-		<div class="infobox">
-			<span class="planningColumn">Days left to plan</span>
-			<span id="totalSpareDays"></span>
-			<span id="totalSpareHours" class="tooltip"></span>
+		<div id='wrapper'>
+			<div id="selectOptions" class="hidden">
+				<div>
+					<div class="selectedDateBox">Selected: <span id="selectedDate"></span></div>
+					<div class="selectedDateControls">
+						<button click="alert('please select a date first')" id="selectButton" class="hidden btn btn-warning">Select</button>
+						<button click="alert('please select a date first')" id="updateButton" class="hidden btn btn-warning">Update</button>
+						<button click="alert('please select a date first')" id="deselectButton" class="hidden btn btn-warning">Deselect</button>
+						<a href="#" id="closefocus" title="close focused view" class="closefocus btn">Close</a>
+					</div>
+					<div class='selectedDateDescription'><span>Description:</span><input type="text" id="dateDescription" /></div>
+				</div>
+			</div>
+			<div id="calendarContainer"></div>
+			<div id="buttons">
+				<a href="#" id="config" class="btn btn-info">Config</a>
+			</div>
 		</div>
-		<div id="calendarContainer"></div>
-		<div id="buttons">
-			<a href="#" id="config" class="btn btn-info">Config</a>
-		</div>
-		<div id="selectOptions" class="hidden">
-			<div class="selectedDateBox">Date Selected: <span id="selectedDate"></span></div>
-			Description: <input type="text" id="dateDescription" /> 
-			<button click="alert('please select a date first')" id="selectButton" class="hidden btn btn-warning">Select</button>
-			<button click="alert('please select a date first')" id="updateButton" class="hidden btn btn-warning">Update</button>
-			<button click="alert('please select a date first')" id="deselectButton" class="hidden btn btn-warning">Deselect</button>
-		</div>
-
 		<div id="controls">
 			<div id="timePlanner">
 				<table>
