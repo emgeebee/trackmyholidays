@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>Holiday Tracker</title>
+		<link rel="shortcut icon" href="favicon.ico">
+
+		<link rel="stylesheet" type="text/css" href="css/holidayTracker.css" />
+		<link rel="stylesheet" type="text/css" href="css/fonts-min.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+		<script type="text/javascript" src="js/yahoo-dom-event.js"></script>
+		<script type="text/javascript" src="js/date-math.js"></script>
+		<script type="text/javascript" src="js/calendar-min.js"></script>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery-ui-1.10.2.custom.min.js"></script>
+	</head>
+
+<!--	<body class="yui-skin-sam big"> -->
+	<body class="yui-skin-sam config">
+		<header>
+			<a href="#" id="config"><h1><span class="title">TrackMyHolidays</span><span class="icon-cog"></span></h1></a>
+			<h4 class="infobox">
+				<span class="planningColumn">Days left to plan</span>
+				<span id="totalSpareDays"></span>
+				<span id="totalSpareHours" class="tooltip"></span>
+			</h4>
+			<div id='yearControlBlock'>
+				<a href="#" id="prevYear" title="previous year" class="yearControl yearback  btn-small btn icon-double-angle-left"></a>
+				<h4 id="yearPeriod" title="current year"></h4>
+				<a href="#" id="nextYear" title="next year" class="yearControl yearforward  btn-small btn icon-double-angle-right"></a>
+			</div>
+		</header>
+		<div id='wrapper'>
+			<div id="selectOptions">
+				<div>
+					<div class="selectedDateBox"><span id="selectedDate"></span></div>
+					<div class="selectedDateControls">
+						<button click="alert('please select a date first')" id="selectButton" class="hidden btn btn-warning"><span class="btn-description">Select</span><span class="btn-icon icon-save"></span></button>
+						<button click="alert('please select a date first')" id="updateButton" class="hidden btn btn-warning"><span class="btn-description">Save</span><span class="btn-icon icon-save"></span></button>
+						<button click="alert('please select a date first')" id="deselectButton" class="hidden btn btn-warning"><span class="btn-description">Deselect</span><span class="btn-icon icon-trash"></span></button>
+					</div>
+					<div class='selectedDateDescription'><input type="text" id="dateDescription" placeholder="What is this holiday for?" /></div>
+				</div>
+			</div>
+			<div id="calendarContainer"></div>
+		</div>
+		<div id="controls">
+			  <ul class="tablist">
+			    <li><a href="#about"><span>About</span></a></li>
+			    <li><a href="#timePlanner"><span>Dates</span></a></li>
+			    <li><a href="#dropbox"><span>Dropbox</span></a></li>
+			    <li class="desktop-tab"><a href="#view"><span>View</span></a></li>
+				<li class="right"><a href="#close" id="control-close">Close</a>
+			  </ul>
+			<div id="about" class="tab">
+				<p>Welcome to the beta release of trackmyholidays.com.</p>
+				<p>More and more features will be added over the next few months, but this initial release should contain all the functionality to allow you to efficiently plan and track your annual leave dates.</p>
+				<p>Feedback and comments are gladly recieved <a href='mailto:mat@emgeebee.com' title='Email comments'>here</a></p>
+				<div class="social">
+					<div class="fb-like" data-href="http://trackmyholidays.com" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"></div>
+					<div class="g-plusone" data-size="tall" data-annotation="none" ></div>
+					<a href="https://twitter.com/share" class="twitter-share-button" data-count="none" data-via="emgeebeta" data-hashtags="TrackMyHolidays">Tweet</a>
+				</div>
+			</div>
+			<div id="timePlanner" class="tab">
+					<p>
+						<span class="planningColumn">My holiday year starts in the month of </span>
+						<span>
+							<select id="monthstart">
+								<option value="01">Jan</option>
+								<option value="02">Feb</option>
+								<option value="03">Mar</option>
+								<option value="04">Apr</option>
+								<option value="05">May</option>
+								<option value="06">Jun</option>
+								<option value="07">Jul</option>
+								<option value="08">Aug</option>
+								<option value="09">Sep</option>
+								<option value="10">Oct</option>
+								<option value="11">Nov</option>
+								<option value="12">Dec</option>
+							</select>
+						</span>
+						<span>
+							<a href="#" class="btn btn-small" id="updateYearStart">Confirm</a>
+						</span>
+					</p>
+
+					<p>My yearly holiday allowance is 
+						<span class="timeTableDays"><input class="forminput" type="number" id="daysAllowed" name="daysAllowed" step="0.5"/> days</span>
+						<span class="timeTableHours"><input class="forminput" type="number" id="timeAllowed" name="timeAllowed" step="0.5"/> hours</span>
+						, and in this year I carried over
+						<span class="timeTableDays"><input class="forminput" type="number" id="carriedOverDays" name="carriedOverDays" step="0.5" /> days</span>
+						<span class="timeTableHours" ><input class="forminput" type="number" id="carriedOver" name="carriedOver" step="0.5" /> hours</span>
+					</p>
+					<p>
+						According to the information on the calendar, I have
+						<span id="daysPlanned" class="timeTableDays"></span>
+						<span id="hoursPlanned" class="timeTableHours"></span>
+						planned 
+						<span class="timeTableDays">days</span>
+						<span class="timeTableHours">hours</span>
+						 this year and I have already taken
+						<span id="daysTakenSoFar" class="timeTableDays"></span>
+						<span id="hoursTakenSoFar" class="timeTableHours"></span> 
+						<span class="timeTableDays">days</span>
+						<span class="timeTableHours">hours</span>.
+					</p>
+
+					<p id="dayshourscolumn">
+						<span class='btn timeTableDays'>See this report in days</span><span class='btn timeTableHours'>See this report in hours</span>
+					</p>
+			</div>
+			<div id="dropbox" class="tab">
+				<p>Dropbox is a free cloud storage application. Holiday Tracker can use dropbox to save your holiday dates between all of your dropbox enabled devices. If you don't wish to use dropbox, Holiday Tracker will save your dates seperately on each machine.</p>
+				<a id="useDropbox" class="btn" href="#">I'd like to connect to my dropbox account</a>
+				<a id="logout" class="btn" href="#">Disconnect from dropbox</a>
+			</div>
+			<div id="view" class="tab">
+				<a id="compactview" class="btn" href="#">Compact</a>
+				<a id="comfortableview" class="btn" href="#">Comfortable</a>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/dropbox.js"></script>
+		<script type="text/javascript" src="js/dropbox-functions.js"></script>
+		<script type="text/javascript" src="js/UI.js"></script>
+		<script type="text/javascript" src="js/logging.js"></script>
+		<script type="text/javascript" src="js/calendar-data.js"></script>
+		<script type="text/javascript" src="js/calendar-social.js"></script>
+		<script type="text/javascript" src="js/calendar-functions.js"></script>
+		<script type="text/javascript" src="js/holidayCalendar.js"></script>
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-28963119-5']);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+		<div id="fb-root"></div>
+	</body>
+</html>
