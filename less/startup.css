@@ -1,0 +1,26 @@
+#startup {
+  margin: 80px auto;
+  width: 300px;
+}
+#startup div div {
+  display: table;
+  width: 100%;
+  margin-bottom: 10px;
+}
+#startup div div select {
+  width: 100%;
+}
+#startup div div span {
+  display: table-cell;
+  width: 35%;
+  text-align: right;
+}
+#startup div div span:nth-of-type(1) {
+  text-align: left;
+  width: 65%;
+}
+@media only screen and (min-width: 768px) {
+  #startup {
+    margin: 10px auto;
+  }
+}

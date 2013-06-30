@@ -1,0 +1,212 @@
+{
+        "-issue": "0.8",
+        "bankHolidaydateList": [
+            {
+                "-id": "2009",
+                "bankHolidayList": {
+                    "bankHoliday": [
+                        {
+                            "-id": "5/25/2009",
+                            "notes": "Spring Bank Holiday "
+                        },
+                        {
+                            "-id": "1/1/2009",
+                            "notes": "NY Day"
+                        },
+                        {
+                            "-id": "4/10/2009",
+                            "notes": "Good Friday"
+                        },
+                        {
+                            "-id": "4/13/2009",
+                            "notes": "Easter Monday"
+                        },
+                        {
+                            "-id": "5/4/2009",
+                            "notes": "May Day"
+                        },
+                        {
+                            "-id": "8/31/2009",
+                            "notes": "Summer Bank Holiday "
+                        },
+                        {
+                            "-id": "12/24/2009",
+                            "notes": "Christmas Eve"
+                        },
+                        {
+                            "-id": "12/25/2009",
+                            "notes": "Christmas Day"
+                        },
+                        {
+                            "-id": "12/28/2009",
+                            "notes": "Boxing Day"
+                        }
+                    ]
+                }
+            },
+            {
+                "-id": "2010",
+                "bankHolidayList": {
+                    "bankHoliday": [
+                        {
+                            "-id": "5/24/2010",
+                            "notes": "Spring Bank Holiday "
+                        },
+                        {
+                            "-id": "1/1/2010",
+                            "notes": "NY Day"
+                        },
+                        {
+                            "-id": "4/2/2010",
+                            "notes": "Good Friday"
+                        },
+                        {
+                            "-id": "4/05/2010",
+                            "notes": "Easter Monday"
+                        },
+                        {
+                            "-id": "5/3/2010",
+                            "notes": "May Day"
+                        },
+                        {
+                            "-id": "8/30/2010",
+                            "notes": "Summer Bank Holiday "
+                        },
+                        {
+                            "-id": "12/27/2010",
+                            "notes": "Christmas Day"
+                        },
+                        {
+                            "-id": "12/28/2010",
+                            "notes": "Boxing Day"
+                        }
+                    ]
+                }
+            },
+            {
+                "-id": "2011",
+                "bankHolidayList": {
+                    "bankHoliday": [
+                        {
+                            "-id": "5/30/2011",
+                            "notes": "Spring Bank Holiday "
+                        },
+                        {
+                            "-id": "1/3/2011",
+                            "notes": "NY Day"
+                        },
+                        {
+                            "-id": "4/22/2011",
+                            "notes": "Good Friday"
+                        },
+                        {
+                            "-id": "4/29/2011",
+                            "notes": "Royal Wedding"
+                        },
+                        {
+                            "-id": "4/25/2011",
+                            "notes": "Easter Monday"
+                        },
+                        {
+                            "-id": "5/2/2011",
+                            "notes": "May Day"
+                        },
+                        {
+                            "-id": "8/29/2011",
+                            "notes": "Summer Bank Holiday "
+                        },
+                        {
+                            "-id": "12/27/2011",
+                            "notes": "Christmas Day"
+                        },
+                        {
+                            "-id": "12/26/2011",
+                            "notes": "Boxing Day"
+                        }
+                    ]
+                }
+            },
+            {
+                "-id": "2012",
+                "bankHolidayList": {
+                    "bankHoliday": [
+                        {
+                            "-id": "6/04/2012",
+                            "notes": "Spring Bank Holiday "
+                        },
+                        {
+                            "-id": "1/2/2012",
+                            "notes": "NY Day"
+                        },
+                        {
+                            "-id": "4/6/2012",
+                            "notes": "Good Friday"
+                        },
+                        {
+                            "-id": "6/5/2012",
+                            "notes": "Queenâ€™s Jubilee"
+                        },
+                        {
+                            "-id": "4/9/2012",
+                            "notes": "Easter Monday"
+                        },
+                        {
+                            "-id": "5/7/2012",
+                            "notes": "May Day"
+                        },
+                        {
+                            "-id": "8/27/2012",
+                            "notes": "Summer Bank Holiday"
+                        },
+                        {
+                            "-id": "12/25/2012",
+                            "notes": "Christmas"
+                        },
+                        {
+                            "-id": "12/26/2012",
+                            "notes": "Boxing Day"
+                        }
+                    ]
+                }
+            },
+            {
+                "-id": "2013",
+                "bankHolidayList": {
+                    "bankHoliday": [
+                        {
+                            "-id": "5/27/2013",
+                            "notes": "Spring Bank Holiday "
+                        },
+                        {
+                            "-id": "1/2/2013",
+                            "notes": "NY Day"
+                        },
+                        {
+                            "-id": "3/29/2013",
+                            "notes": "Good Friday"
+                        },
+                        {
+                            "-id": "4/1/2013",
+                            "notes": "Easter Monday"
+                        },
+                        {
+                            "-id": "5/6/2013",
+                            "notes": "May Day"
+                        },
+                        {
+                            "-id": "8/26/2013",
+                            "notes": "Summer Bank Holiday"
+                        },
+                        {
+                            "-id": "12/25/2013",
+                            "notes": "Christmas"
+                        },
+                        {
+                            "-id": "12/26/2013",
+                            "notes": "Boxing Day"
+                        }
+                    ]
+                }
+            }
+        ]
+}

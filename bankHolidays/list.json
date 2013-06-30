@@ -1,0 +1,104 @@
+{
+    "Australia": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.australian%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "UK": {
+        "hostname": "www.gov.uk",
+        "port": "443",
+        "path": "/bank-holidays/england-and-wales.ics",
+        "method": "GET"
+    },
+    "Brazil": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.brazilian%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "China": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.china%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "Denmark": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.danish%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "France": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.french%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "Germany": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.german%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "Greece": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.greek%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "Hong Kong": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.hong_kong%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "India": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.indian%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "Ireland": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.irish%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "Italy": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.italian%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "Mexico": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.mexican%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "Philippines": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.philippines%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "South Africa": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.sa%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "Spain": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.spain%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "USA": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.usa%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    }
+}
