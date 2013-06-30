@@ -35,8 +35,9 @@ var replaceDropboxButtons = function(){
 
 var resetSelectOptions = function(){
 	$('#selectedDate').text('Select the first and last date of each holiday');
-	$('.selectedDateControls>button').hide();
-	$('.selectedDateDescription').hide();
+	$('.selectedDateControls>button').addClass('hidden');
+	$('.selectedDateControls>label').addClass('hidden');
+	$('.selectedDateDescription').addClass('hidden');
 }
 
 function setButtons(){
@@ -59,21 +60,36 @@ function setButtons(){
 		saveXML();
 	});
 	$('#updateYearStart').click(function(){
-		setMonth();
-	})
-	$('#useDropbox').click(function(){
-		callDropbox();
-	})
-	$('#config,#control-close').click(function(){
-		$('#controls').toggle();
-		$('body').toggleClass('config');
-		$("#controls").tabs({active: 1});
+		setMonth(true);
 	});
-	$('#dayshourscolumn').click(function(){
-		$('.timeTableDays,.timeTableHours').toggle();
+	$('#startup-monthstart').click(function(){
+		setMonth(false);
 	});
-	$('body').on('click',function(){
-		if(clicktodeselect == true && !isCalendarLink && !($(event.target).hasClass('selector') || $(event.target).hasClass('btn') || $(event.target).attr('id') == 'dateDescription')){		
+	$('input[name="weekend"]').on('change',function(){
+		showError('updating the weekendDays');
+		weekendDays = [];
+		$('input[name="weekend"]:checked').each(function(){
+			weekendDays.push($(this).val());
+		})
+		showError(weekendDays);
+		renderDatesToCalendar();
+	});
+	$('#config').click(function(){
+		$('#controls').show();
+		$('#wrapper,header').hide();
+		$('body').addClass('config');
+		$("#controls").tabs({active: 0});
+	});
+	$('#control-close').click(function(){
+		$('#controls').hide();
+		$('#wrapper,header').show();
+		$('body').removeClass('config');
+	});
+	$('.dayshoursswitcher').click(function(){
+		$('.timeTableDays,.timeTableHours').toggleClass('hidden');
+	});
+	$('body').on('click',function(event){
+		if(clicktodeselect == true && !isCalendarLink && !($(event.target).parent().hasClass('selector') || $(event.target).parent().hasClass('btn') || $(event.target).parent().attr('id') == 'dateDescription' || $(event.target).hasClass('selector') || $(event.target).hasClass('btn') || $(event.target).attr('id') == 'dateDescription')){		
 			dateRangeSelection = 0;
 			YAHOO.calendar.cal1.deselect(YAHOO.calendar.cal1.getSelectedDates());
 			YAHOO.calendar.cal1.render();
@@ -110,16 +126,44 @@ function setButtons(){
 	$('#comfortableview,#compactview').on('click', function(){
 		$('#comfortableview,#compactview').toggle();
 		$('body').toggleClass('big');
-	})
+	});
+	$('#dateFormat').on('change', function(){
+		dateFormat = $(this).val();
+		if(dateFormat===undefined){
+			dateFormat = 'uk';
+			setDateFormat();
+		}
+		resetFormattedDates();
+		saveXML();
+	});
+	$('#bankHolidays,#startup-bankHolidays').on('change', function(){
+		country = $(this).val();
+		loadServerDates();
+		saveXML();
+	});
+	$('#exporttolist').on('click', function(){
+		exportToList();
+	});
+	$('#exporttoics').on('mousedown', function(){
+		generateIcal($(this));
+	});
 	$('#logout,#compactview').hide();
 	$( "#controls" ).tabs();
+	for (var i = weekendDays.length - 1; i >= 0; i--) {
+		$('input[name="weekend"][value="'+weekendDays[i]+'"]').prop("checked", true);
+	};
 }
 
+var setCountry = function(){
+	$('#bankHolidays').val(country);
+}
 
+var setDateFormat = function(){
+	$('#dateFormat').val(dateFormat);
+};
 
 var populateControlBox = function(date, type, dateRange, formattedString){
-
-	$('.groupcal').removeClass('selectedGroup');
+/*	$('.groupcal').removeClass('selectedGroup');
 	$('.selected').parents('.groupcal').addClass('selectedgroup');
 	$('#wrapper').addClass('focused');
 	if($('.selectedgroup.last-of-type').length > 0){
@@ -131,14 +175,24 @@ var populateControlBox = function(date, type, dateRange, formattedString){
 		$('#prevMonth').hide();
 	} else {
 		$('#prevMonth').show();
-	}
+	}*/
 
 	var dateTitle = "";
-	$('#selectedDate').html(formattedString);
+	var size = dateRange.split(',').length;
+	if(size == 1 && (type != 2 && type != "")){
+		$('#halfday').removeClass('hidden');
+		if(dateList[dateRange] && dateList[dateRange].halfday == true){
+			$('#halfday>input').prop("checked", true);
+		} else {
+			$('#halfday>input').prop("checked", false);
+		}
+	} else {
+		$('#halfday').addClass('hidden');
+	}
 	if (type == 1) {
 		dateTitle = window.dateRange[date.dateRange]['holidayNotes'];
-		$('#selectButton').hide();
-		$('#deselectButton,#updateButton').show();
+		$('#selectButton').addClass('hidden');
+		$('#deselectButton,#updateButton').removeClass('hidden');
 		$("#deselectButton").unbind("click");
 		$('#deselectButton').on('click',function(){
 			myDeselectCell(date.dateRange);
@@ -149,29 +203,36 @@ var populateControlBox = function(date, type, dateRange, formattedString){
 		});
 	} else if (type == 2) {
 		dateTitle = date['holidayNotes'];
-		$('#deselectButton,#updateButton,#selectButton').hide();
-	} else if (type == 0){
-		$('#deselectButton,#updateButton').hide();
-		$('#selectButton').show();
+		$('#deselectButton,#updateButton,#selectButton').addClass('hidden');
+	} else if (type == 3){
+		$('#deselectButton,#updateButton').addClass('hidden');
+		$('#selectButton').removeClass('hidden');
 		$("#selectButton").unbind("click");
 		$('#selectButton').on('click',function(){
 			mySelectCell(dateRange, formattedString);
 		});
+	} else {
+		return;
 	}
-	isCalendarLink = true;	
-	$('.selectedDateDescription').show();
+	$('#selectedDate').html(formattedString);
+	isCalendarLink = true;
+	$('.selectedDateDescription').removeClass('hidden');
 	$('#dateDescription').val(dateTitle);
 };
 
-
 //loads up the button commands 
-function mySelectCell(dateRange, formattedString){
+function mySelectCell(dateRange, formattedString, halfday){
+	if($('#halfday>input:checked').length == 1){
+		halfday = true;
+	} else {
+		halfday = false;
+	}
 	dateRangeSelection = 0;
 	var dateArray = dateRange.split(',');
 	var title = $('#dateDescription').val();
 	var date;
 	for (var i = 0; i < dateArray.length; i++){
-		date = dateListObject.addHoliday(dateArray[i], true, title, dateRange, formattedString);
+		date = dateListObject.addHoliday(dateArray[i], true, title, dateRange, formattedString, halfday);
 	}
 	renderDatesToCalendar();
 	populateControlBox(date , 1, dateRange, formattedString);
@@ -181,7 +242,13 @@ function mySelectCell(dateRange, formattedString){
 };
 
 function myUpdateCell(dateString){
+	if($('#halfday>input:checked').length == 1){
+		dateList[dateString].halfday = true;
+	} else {
+		dateList[dateString].halfday = false;
+	}
 	window.dateRange[dateString].holidayNotes = $('#dateDescription').val();
+	renderDatesToCalendar();
 	saveXML();
 	$('.groupcal').removeClass('selectedgroup');
 	resetSelectOptions();
@@ -193,7 +260,7 @@ function myDeselectCell(dateString){
 		dateListObject.removeHoliday(dateArray[i]);
 	}
 	renderDatesToCalendar();
-	populateControlBox("" , 0, "", "");
+	populateControlBox("" , 3, "", "");
 	saveXML();
 	$('.groupcal').removeClass('selectedgroup');
 	resetSelectOptions();

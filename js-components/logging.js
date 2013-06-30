@@ -1,3 +1,3 @@
 var showError = function(err){
-	//console.dir(err)
+	console.log(err)
 }

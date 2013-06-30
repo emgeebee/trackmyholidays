@@ -22,6 +22,14 @@
                                  @start);
   filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=0)",@stop,@start));
 }
+.gradient-horiz(@color: #F5F5F5, @start: #EEE, @stop: #FFF) {
+  background: @color;
+  background: -webkit-linear-gradient(50deg, @start 0%,@start 50%,@stop 51%,@stop 100%);
+  background: -ms-linear-gradient(50deg, @start 0%,@start 50%,@stop 51%,@stop 100%);
+  background: -moz-linear-gradient(50deg, @start 0%,@start 50%,@stop 51%,@stop 100%);
+  background: -o-linear-gradient(50deg, @start 0%,@start 50%,@stop 51%,@stop 100%);
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(startColorstr='%d', endColorstr='%d', GradientType=1)",@stop,@start));
+}
 .bw-gradient(@color: #F5F5F5, @start: 0, @stop: 255) {
   background: @color;
   background: -webkit-gradient(linear,

@@ -1,8 +1,5 @@
 YAHOO.namespace("calendar");
 
-function workingDateFromArray(workingDate){
-	return workingDate[0][0][1] + '/' + workingDate[0][0][2] + '/' + workingDate[0][0][0];
-}
 
 var weekendRenderer = function(workingDate, cell){
 	cell.innerHTML = "X";
@@ -31,8 +28,13 @@ function normalRenderer(workingDate, cell) {
 function holidayRenderer(workingDate, cell){
 	YAHOO.calendar.cal1.styleCellDefault(workingDate, cell);
 	var dateDay = workingDate.getDate();
-
 	addContentsToCell(cell, dateDay, "highlight3");
+	return YAHOO.widget.Calendar.STOP_RENDER;
+}
+function halfdayRenderer(workingDate, cell){
+	YAHOO.calendar.cal1.styleCellDefault(workingDate, cell);
+	var dateDay = workingDate.getDate();
+	addContentsToCell(cell, dateDay, "highlight2");
 	return YAHOO.widget.Calendar.STOP_RENDER;
 }
 

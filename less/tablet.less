@@ -1,36 +1,81 @@
 body {
     margin: 5px;
 }
-header h1{
-    font-size: 24px;
-    float: left;
-    span{
-        display: inline-block;
-        position: relative;
-        top: 6px;
+header{
+    line-height: 24px;
+    position: relative;
+    padding: 10px 0;
+    h1{
+        float: left;
+        margin: 16px;
+        width:220px;
+        span{
+            display: inline-block;
+            position: relative;
+        }
+        .btn{
+            font-size: 0.8em;
+            margin-top: 0;
+        }
+        .title{
+            margin-top: 10px;
+        }
     }
-    margin-top: 2px;
-    width:220px;
     .icon-cog{
-        margin-top: 6px;
+        //margin-top: 6px;
     }
-}
-#yearControlBlock h4, .infobox{
-    font-size: 18px;
+    .planningColumn,.title{
+        display:inline;
+    }
+    #yearControlBlock{
+        width:160px;
+    }
+    #yearControlBlock h4, .infobox{
+        font-size: 18px;
+    }
+    #totalSpareDays, h1 .icon-cog{
+        font-size: 1em;
+    }
 }
 .tab, .tablist{
-	width: 420px;
+	width: 520px;
 }
-header{
-	line-height: 24px;
-	position: relative;
-    padding: 10px 0;
+.appstore img{
+    width: 70px;
+    vertical-align: top;
+}
+.tablist{
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    margin-top: 25px;
+}
+.tablist li{
+    width: 95px;
+    font-size: 1.5em;
+    border-right: 1px solid white;
+    text-align: center;
+    &:last-of-type{
+        border: none;
+    }
+    &.right{
+        top:12px;
+        margin:0;
+    }
+    span{
+        display: block;
+        margin-left: 5px;
+    }
+}
+.dropbox-icon{
+    background-size: 21px;
+    width: 21px;
+    height: 21px;
+    top: 0px;
 }
 .infobox{
     float: right;
     width: 220px;
-	height: 20px;
-	line-height: 17px;
 }
 #yearControlBlock{
     min-width: 200px;
@@ -63,8 +108,8 @@ header{
 .big #calendarContainer{
     max-width:520px;
 }
-.tablist .desktop-tab{
-    display:inline-block;
+.tablet-visible{
+    display:block;
 }
 #selectedDate{
     font-size: 2em;

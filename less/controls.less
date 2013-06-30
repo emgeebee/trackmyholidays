@@ -1,26 +1,27 @@
-header h1, .focused h1{
-    font-size: 12px;
-    line-height: 14px;
+header h1{
     float: left;
-    margin: 16px;
+    margin: 5px;
     margin-right:30px;
-    width:30px;
+    width:40px;
+    line-height: 24px;
+    font-size: 24px;
 }
 .planningColumn,.title{
 	display:none;
 }
-h1 .icon-cog{
+h1 .btn{
 	margin-left:10px;
+	font-size: 1.2em;
+	margin-top: 2px;
 }
-#totalSpareDays, h1 .icon-cog{
-	font-size: 2em;
+#totalSpareDays{
+	font-size: 1.5em;
 }
 .infobox{
 	margin: 0;
-	font-size: 12px;
-	line-height: 14px;
+    line-height: 24px;
     float: right;
-    margin: 19px;
+    margin: 16px;
     margin-right:30px;
     width:30px;
 }
@@ -31,14 +32,17 @@ header{
 	display: block;
 	line-height: 12px;
     width: 100%;
-    h1{color: white;}
+    height: 54px;
+    h1{
+    	color: white;
+    }
 }
 #yearControlBlock{
 	display: table;
 	margin: 8px auto;
     height: 20px;
 	line-height: 12px;
-    width: 160px;
+    width: 120px;
 }
 #yearPeriod{
     text-align: center;
@@ -46,6 +50,7 @@ header{
     display: table-cell;
 	padding: 0 10px;
     height: 20px;
+    line-height: 13px;
     font-size: 12px;
     vertical-align: middle;
 }
@@ -72,11 +77,14 @@ header{
 	padding: 0;
   	display: block;
 	background-color: rgba(0,0,0,0.8);
+	overflow: scroll;
 	a:link,a:hover,a:visited{
 		color: white;
+		text-decoration: underline;
 	}
 	a.btn{
 		color: #333;
+		text-decoration: none;
 	}
 }
 input{
@@ -84,9 +92,6 @@ input{
 }
 #monthstart{
 	width: 100px;
-}
-.btn.timeTableDays, .timeTableHours{
-	display: none;
 }
 table tr input.timeTableHours{
 	padding: 0;
@@ -150,7 +155,7 @@ table td{
     margin: 10px;   
 }
 .selectedDateDescription{
-    width: 170px;
+    width: 130px;
     margin-bottom: 10px;
     float: left;
 }
@@ -159,7 +164,7 @@ table td{
 }
 #dateDescription{
     margin:0;
-    width: 170px;
+    width: 130px;
 }
 #focuscontrol{
 	display: table;
@@ -176,30 +181,56 @@ table td{
 }
 .tab{
 	padding: 10px;
-	width: 320px;
+	width: 300px;
 	margin: 0 auto;
 	background-color: #2F96B4;
   	-moz-border-radius: 5px;
   	-webkit-border-radius: 5px;
   	border-radius: 5px;
 	margin-top: 20px;
+	div {
+		padding-bottom: 10px;
+	}
+	select{
+		margin: 0;
+		padding: 0;
+	}
 }
 .tablist{
 	padding: 10px;
-	width: 320px;
+	width: 300px;
 	margin: 0 auto;
 	background-color: #2F96B4;
-  	-moz-border-radius: 5px;
-  	-webkit-border-radius: 5px;
-  	border-radius: 5px;
-	margin-top: 140px;
+	margin-top: 10px;
 	li{
 		display: inline-block;
-		width: 70px;
+		width: 50px;
 		opacity: 0.5;
+		font-size: 35px;
+		#controls & a:link,a:visited,a:hover{
+			display: inline;
+			text-decoration: none;
+		}
+		span{
+			display: none;
+			font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+			font-size: 1em;
+			font-weight: bold;
+		}
+		i{
+			font-size:1.2em;
+		}
+		.dropbox-icon+span{
+			font-weight: normal;
+		}
 		&.right{
 			float: right;
+			text-align: right;
+			width: 20px;
 			opacity: 1;
+			top: 5px;
+			margin-right:10px;
+			position: relative;
 		}
 	}
 	.ui-state-active{
@@ -208,9 +239,18 @@ table td{
 	.ui-state-hover{
 		opacity: 0.9;
 	}
-	.desktop-tab{
-	    display:none;
-	}
+}
+.tablet-visible{
+    display:none;
+}
+.dropbox-icon{
+    background-image: url('../img/dropbox.png');
+    background-size: 36px;
+	width: 36px;
+	height: 36px;
+	top: 5px;
+	display: inline-block;
+	position: relative;
 }
 #updateYearStart{
 	display: none;
@@ -223,4 +263,22 @@ table td{
 }
 .social{
 	display:none;
+}
+label.weekenedselect{
+	margin:0;
+	margin-top:10px;
+	input[type="checkbox"]{
+		display: inline-block;
+		margin:0;
+		margin-right:10px;
+	}
+}
+#halfday{
+	display: inline-block;
+	margin-right:10px;
+	input[type="checkbox"]{
+		display: inline-block;
+		margin:0;
+		margin-right:10px;
+	}
 }
