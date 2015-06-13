@@ -8121,6 +8121,8 @@ function saveXML() {
 }
 function loadFromDropbox() {
   showError("loading from dropbox");
+  firstTimeUser = !1;
+  closeStartup(!1);
   client.readFile("savedHolidayDates.json", function(a, c) {
     if(a) {
       return showError(a)
@@ -8132,7 +8134,7 @@ function loadFromDropbox() {
 }
 function loadFromLocal() {
   usingDropbox = !1;
-  !0 == isLocalStorage() ? (showError("loading from local storage"), dates = $.parseJSON(getLocalStorage())) : (dates = defaultDates, firstTimeUser = !0, showError("loading default dates"));
+  !0 == isLocalStorage() ? (firstTimeUser = !1, showError("loading from local storage"), dates = $.parseJSON(getLocalStorage())) : (dates = defaultDates, firstTimeUser = !0, showError("loading default dates"));
   gotNewDates(dates);
   setStartYear(dates)
 }
@@ -8174,8 +8176,8 @@ function loadHolidaysFromXml(a) {
   showError("country = " + country);
   setCountry();
   setDateFormat();
+  showError("loading year " + currentYear);
   currentYearNode = a.dateList[currentYear];
-  showError("loading date " + currentYear);
   if(null == currentYearNode) {
     currentYearNode = {}, currentYearNode["-carriedOver"] = carriedOver, currentYearNode["-timeAllowed"] = timeAllowed, currentYearNode.date = []
   }else {

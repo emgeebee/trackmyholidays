@@ -46,7 +46,7 @@ var isFirstTime = function(){
 		});
 		$('body').removeClass('config');
 	} else {
-		$('#startup').remove();	
+		$('#startup').remove();
 	}
 	$('#startup-go').on('click', function(){
 		closeStartup(true);

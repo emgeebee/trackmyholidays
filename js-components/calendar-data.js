@@ -98,6 +98,8 @@ function saveXML() {
 
 function loadFromDropbox(){
 	showError('loading from dropbox');
+	firstTimeUser = false;
+	closeStartup(false);
 	client.readFile("savedHolidayDates.json", function(error, data) {
 		if (error) {
 			return showError(error);  // Something went wrong.
@@ -111,6 +113,7 @@ function loadFromDropbox(){
 function loadFromLocal(){
 	usingDropbox = false;
 	if (isLocalStorage() == true){
+		firstTimeUser = false;
 		showError('loading from local storage');
 		dates = $.parseJSON(getLocalStorage());
 		gotNewDates(dates);

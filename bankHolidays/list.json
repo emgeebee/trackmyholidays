@@ -17,6 +17,12 @@
         "path": "/calendar/ical/en.brazilian%23holiday%40group.v.calendar.google.com/public/basic.ics",
         "method": "GET"
     },
+    "Canada": {
+        "hostname": "www.google.com",
+        "port": "443",
+        "path": "/calendar/ical/en.canadian%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
     "China": {
         "hostname": "www.google.com",
         "port": "443",
@@ -69,6 +75,12 @@
         "hostname": "www.google.com",
         "port": "443",
         "path": "/calendar/ical/en.italian%23holiday%40group.v.calendar.google.com/public/basic.ics",
+        "method": "GET"
+    },
+    "Latvia": {
+        "hostname": "www.emgeebee.com",
+        "port": "8080",
+        "path": "/ftk_Latvia_2011.ics",
         "method": "GET"
     },
     "Mexico": {

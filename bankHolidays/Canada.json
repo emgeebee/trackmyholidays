@@ -1,0 +1,201 @@
+{
+    "-issue": "1",
+    "bankHolidaydateList": {
+        "2012": {
+            "2/14/2012": {
+                "-id": "2/14/2012",
+                "year": "2012",
+                "notes": "Valentine's Day"
+            },
+            "10/8/2012": {
+                "-id": "10/8/2012",
+                "year": "2012",
+                "notes": "Thanksgiving Day"
+            },
+            "3/17/2012": {
+                "-id": "3/17/2012",
+                "year": "2012",
+                "notes": "St. Patrick's Day"
+            },
+            "6/24/2012": {
+                "-id": "6/24/2012",
+                "year": "2012",
+                "notes": "St-Jean Baptiste"
+            },
+            "11/11/2012": {
+                "-id": "11/11/2012",
+                "year": "2012",
+                "notes": "Remembrance Day"
+            },
+            "1/1/2012": {
+                "-id": "1/1/2012",
+                "year": "2012",
+                "notes": "New Year's Day"
+            },
+            "5/13/2012": {
+                "-id": "5/13/2012",
+                "year": "2012",
+                "notes": "Mother's Day"
+            },
+            "9/3/2012": {
+                "-id": "9/3/2012",
+                "year": "2012",
+                "notes": "Labour Day"
+            },
+            "10/31/2012": {
+                "-id": "10/31/2012",
+                "year": "2012",
+                "notes": "Halloween"
+            },
+            "6/17/2012": {
+                "-id": "6/17/2012",
+                "year": "2012",
+                "notes": "Father's Day"
+            },
+            "11/4/2012": {
+                "-id": "11/4/2012",
+                "year": "2012",
+                "notes": "Daylight Saving Time Ends"
+            },
+            "3/11/2012": {
+                "-id": "3/11/2012",
+                "year": "2012",
+                "notes": "Daylight Saving Time Begins"
+            },
+            "8/6/2012": {
+                "-id": "8/6/2012",
+                "year": "2012",
+                "notes": "Alberta Heritage Day"
+            },
+            "8/1/2012": {
+                "-id": "8/1/2012",
+                "year": "2012",
+                "notes": "Civic Holiday"
+            },
+            "12/25/2012": {
+                "-id": "12/25/2012",
+                "year": "2012",
+                "notes": "Christmas Day"
+            },
+            "7/1/2012": {
+                "-id": "7/1/2012",
+                "year": "2012",
+                "notes": "Canada Day"
+            },
+            "12/26/2012": {
+                "-id": "12/26/2012",
+                "year": "2012",
+                "notes": "Boxing Day"
+            },
+            "4/1/2012": {
+                "-id": "4/1/2012",
+                "year": "2012",
+                "notes": "April Fool's Day"
+            },
+            "2/20/2012": {
+                "-id": "2/20/2012",
+                "year": "2012",
+                "notes": "Alberta Family Day"
+            }
+        },
+        "2013": {
+            "10/14/2013": {
+                "-id": "10/14/2013",
+                "year": "2013",
+                "notes": "Thanksgiving Day"
+            },
+            "1/1/2013": {
+                "-id": "1/1/2013",
+                "year": "2013",
+                "notes": "New Year's Day"
+            },
+            "9/2/2013": {
+                "-id": "9/2/2013",
+                "year": "2013",
+                "notes": "Labour Day"
+            },
+            "8/5/2013": {
+                "-id": "8/5/2013",
+                "year": "2013",
+                "notes": "Alberta Heritage Day"
+            },
+            "12/25/2013": {
+                "-id": "12/25/2013",
+                "year": "2013",
+                "notes": "Christmas Day"
+            },
+            "7/1/2013": {
+                "-id": "7/1/2013",
+                "year": "2013",
+                "notes": "Canada Day"
+            },
+            "12/26/2013": {
+                "-id": "12/26/2013",
+                "year": "2013",
+                "notes": "Boxing Day"
+            },
+            "2/18/2013": {
+                "-id": "2/18/2013",
+                "year": "2013",
+                "notes": "Alberta Family Day"
+            }
+        },
+        "2014": {
+            "5/19/2014": {
+                "-id": "5/19/2014",
+                "year": "2014",
+                "notes": "Victoria Day"
+            },
+            "10/13/2014": {
+                "-id": "10/13/2014",
+                "year": "2014",
+                "notes": "Thanksgiving Day"
+            },
+            "1/1/2014": {
+                "-id": "1/1/2014",
+                "year": "2014",
+                "notes": "New Year's Day"
+            },
+            "9/1/2014": {
+                "-id": "9/1/2014",
+                "year": "2014",
+                "notes": "Labour Day"
+            },
+            "4/21/2014": {
+                "-id": "4/21/2014",
+                "year": "2014",
+                "notes": "Easter Monday"
+            },
+            "4/18/2014": {
+                "-id": "4/20/2014",
+                "year": "2014",
+                "notes": "Easter"
+            },
+            "8/4/2014": {
+                "-id": "8/4/2014",
+                "year": "2014",
+                "notes": "Alberta Heritage Day"
+            },
+            "12/25/2014": {
+                "-id": "12/25/2014",
+                "year": "2014",
+                "notes": "Christmas Day"
+            },
+            "7/1/2014": {
+                "-id": "7/1/2014",
+                "year": "2014",
+                "notes": "Canada Day"
+            },
+            "12/26/2014": {
+                "-id": "12/26/2014",
+                "year": "2014",
+                "notes": "Boxing Day"
+            },
+            "2/17/2014": {
+                "-id": "2/17/2014",
+                "year": "2014",
+                "notes": "Alberta Family Day"
+            }
+        }
+    }
+}

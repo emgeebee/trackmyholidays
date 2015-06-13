@@ -19,6 +19,7 @@ var getHolidays = function(country, options){
 	} else {
 		var protocol = https;
 	}
+	console.log(options)
 	protocol.get(options, function(res) {
 		res.setEncoding('utf8');
 		var data;
