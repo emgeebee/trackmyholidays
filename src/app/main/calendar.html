@@ -1,8 +1,23 @@
-calendar
+<header>
+	<h2>{{currentYear}}</h2>
+	<div class="control-group">
+		<div class="control control-left" ng-click="prevYear()">prev</div>
+		<div class="control control-right" ng-click="nextYear()">next</div>
+	</div>
+	<div>{{remainingDays()}}</div>
+</header>
 
-{{currentDate}}
+<style ng-repeat="(class, colour) in calendarColours">
+		.{{class}} {
+			background-color: {{colour}};
+		};
+</style>
 
-    <div class="month" ng-repeat="(index, month) in calendar">
-    	<month-dir id={{month.id}} dates=month.dates>
-    	</month-dir>
-    </div>
+<section class="calendar">
+	<div class="months-container">
+	    <div class="month-wrapper" ng-repeat="(index, month) in calendar">
+	    	<month-dir id="{{month.id}}"></month-dir>
+	    </div>
+	    <div class="clear"></div>
+	</div>
+</section>

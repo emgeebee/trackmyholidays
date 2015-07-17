@@ -1,0 +1,39 @@
+header {
+	width: 100%;
+	text-align: center;
+	
+}
+
+.control-group {
+	position: absolute;
+	width: 100%;
+	text-align: center;
+
+	.control {
+		position: relative;
+		display: inline-block;
+		top: -40px;
+	}
+	.control-left {
+		left: -60px;
+	}
+	.control-right {
+		left: 60px;
+	}
+}
+
+.calendar {
+	width: 80%;
+	margin: 0 auto;
+}
+
+.months-container {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.month-wrapper {
+	margin-left: 15px;
+	margin-right: 15px;
+}

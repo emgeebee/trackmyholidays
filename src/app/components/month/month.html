@@ -1,0 +1,11 @@
+<div class="month">
+	<h3>{{name}}</h3>
+	<div class="days">
+		<div class="day-wrapper" ng-repeat="day in dayNames track by $index">
+			<h6>{{day}}</h6>
+		</div>
+		<div class="day-wrapper" ng-repeat="day in month.dates">
+			<day-dir day={{day}} month={{month.id}}></day-dir>
+		</div>
+	</div>
+</div>

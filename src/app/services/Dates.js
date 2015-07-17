@@ -1,45 +1,66 @@
 'use strict';
 
 class Dates {
-  constructor (UserData) {
+    constructor (UserData) {
 
-    this.UserData = UserData;
-    this.currentDate = new Date();
+        this.UserData = UserData;
+        this.currentDate = new Date();
+        this.currentlySelected = false;
+        this.selectedStartDate = null;
 
-  }
 
-  getCurrentYear() {
-    var month = this.UserData.getYearStart();
-    if (this.currentDate.getMonth() < month){
-      this.currentYear = parseInt(this.currentDate.getFullYear()) - 1;
-    } else {
-      this.currentYear = parseInt(this.currentDate.getFullYear());
+        var month = this.UserData.getYearStart();
+        if (this.currentDate.getMonth() < month){
+            this.currentYear = parseInt(this.currentDate.getFullYear()) - 1;
+        } else {
+            this.currentYear = parseInt(this.currentDate.getFullYear());
+        }
+
     }
-    return this.currentYear;
-  }
 
-  getHolidaysForCurrentYear() {
-    return this.getDatesForCurrentYear(false);
-  }
+    getCurrentlySelected() {
+        return this.currentlySelected;
+    }
 
-  getBankHolidaysForCurrentYear() {
-    return this.getDatesForCurrentYear(true);
-  }
+    getCurrentYear() {
+        return this.currentYear;
+    }
 
-  getDatesForCurrentYear(qualifier) {
-    var currentYear = this.getCurrentYear();
-    var fullDates = this.UserData.getDates();
-    var data = fullDates[currentYear].date;
+    setCurrentYear(year) {
+        this.currentYear = year;
+    }
 
-    var holidays = [];
-    for (var i = data.length - 1; i >= 0; i--) {
-      if (data[i]['-isBankHoliday'] === qualifier) {
-        continue;
-      }
-      holidays.push(data[i]);
-    };
-    return holidays;
-  }
+    getHolidaysForCurrentYear() {
+        return this.getDatesForCurrentYear(false);
+    }
+
+    getBankHolidaysForCurrentYear() {
+        return this.getDatesForCurrentYear(true);
+    }
+
+    getDatesForCurrentYear(qualifier) {
+        var currentYear = this.getCurrentYear();
+        var fullDates = this.UserData.getDates();
+        var data = fullDates[currentYear].date;
+
+        var holidays = [];
+        for (var i = data.length - 1; i >= 0; i--) {
+            if (data[i]['-isBankHoliday'] === qualifier) {
+                continue;
+            }
+            holidays.push(data[i]);
+        };
+        return holidays;
+    }
+
+    selectDate (dateObj) {
+        if (this.currentlySelected) {
+            this.UserData.addRange(this.selectedStartDate, dateObj, this.currentYear);
+        } else {
+            this.selectedStartDate = angular.copy(dateObj);
+        }
+        this.currentlySelected = !this.currentlySelected;
+    }
 
 }
 

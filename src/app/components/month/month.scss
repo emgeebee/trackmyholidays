@@ -1,0 +1,15 @@
+.month {
+	clear: both;
+	height: 250px;
+	
+}
+
+.day-wrapper {
+	float: left;
+	width: 30px;
+	text-align: center;
+
+	&:nth-child(7n+1) {
+		clear: left;
+	}
+}
