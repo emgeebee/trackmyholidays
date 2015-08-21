@@ -7,10 +7,8 @@ class calendar {
         this.Dates = Dates;
         this.scope = $scope;
 
-
         this.currentYear = Dates.getCurrentYear();
         this.existingDates = UserData.getDates(this.currentYear);
-        console.log(this.existingDates);
 
         //double check if the user has been here before, if not send to the wizard
         if (this.existingDates == null) {
@@ -19,11 +17,17 @@ class calendar {
 
         $scope.currentYear = this.currentYear;
         $scope.calendar = this.getCalendarArray();
-        $scope.calendarColours = this.getCalendarColours();
+        $scope.calendars = this.getCalendars();
         $scope.prevYear = this.prevYear.bind(this);
         $scope.nextYear = this.nextYear.bind(this);
+        $scope.isCurrentlySelected = Dates.isCurrentlySelected.bind(Dates);
+        $scope.currentlySelected = Dates.getCurrentlySelected.bind(Dates);
+        $scope.isNewSelectionStarted = Dates.isNewSelectionStarted.bind(Dates);
 
-        $scope.remainingDays = UserData.getRemainingHolidays.bind(UserData, this.currentYear);
+        $scope.removeGroup = Dates.removeGroup.bind(Dates);
+        $scope.halfDay = Dates.halfDay.bind(Dates);
+
+        $scope.remainingDays = UserData.getRemainingHolidays.bind(UserData);
 
     }
 
@@ -45,13 +49,8 @@ class calendar {
 
     }
 
-    getCalendarColours() {
-
-        return {
-            "calendar-0": "aqua",
-            "calendar-1": "yellow"
-        }
-
+    getCalendars() {
+        return this.UserData.getCalendars();
     }
 
     getCalendarArray() {

@@ -1,6 +1,6 @@
 'use strict';
 
-class calendar {
+class Summary {
   constructor ($scope, $location, UserData, Dates) {
 
     //double check if the user has been here before, if not send to the wizard
@@ -10,12 +10,12 @@ class calendar {
     }
 
     $scope.currentYear = Dates.getCurrentYear();
-    $scope.dates = Dates.getHolidaysForCurrentYear();
+    $scope.dates = UserData.getDatesForYear($scope.currentYear);
 
   }
 
 }
 
-calendar.$inject = ['$scope', '$location', 'UserData', 'Dates'];
+Summary.$inject = ['$scope', '$location', 'UserData', 'Dates'];
 
-export default calendar;
+export default Summary;

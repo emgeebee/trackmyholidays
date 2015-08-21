@@ -1,15 +1,33 @@
-.month {
-	clear: both;
-	height: 250px;
-	
-}
 
-.day-wrapper {
-	float: left;
-	width: 30px;
-	text-align: center;
+.month-wrapper {
+	margin-left: 2px;
+    margin-right: 2px;
+    margin-bottom: 10px;
+    background-color: lavender;
+    border-radius: 10px;
+    padding: 0;
+    width: 210px;
 
-	&:nth-child(7n+1) {
-		clear: left;
+	.month {
+		clear: both;
+
+		h3 {
+			margin: 0;
+			font-size: 1em;
+		    text-align: center;
+		    color: white;
+		    background-color: #7a9cc7;
+		    border-radius: 10px 10px 0 0;
+		}	
 	}
+
+	.day-names {
+	    background-color: #7a9cc7;
+		margin-bottom: 10px;
+
+		h6 {
+	    	color: white;
+	    }
+	}
+
 }

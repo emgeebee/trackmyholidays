@@ -1,9 +1,15 @@
-.day {
-	display: block;
-}
-.selected{
-	background-color: red;
-}
-.outOfScope {
-	background-color: grey;
+.days {
+	margin-bottom: 10px;
+
+	.day {
+		display: inline-block;
+		width: 30px;
+		text-align: center;
+	}
+	.selected{
+		background-color: red;
+	}
+	.outOfScope {
+		color: #CACACA;
+	}
 }

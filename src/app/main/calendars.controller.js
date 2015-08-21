@@ -1,6 +1,6 @@
 'use strict';
 
-class calendar {
+class Calendars {
 	constructor ($scope, UserData) {
 		this.UserData = UserData;
         $scope.calendars = this.getCalendars();
@@ -11,6 +11,6 @@ class calendar {
     }
 }
 
-calendar.$inject = ['$scope', 'UserData'];
+Calendars.$inject = ['$scope', 'UserData'];
 
-export default calendar;
+export default Calendars;

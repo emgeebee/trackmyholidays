@@ -10,34 +10,32 @@ class day {
         this.scope.selected = false;
         this.userData = userData;
         this.dateFunctions = dateFunctions;
-
         this.getDayData();
 
     }
 
     getDayData() {
-
         this.scope.dateId = this.dateObj.toJSON();
         this.scope.displayDate = this.dateObj.getDate();
         this.scope.prepareClasses = this.prepareClasses.bind(this);
-
         this.scope.selectDate = this.selectDate.bind(this);
-
     }
 
     prepareClasses() {
 
-        var classes = {"day": true};
-        if (parseInt(this.month) === this.dateObj.getMonth()) {
-            classes["day" + this.dateObj.getDay()] = true;
+        var weekends = this.userData.getWeekendDays();
+        var classes = {'day': true};
+        if (parseInt(this.month) === this.dateObj.getMonth() && weekends.indexOf(this.dateObj.getDay()) === -1) {
+            classes['day' + this.dateObj.getDay()] = true;
 
-            var calendars = this.userData.isDayAHoliday(this.dateObj, this.currentYear);
-            for (var i = calendars.length - 1; i >= 0; i--) {
-                classes["calendar-" + calendars[i]] = true;
-            };
+            var holidayDate = this.userData.getHoliday(this.dateObj, this.currentYear);
+            //console.log(holidayDate);
+            if (holidayDate !== null) {
+                angular.extend(classes, holidayDate.classes);
+            }
 
-            if (this.scope.selected && this.dateFunctions.getCurrentlySelected()) {
-                classes["selected"] = true;
+            if (this.scope.selected && this.dateFunctions.isNewSelectionStarted()) {
+                classes['selected'] = true;
             } else {
                 this.scope.selected = false;
             }
@@ -50,10 +48,8 @@ class day {
     }
 
     selectDate() {
-
         this.scope.selected = !this.scope.selected;
         this.dateFunctions.selectDate(this.dateObj);
-
     }
 }
 

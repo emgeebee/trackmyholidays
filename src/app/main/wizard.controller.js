@@ -1,15 +1,10 @@
 'use strict';
 
-class calendar {
+class Wizard {
   constructor ($scope) {
-    $scope.awesomeThings = [
-    ];
-    $scope.awesomeThings.forEach(function(awesomeThing) {
-      awesomeThing.rank = Math.random();
-    });
   }
 }
 
-calendar.$inject = ['$scope'];
+Wizard.$inject = ['$scope'];
 
-export default calendar;
+export default Wizard;
