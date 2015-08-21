@@ -5,11 +5,19 @@ class Calendar {
     	this.class = 'calendar-' + id;
     	this.id = id;
     	this.bankHolidays = bankHolidays;
+    	this.showCountdown = false;
     	return this;
     }
 
     setColour(c) {
     	this.colour(c);
+    }
+    switchView(c) {
+    	console.log(this);
+    	if (this.bankHolidays === true) {
+    		return;
+    	}
+    	this.showCountdown = !this.showCountdown;
     }
 }
 export default Calendar;

@@ -16,8 +16,8 @@
 		</div>
 		<div class="remaining-days">
 			<div class="" ng-repeat="(name, calendar) in calendars">
-				<span class="alert-box radius {{calendar.class}}" ng-if="!calendar.bankHolidays">Calendar {{name}} remaining: {{remainingDays(currentYear, calendar.id)}}</span>
-				<span class="alert-box radius {{calendar.class}}" ng-if="calendar.bankHolidays">{{name}} total: {{remainingDays(currentYear, calendar.id)}}</span>
+				<span class="alert-box radius {{calendar.class}}" ng-if="calendar.showCountdown" ng-click="calendar.switchView()">Calendar {{name}} remaining: {{remainingDays(currentYear, calendar.id)}}</span>
+				<span class="alert-box radius {{calendar.class}}" ng-if="!calendar.showCountdown" ng-click="calendar.switchView()">{{name}} total: {{remainingDays(currentYear, calendar.id)}}</span>
 			</div>
 		</div>
 	</header>
