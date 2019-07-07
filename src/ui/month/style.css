@@ -1,0 +1,15 @@
+.month {
+    width: 300px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin: 20px;
+}
+
+h3 {
+    grid-column: 1 / span 7;
+    text-align: center;
+}
+.dow {
+    text-align: center;
+    margin: 4px;
+}

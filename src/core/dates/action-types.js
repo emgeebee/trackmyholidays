@@ -1,0 +1,1 @@
+export const DATES_SELECT_DAY = 'DATES_SELECT_DAY';
