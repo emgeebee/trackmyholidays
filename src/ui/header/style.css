@@ -1,0 +1,18 @@
+header {
+    position: fixed;
+    background: white;
+    width: 100vw;
+    z-index: 10;
+}
+
+.controls {
+    display: inline-block;
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
+}
+
+.stats {
+    right: 10px;
+    position: absolute;
+}

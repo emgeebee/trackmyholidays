@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
 
 import {
+  DATES_CHANGE_YEAR,
   DATES_SELECT_DAY,
 } from './action-types';
 
@@ -28,12 +29,15 @@ export const dates = handleActions({
             end: payload
         }];
       }
-
-
       return {
         ...state,
         startDay: newStartDay,
         holidays: [ ...newHolidays ]
       };
   },
+  [DATES_CHANGE_YEAR]: (state, {payload}) => ({
+    ...state,
+    currentYear: state.currentYear + payload,
+    startDay: ''
+  })
 }, defaultState);

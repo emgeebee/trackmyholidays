@@ -14,11 +14,39 @@ export const getDays = createSelector(
             const currentMonthDates = Array.from({
                 length: moment(mmonth).daysInMonth()
             }, (x, i) => moment(mmonth).startOf('month').add(i, 'days'));
-            console.log(currentMonthDates);
             currentYearDates.push(currentMonthDates);
         }
-        console.log(currentYearDates);
         return currentYearDates;
+    }
+);
+
+export const getHolidaysForYear = createSelector(
+    state => state.dates.holidays,
+    (holidays) => holidays.map((hol) => {
+        let day = moment(hol.start, 'YY-MM-DD');
+        let end = moment(hol.end, 'YY-MM-DD');
+        if (end.isBefore(day, 'day')) {
+            day = end;
+            end = moment(hol.start, 'YY-MM-DD');
+        }
+        let businessDays = [];
+
+        while (day.isSameOrBefore(end, 'day')) {
+            if (day.day() != 0 && day.day() != 6) {
+                businessDays.push(day.format('YY-MM-DD'));
+            }
+            day.add(1,'d');
+        }
+        return businessDays;
+    }).flat()
+)
+
+export const getRemaining = createSelector(
+    state => state.dates.carriedOver,
+    state => state.dates.daysPerYear,
+    getHolidaysForYear,
+    (co, dpy, holidays) => {
+        return co + dpy - holidays.length;
     }
 );
 

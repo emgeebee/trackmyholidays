@@ -3,6 +3,9 @@
     margin: 4px;
     border: none;
 }
+.hol {
+    background-color: yellow;
+}
 .select-mode:hover {
     background-color: red;
 }
