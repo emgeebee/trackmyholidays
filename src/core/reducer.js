@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
 
+import { config } from './config/reducer';
 import { dates } from './dates/reducer';
 
 export const rootReducer = combineReducers({
+    config,
     dates
 });

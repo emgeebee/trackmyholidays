@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux'
 
-import { Calendar } from './ui';
+import { Calendar, Config } from './ui';
 
 import './App.css';
 
@@ -14,6 +14,7 @@ function App() {
       <div>
         <Calendar />
       </div>
+      <Config />
     </div>
   );
 }
