@@ -17,7 +17,7 @@ export const Month = ({month}) => {
         <span className="dow">F</span>
         <span className="dow">S</span>
         <span className="dow">S</span>
-        {month.map((day) => <Day day={day} />)}
+        {month.map((day) => <Day key={day} day={day} />)}
     </div>
   )
 

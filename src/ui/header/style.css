@@ -10,9 +10,33 @@ header {
     left: 50%;
     position: absolute;
     transform: translateX(-50%);
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2F96B4;
+    color: white;
+    font-weight: bold;
+    height: 40px;
+}
+
+.settings {
+    position: relative;
+    left: 10px;
+    height: 38px;
+    display: flex;
+    overflow-y: hidden;
+}
+
+.settings button {
+    margin-right: 10px;
 }
 
 .stats {
+    position: relative;
     right: 10px;
-    position: absolute;
+}
+
+.currentYear {
+    margin: 0 10px;
 }

@@ -1,0 +1,13 @@
+footer {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    background: white;
+    width: 100vw;
+    z-index: 10;
+    bottom: 0;
+    height: 40px;
+}
+.from, .to, .length {
+    margin: 0 10px;
+}

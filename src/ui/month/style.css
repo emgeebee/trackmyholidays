@@ -8,8 +8,14 @@
 h3 {
     grid-column: 1 / span 7;
     text-align: center;
+    margin: 0;
+    background-color: #7a9cc7;
+    border-radius: 3px 3px 0 0;
+    color: white;
 }
 .dow {
     text-align: center;
-    margin: 4px;
+    margin: 0;
+    background-color: #7a9cc7;
+    color: white;
 }
