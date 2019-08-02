@@ -2,6 +2,7 @@
     text-align: center;
     padding: 3px 1px;
     border: none;
+    height: 25px;
 }
 .hol {
     background-color: yellow;
@@ -30,8 +31,10 @@
 .day-6 {
     grid-column: 6;
     background-color: #B0C4DE;
+    border-radius: 0;
 }
 .day-0 {
     grid-column: 7;
     background-color: #B0C4DE;
+    border-radius: 0;
 }

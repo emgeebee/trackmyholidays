@@ -40,7 +40,10 @@ export const dates = handleActions({
         holidays: [ ...newHolidays ]
       };
       if (save) {
-          localStorage.setItem('holidays', JSON.stringify(newState));
+          localStorage.setItem('holidays', JSON.stringify({
+              ...newState,
+              selected: ''
+          }));
       }
       return newState;
   },
@@ -58,7 +61,10 @@ export const dates = handleActions({
         ...state,
         holidays: state.holidays.filter(hol => hol.start !== payload.hol.start)
     };
-    localStorage.setItem('holidays', JSON.stringify(newState));
+    localStorage.setItem('holidays', JSON.stringify({
+        ...newState,
+        selected: ''
+    }));
     return newState;
   },
 }, defaultState);

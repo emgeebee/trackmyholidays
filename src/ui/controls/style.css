@@ -2,11 +2,13 @@ footer {
     position: fixed;
     display: flex;
     align-items: center;
-    background: white;
+    background-color: #2F96B4;
+    color: white;
     width: 100vw;
     z-index: 10;
     bottom: 0;
     height: 40px;
+    justify-content: center;
 }
 .from, .to, .length {
     margin: 0 10px;

@@ -27,8 +27,11 @@ export const Header = () => {
 
   return (
   <header>
-    <span>
+    <span className="header-controls">
         <span className="settings">
+            <span>
+                Trackmyholidays
+            </span>
             <GoogleLogin
               clientId="195751140228-9tkaoajmqv2ghuh0p1gs0a974aufffuo.apps.googleusercontent.com"
               buttonText="Login"
@@ -38,7 +41,7 @@ export const Header = () => {
             />
             <button onClick={openConfig}><FaCogs /> Config</button>
         </span>
-        <span>
+        <span className="year">
             <button onClick={changeYear.bind(null, -1)}>Prev</button>
             <span className="currentYear">{currentYear} - {currentYear + 1}</span>
             <button onClick={changeYear.bind(null, +1)}>Next</button>

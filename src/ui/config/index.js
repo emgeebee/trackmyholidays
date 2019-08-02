@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { DATES_CHANGE_DAYS_PER_YEAR, DATES_CHANGE_STARTMONTH } from '../../core/dates/action-types';
+import { CHANGE_CONFIG } from '../../core/config/action-types';
 import { getIsConfig } from '../../core/config/selectors';
 
 import './style.css';
@@ -9,25 +9,19 @@ import './style.css';
 export const Config = () => {
   const isConfig = useSelector(getIsConfig);
   const dispatch = useDispatch();
-  const changeStartMonth = useCallback((payload) => console.log(payload) || dispatch({
-      type: DATES_CHANGE_STARTMONTH,
-      payload
-  }), [dispatch]);
-  const changeDaysPerYear = useCallback((event) => console.log(event) || dispatch({
-      type: DATES_CHANGE_DAYS_PER_YEAR,
-      payload: event.target.value
+  const closeConfig = useCallback(() => dispatch({
+      type: CHANGE_CONFIG,
   }), [dispatch]);
 
-          console.log(isConfig, "A")
   return (
   !isConfig ? null : <div className="modal">
     <div className="controls">
       <div className="control">
-        <button onClick={changeStartMonth.bind(null, 0)}>Jan</button>
-        <button onClick={changeStartMonth.bind(null, 1)}>Feb</button>
+        <button onClick={closeConfig}>A</button>
+        <button onClick={closeConfig}>B</button>
       </div>
       <div className="control">
-        <button onChange={changeDaysPerYear}>Jan</button>
+        <button onClick={closeConfig}>Close</button>
       </div>
       <div className="control">
       </div>

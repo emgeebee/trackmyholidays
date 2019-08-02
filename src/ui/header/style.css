@@ -5,7 +5,7 @@ header {
     z-index: 10;
 }
 
-.controls {
+.header-controls {
     display: inline-block;
     left: 50%;
     position: absolute;
@@ -17,7 +17,11 @@ header {
     background-color: #2F96B4;
     color: white;
     font-weight: bold;
-    height: 40px;
+    height: 50px;
+}
+
+.header-controls > span {
+    width: 33%;
 }
 
 .settings {
@@ -26,15 +30,21 @@ header {
     height: 38px;
     display: flex;
     overflow-y: hidden;
+    align-items: center;
 }
 
 .settings button {
-    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.year {
+    text-align: center;
 }
 
 .stats {
     position: relative;
     right: 10px;
+    text-align: right;
 }
 
 .currentYear {

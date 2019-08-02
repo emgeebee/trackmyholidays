@@ -18,7 +18,7 @@ export const Controls = () => {
     <footer>
         <span className="from">From: {selected.hol.start}</span>
         <span className="to">To: {selected.hol.end}</span>
-        <span className="length">Number of days: {selected.length}</span>
+        <span className="length">({selected.length} days)</span>
         <button onClick={deselect.bind(null, selected)}>Deselect</button>
     </footer>
   )
