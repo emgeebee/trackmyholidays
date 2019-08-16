@@ -3,6 +3,7 @@
     padding: 3px 1px;
     border: none;
     height: 25px;
+    border-radius: 0;
 }
 .hol {
     background-color: yellow;

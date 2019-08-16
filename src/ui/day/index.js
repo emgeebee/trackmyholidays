@@ -31,7 +31,7 @@ export const Day = ({day}) => {
   }
   const selectDay = useCallback(
       () => dispatch(eventType),
-      [ dispatch ]
+      [ dispatch, eventType ]
   );
 
   return (

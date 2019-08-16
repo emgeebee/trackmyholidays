@@ -2,12 +2,12 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { getDays } from '../../core/dates/selectors';
-import { DATES_SELECT_DAY } from '../../core/dates/action-types';
+// import { DATES_SELECT_DAY } from '../../core/dates/action-types';
 import { Controls, Header, Month } from '..';
 
 import './style.css';
 
-export const Calendar = ({}) => {
+export const Calendar = () => {
   const dates = useSelector(getDays);
 
   return (

@@ -6,3 +6,15 @@
     top: 0;
     background: white;
 }
+.controls {
+    max-width: 320px;
+    margin: 30px auto;
+}
+.control {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+.control button {
+    width: 25%;
+}

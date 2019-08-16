@@ -1,5 +1,4 @@
 import React from 'react';
-import { shallowEqual, useSelector } from 'react-redux'
 
 import { Calendar, Config } from './ui';
 

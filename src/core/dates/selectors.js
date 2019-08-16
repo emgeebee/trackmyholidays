@@ -32,7 +32,7 @@ export const getHolidayMapForYear = createSelector(
         let businessDays = 0;
         let origDay = day.clone();
         while (day.isSameOrBefore(end, 'day')) {
-            if (day.day() != 0 && day.day() != 6) {
+            if (day.day() !== 0 && day.day() !== 6) {
                 businessDays++;
             }
             day.add(1,'d');
@@ -40,7 +40,7 @@ export const getHolidayMapForYear = createSelector(
         day = origDay;
 
         while (day.isSameOrBefore(end, 'day')) {
-            if (day.day() != 0 && day.day() != 6) {
+            if (day.day() !== 0 && day.day() !== 6) {
                 businessDaysMap[day.format('YY-MM-DD')] = {
                   hol: hol,
                   length: businessDays
@@ -54,7 +54,17 @@ export const getHolidayMapForYear = createSelector(
 
 export const getHolidaysForYear = createSelector(
     state => state.dates.holidays,
-    (holidays) => holidays.map((hol) => {
+    state => state.dates.currentYear,
+    state => state.dates.startMonth,
+    (holidays, currentYear, startMonth) => holidays.filter(hol => {
+        let day = moment(hol.start, 'YY-MM-DD');
+        let start = moment(`${currentYear}-${startMonth+1}-01`, 'YYYY-MM-DD');
+        let end = moment(`${currentYear+1}-${startMonth+1}-01`, 'YYYY-MM-DD');
+        if ( start < day && day < end ) {
+            return hol;
+        }
+        return false;
+    }).map((hol) => {
         let day = moment(hol.start, 'YY-MM-DD');
         let end = moment(hol.end, 'YY-MM-DD');
         if (end.isBefore(day, 'day')) {
@@ -64,7 +74,7 @@ export const getHolidaysForYear = createSelector(
         let businessDays = [];
 
         while (day.isSameOrBefore(end, 'day')) {
-            if (day.day() != 0 && day.day() != 6) {
+            if (day.day() !== 0 && day.day() !== 6) {
                 businessDays.push(day.format('YY-MM-DD'));
             }
             day.add(1,'d');
@@ -75,16 +85,24 @@ export const getHolidaysForYear = createSelector(
 
 export const getRemaining = createSelector(
     state => state.dates.carriedOver,
+    state => state.dates.currentYear,
     state => state.dates.daysPerYear,
     getHolidaysForYear,
-    (co, dpy, holidays) => {
-        return co + dpy - holidays.length;
+    (co, year, dpy, holidays) => {
+        const carried = co[year] || 0;
+        return carried + dpy - holidays.length;
     }
 );
 
 export const getSelected = createSelector(
     state => state.dates.selected,
     selected => selected || false
+);
+
+export const getCurrentCO = createSelector(
+    state => state.dates.currentYear,
+    (state, year) => console.log(year) || state.dates.carriedOver,
+    (year, co) => console.log(year, co) || co[year] || 0
 );
 
 export const getYear = createSelector(
