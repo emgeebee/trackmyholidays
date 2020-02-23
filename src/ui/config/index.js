@@ -43,7 +43,8 @@ export const Config = () => {
         <button onClick={() => chooseMonth(11)}>Dec</button>
       </div>
       <div className="control">
-        <input type="number" onChange={(event) => updateCarriedOver(event.target.value)} value={co} />
+        <label for="co">Carried Over: </label>
+        <input id="co"  type="number" onChange={(event) => updateCarriedOver(event.target.value)} value={co} />
       </div>
       <div className="control">
         <button onClick={closeConfig}>Close</button>

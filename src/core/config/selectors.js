@@ -1,3 +1,3 @@
 // import { createSelector } from 'reselect';
 
-export const getIsConfig = state => console.log(state) || state ? state.config.configIsOpen : false;
+export const getIsConfig = state => console.log(encodeURI(JSON.stringify(state))) || state ? state.config.configIsOpen : false;
