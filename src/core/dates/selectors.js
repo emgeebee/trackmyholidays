@@ -20,67 +20,81 @@ export const getDays = createSelector(
     }
 );
 
+const loopOverHolidaysAndFindEligibleDays = (businessDaysMap, hol) => {
+    let day = moment(hol.start, 'YY-MM-DD');
+    let end = moment(hol.end, 'YY-MM-DD');
+    if (end.isBefore(day, 'day')) {
+        day = end;
+        end = moment(hol.start, 'YY-MM-DD');
+    }
+    let businessDays = 0;
+    let origDay = day.clone();
+    while (day.isSameOrBefore(end, 'day')) {
+        if (day.day() !== 0 && day.day() !== 6) {
+            businessDays++;
+        }
+        day.add(1,'d');
+    }
+    day = origDay;
+
+    while (day.isSameOrBefore(end, 'day')) {
+        if (day.day() !== 0 && day.day() !== 6) {
+            businessDaysMap[day.format('YY-MM-DD')] = {
+                hol: hol,
+                length: businessDays
+            };
+        }
+        day.add(1,'d');
+    }
+    return businessDaysMap;
+}
+
 export const getHolidayMapForYear = createSelector(
     state => state.dates.holidays,
-    (holidays) => holidays.reduce((businessDaysMap, hol) => {
-        let day = moment(hol.start, 'YY-MM-DD');
-        let end = moment(hol.end, 'YY-MM-DD');
-        if (end.isBefore(day, 'day')) {
-            day = end;
-            end = moment(hol.start, 'YY-MM-DD');
-        }
-        let businessDays = 0;
-        let origDay = day.clone();
-        while (day.isSameOrBefore(end, 'day')) {
-            if (day.day() !== 0 && day.day() !== 6) {
-                businessDays++;
-            }
-            day.add(1,'d');
-        }
-        day = origDay;
+    (holidays) => holidays.reduce(loopOverHolidaysAndFindEligibleDays, {})
+)
 
-        while (day.isSameOrBefore(end, 'day')) {
-            if (day.day() !== 0 && day.day() !== 6) {
-                businessDaysMap[day.format('YY-MM-DD')] = {
-                  hol: hol,
-                  length: businessDays
-                };
-            }
-            day.add(1,'d');
+const filterToCurrentYear = (currentYear, startMonth) => (hol) => {
+    let day = moment(hol.start, 'YY-MM-DD');
+    let start = moment(`${currentYear}-${startMonth+1}-01`, 'YYYY-MM-DD');
+    let end = moment(`${currentYear+1}-${startMonth+1}-01`, 'YYYY-MM-DD');
+    if ( start < day && day < end ) {
+        return hol;
+    }
+    return false;
+}
+
+const findHolidayDays = (hol) => {
+    let day = moment(hol.start, 'YY-MM-DD');
+    let end = moment(hol.end, 'YY-MM-DD');
+    if (end.isBefore(day, 'day')) {
+        day = end;
+        end = moment(hol.start, 'YY-MM-DD');
+    }
+    let businessDays = [];
+
+    while (day.isSameOrBefore(end, 'day')) {
+        if (day.day() !== 0 && day.day() !== 6) {
+            businessDays.push(day.format('YY-MM-DD'));
         }
-        return businessDaysMap;
-    }, {})
+        day.add(1,'d');
+    }
+    return businessDays;
+}
+
+export const getProvisionalHolidaysForYear = createSelector(
+    state => state.dates.startDay,
+    state => state.dates.endOfCurrent,
+    (provisionalStart, provisionalEnd) => [
+        { start: provisionalStart, end: provisionalEnd }
+    ].map(findHolidayDays).flat()
 )
 
 export const getHolidaysForYear = createSelector(
     state => state.dates.holidays,
     state => state.dates.currentYear,
     state => state.dates.startMonth,
-    (holidays, currentYear, startMonth) => holidays.filter(hol => {
-        let day = moment(hol.start, 'YY-MM-DD');
-        let start = moment(`${currentYear}-${startMonth+1}-01`, 'YYYY-MM-DD');
-        let end = moment(`${currentYear+1}-${startMonth+1}-01`, 'YYYY-MM-DD');
-        if ( start < day && day < end ) {
-            return hol;
-        }
-        return false;
-    }).map((hol) => {
-        let day = moment(hol.start, 'YY-MM-DD');
-        let end = moment(hol.end, 'YY-MM-DD');
-        if (end.isBefore(day, 'day')) {
-            day = end;
-            end = moment(hol.start, 'YY-MM-DD');
-        }
-        let businessDays = [];
-
-        while (day.isSameOrBefore(end, 'day')) {
-            if (day.day() !== 0 && day.day() !== 6) {
-                businessDays.push(day.format('YY-MM-DD'));
-            }
-            day.add(1,'d');
-        }
-        return businessDays;
-    }).flat()
+    (holidays, currentYear, startMonth) => holidays.filter(filterToCurrentYear(currentYear, startMonth)).map(findHolidayDays).flat()
 )
 
 export const getRemaining = createSelector(
@@ -88,9 +102,10 @@ export const getRemaining = createSelector(
     state => state.dates.currentYear,
     state => state.dates.daysPerYear,
     getHolidaysForYear,
-    (co, year, dpy, holidays) => {
+    getProvisionalHolidaysForYear,
+    (co, year, dpy, holidays, provisionalHolidays) => {
         const carried = co[year] || 0;
-        return carried + dpy - holidays.length;
+        return carried + dpy - holidays.length - provisionalHolidays.length;
     }
 );
 
@@ -113,4 +128,9 @@ export const getYear = createSelector(
 export const isInSelectMode = createSelector(
     state => state.dates.startDay,
     (startDay) => startDay !== ''
+);
+
+export const getCurrentStartDay = createSelector(
+    state => state.dates.startDay,
+    (startDay) => startDay || ""
 );

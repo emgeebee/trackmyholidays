@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { DATES_SELECT_DAY, DATES_SELECT_HOLIDAY } from '../../core/dates/action-types';
-import { getHolidaysForYear, getHolidayMapForYear, isInSelectMode } from '../../core/dates/selectors';
+import { DATES_SELECT_END_OF_CURRENT, DATES_SELECT_DAY, DATES_SELECT_HOLIDAY } from '../../core/dates/action-types';
+import { getCurrentStartDay, getHolidaysForYear, getHolidayMapForYear, getProvisionalHolidaysForYear, isInSelectMode } from '../../core/dates/selectors';
 import './style.css';
 
 const moment = require('moment');
@@ -19,23 +19,39 @@ export const Day = ({day}) => {
   const isHoliday = dates.indexOf(formattedDay) > -1;
   const holidayClass = isHoliday ? 'hol' : '';
 
-  const selectClass = (useSelector(isInSelectMode) && !isWeekend) ? 'select-mode' : '';
+  const provisionalHolidays = useSelector(getProvisionalHolidaysForYear);
+  const isProvHoliday = provisionalHolidays.indexOf(formattedDay) > -1;
+  const provHolidayClass = isProvHoliday ? 'provhol' : '';
 
-  let eventType = { type: DATES_SELECT_DAY, payload: formattedDay };
+  const iISM = useSelector(isInSelectMode);
+  const selectClass = (iISM && !isWeekend) ? 'select-mode' : '';
+
+  const isCurrentStartDate = useSelector(getCurrentStartDay) === formattedDay;
+  const isCurrentStartDateClass = isCurrentStartDate ? 'start-of-hol' : '';
+
+  let clickEvent = { type: DATES_SELECT_DAY, payload: formattedDay };
   if (isHoliday) {
       const holidayMeta = holidayMap[formattedDay];
-      eventType = { type: DATES_SELECT_HOLIDAY, payload: holidayMeta };
+      clickEvent = { type: DATES_SELECT_HOLIDAY, payload: holidayMeta };
   }
   if (isWeekend) {
-      eventType = { type: 'NULL' };
+      clickEvent = { type: 'NULL' };
   }
-  const selectDay = useCallback(
-      () => dispatch(eventType),
-      [ dispatch, eventType ]
+  const clickEventHandler = useCallback(
+      () => dispatch(clickEvent),
+      [ dispatch, clickEvent ]
+  );
+  let onHoverEvent = { type: 'NULL' };
+  if (iISM) {
+      onHoverEvent = { type: DATES_SELECT_END_OF_CURRENT, payload: formattedDay };
+  };
+  const hoverEventHandler = useCallback(
+      () => dispatch(onHoverEvent),
+      [ dispatch, onHoverEvent ]
   );
 
   return (
-     <button className={`day day-${mday.format('d')} ${selectClass} ${holidayClass}`} onClick={selectDay}>
+     <button className={`day day-${mday.format('d')} ${isCurrentStartDateClass} ${selectClass} ${provHolidayClass} ${holidayClass}`} onClick={clickEventHandler} onMouseOver={hoverEventHandler}>
         {mday.format('DD')}
      </button>
   )

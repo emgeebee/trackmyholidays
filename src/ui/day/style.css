@@ -5,11 +5,20 @@
     height: 25px;
     border-radius: 0;
 }
+.day:focus {
+    outline: none;
+}
 .hol {
-    background-color: yellow;
+    background-color: #FFD700;
+}
+.provhol {
+    background-color: #fff3b0;
 }
 .select-mode:hover {
-    background-color: red;
+    background-color: #fff3b0;
+}
+.start-of-hol {
+    background-color: #fff3b0;
 }
 .day-0 {
     grid-column: 0;

@@ -5,6 +5,7 @@ import {
   DATES_CHANGE_YEAR,
   DATES_SELECT_DAY,
   DATES_SELECT_HOLIDAY,
+  DATES_SELECT_END_OF_CURRENT,
   DATES_SELECT_START_MONTH,
   DATES_DESELECT,
   DATES_UPDATE_CARRIED_OVER,
@@ -18,6 +19,7 @@ const defaultState = JSON.parse(localStorage.getItem('holidays')) || {
         2019: 5
     },
     startDay: '',
+    endOfCurrent: '',
     selected: null,
     holidays: []
 };
@@ -46,7 +48,8 @@ export const dates = handleActions({
       const newState = {
         ...state,
         startDay: newStartDay,
-        holidays: [ ...newHolidays ]
+        holidays: [ ...newHolidays ],
+        endOfCurrent: ''
       };
       if (save) {
           localStorage.setItem('holidays', JSON.stringify({
@@ -56,6 +59,10 @@ export const dates = handleActions({
       }
       return newState;
   },
+  [DATES_SELECT_END_OF_CURRENT]: (state, {payload}) => ({
+      ...state,
+      endOfCurrent: payload,
+  }),
   [DATES_UPDATE_CARRIED_OVER]: (state, {payload}) => {
       const newState = {
           ...state,
