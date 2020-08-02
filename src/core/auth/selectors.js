@@ -4,7 +4,7 @@ export const authSelector = state => state.auth.ww;
 
 export const getIsLoggedIn = createSelector(
     authSelector,
-    ww => console.log('ww', ww) || ww && ww.tokenObj ? true : false
+    ww => ww && ww.tokenObj ? true : false
 )
 
 export const getName = createSelector(

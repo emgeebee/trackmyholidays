@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
@@ -40,7 +40,6 @@ export const Config = () => {
       payload: newCo
   }), [dispatch]);
 
-  // const addBHDate = useCallback(() => dispatch(addNewBH()), [dispatch]);
   const updateBHDay = useCallback((event) => {
       const { target } = event;
       const { name, value } = target;

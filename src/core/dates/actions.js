@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { getToken } from '../auth/selectors';
+import { defaultState } from './constants';
 
 import {
   DATES_DESELECT,
@@ -82,6 +83,7 @@ export const fetchDates = () => {
         })
         .then(response => response.json())
         .then(json => dispatch(loadDatesAction(json)))
+        .catch(e => dispatch(loadDatesAction({text: defaultState})))
     }
 }
 

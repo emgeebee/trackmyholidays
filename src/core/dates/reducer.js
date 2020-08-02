@@ -1,7 +1,7 @@
 // import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
-import { saveDates } from './actions';
 import { filterOutCurrentYear } from './selectors';
+import { defaultState } from './constants';
 
 import {
   DATES_CHANGE_YEAR,
@@ -17,24 +17,6 @@ import {
   UPDATE_BANK_HOLIDAYS,
 } from './action-types';
 
-const defaultState = {
-    loading: false,
-    startMonth: 9,
-    currentYear: 2019,
-    daysPerYear: 30,
-    carriedOver: {
-        2019: 5
-    },
-    startDay: '',
-    endOfCurrent: '',
-    selected: null,
-    holidays: [],
-    bankHolidays: [{
-        start: '20-12-25',
-        name: 'xmas'
-    }],
-    bankHolidayCountry: 'uk'
-};
 if ( typeof defaultState.carriedOver === 'number' ) {
     const co = defaultState.carriedOver
     defaultState.carriedOver = {};

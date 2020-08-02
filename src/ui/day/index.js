@@ -46,7 +46,7 @@ export const Day = ({day}) => {
   }
   const clickEventHandler = useCallback(
       () => clickEvent ? dispatch(clickEvent(payload)) : null,
-      [ dispatch, clickEvent ]
+      [ dispatch, clickEvent, payload ]
   );
   let onHoverEvent = false;
   if (iISM) {
