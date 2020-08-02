@@ -5,6 +5,14 @@ header {
     z-index: 10;
 }
 
+.year button,
+.settings button {
+    background-color: transparent;
+    border: none;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
 .header-controls {
     display: inline-block;
     left: 50%;
@@ -18,6 +26,11 @@ header {
     color: white;
     font-weight: bold;
     height: 50px;
+}
+@media screen and (min-width: 1440px) {
+    .header-controls {
+        height: 60px;
+    }
 }
 
 .header-controls > span {

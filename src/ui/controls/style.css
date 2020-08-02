@@ -13,3 +13,8 @@ footer {
 .from, .to, .length {
     margin: 0 10px;
 }
+@media screen and (min-width: 1440px) {
+    footer {
+        height: 60px;
+    }
+}

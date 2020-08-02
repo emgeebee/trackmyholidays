@@ -3,3 +3,7 @@ button {
     background-color: white;
     border-radius: 3px;
 }
+
+.react-icons {
+    vertical-align: middle;
+}
