@@ -26,16 +26,20 @@ export const Calendar = () => {
             loading ? (<div className='loader'></div>) :
             loggedIn ?
                 dates.map((month) => (<Month key={month} month={month} />)) :
-                (<GoogleLogin
-                 clientId="195751140228-9tkaoajmqv2ghuh0p1gs0a974aufffuo.apps.googleusercontent.com"
-                 render={renderProps => (
-                     <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Login with Google</button>
-                 )}
-                 buttonText="Login"
-                 onSuccess={responseGoogle}
-                 onFailure={responseGoogle}
-                 cookiePolicy={'single_host_origin'}
-                 />)
+                (<div>
+                    <p>Welcome to the new trackmyholidays.com</p>
+                    <p>Some of the features (bank holiday editor) are a little rough around the edges, please bear with us</p>
+                    <GoogleLogin
+                        clientId="195751140228-9tkaoajmqv2ghuh0p1gs0a974aufffuo.apps.googleusercontent.com"
+                        render={renderProps => (
+                            <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Login with Google</button>
+                        )}
+                        buttonText="Login"
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />
+                </div>)
         }
     </div>
     <Controls />
