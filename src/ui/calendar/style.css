@@ -9,7 +9,13 @@
         padding-top: 80px;
     }
 }
-
+.welcome {
+    width: 300px;
+    text-align: center;
+}
+.welcome p {
+    margin-bottom: 30px;
+}
 .loader {
     display: inline-block;
     width: 80px;

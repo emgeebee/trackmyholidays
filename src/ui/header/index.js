@@ -30,19 +30,23 @@ export const Header = () => {
 
   return (
   <header>
-    <span className="header-controls">
+    { loggedIn ? (<span className="header-controls">
         <span className="settings">
-            { loggedIn ? (<button onClick={openConfig}><FaCogs color="white" size="2em" /></button>) : null}
+            <button onClick={openConfig}><FaCogs color="white" size="2em" /></button>
         </span>
-        { loggedIn ? (<span className="year">
+        <span className="year">
             <button label="previous year" onClick={changeYear.bind(null, -1)}><FaAngleLeft color="white" size="2em" /></button>
             <span className="currentYear">{currentYear} - {currentYear + 1}</span>
             <button label="next year" onClick={changeYear.bind(null, +1)}><FaAngleRight color="white" size="2em" /></button>
-        </span>) : null}
-        { loggedIn ? (<div className="stats-group">
+        </span>
+        <div className="stats-group">
             <span className="stats-small">Planned: {planned} </span>
             <span className="stats">Left to plan: {remaining} </span>
-        </div>): null }
-    </span>
+        </div>
+    </span>) : (
+        <span className="header-controls">
+            <span className="settings">Trackmyholidays.com</span>
+        </span>
+    )}
   </header>)
 }

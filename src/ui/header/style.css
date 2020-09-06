@@ -22,10 +22,7 @@ header {
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    background-color: #2F96B4;
-    color: white;
     font-weight: bold;
-    height: 50px;
 }
 @media screen and (min-width: 1440px) {
     .header-controls {

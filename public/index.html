@@ -22,19 +22,58 @@
     <title>TrackMyHolidays</title>
     <meta name="description" content="A yearly holiday planner, plan your annual leave in one simple view">
     <meta name="keywords" content="holiday planner, annual leave, calendar">
+<style>
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+body.modal-open {
+    overflow-y: hidden;
+}
+
+.header-controls {
+    background-color: #2F96B4;
+    height: 50px;
+    color: white;
+    align-items: center;
+    display: flex;
+}
+
+.titlen {
+    position: relative;
+    left: 10px;
+    font-weight: bold;
+}
+
+.main {
+    text-align: center;
+    width: 300px;
+    margin: 0 auto;
+}
+
+</style>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root">Loading...</div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
+    <div id="root">
+        <div class="header-controls">
+            <span class="title">TrackMyHolidays.com</span>
+        </div>
+        <div class="main">
+            <p>Welcome to the new trackmyholidays.com</p>
+            <p>Here you can track you holidays in one yearly view, making it easy to see how many days you have left to plan</p>
+            <p>Please log in with your google account, so we can sync your holidays and allow you to access them on any device</p>
+        </div>
+    </div>
   </body>
 </html>
