@@ -142,6 +142,14 @@ export const getBankHolidaysForYear = createSelector(
     (holidays, currentYear, startMonth) => holidays.filter(filterToCurrentYear(currentYear, startMonth)).map(date => date.start)
 )
 
+export const getPlanned = createSelector(
+    getHolidaysForYear,
+    getProvisionalHolidaysForYear,
+    (holidays, provisionalHolidays) => {
+        return holidays.length - provisionalHolidays.length;
+    }
+);
+
 export const getRemaining = createSelector(
     state => state.dates.carriedOver,
     state => state.dates.currentYear,
@@ -158,6 +166,11 @@ export const getSelected = createSelector(
     state => state.dates.selected,
     getHolidayMapForYear,
     (selected, listOfHolidays) => selected ? listOfHolidays[selected.formattedDay] : false,
+);
+
+export const getCurrentPY = createSelector(
+    state => state.dates.daysPerYear,
+    (py) => py || 0
 );
 
 export const getCurrentCO = createSelector(

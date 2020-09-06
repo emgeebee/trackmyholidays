@@ -33,11 +33,9 @@ header {
     }
 }
 
-.header-controls > span {
-    width: 33%;
-}
-
 .settings {
+    width: 15%;
+    width: 33%;
     position: relative;
     left: 10px;
     height: 38px;
@@ -51,15 +49,41 @@ header {
 }
 
 .year {
-    text-align: center;
+    display: flex;
+    width: 33%;
+    align-items: center;
+    justify-content: center;
 }
 
-.stats {
+.stats-group {
+    width: 33%;
     position: relative;
     right: 10px;
-    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 }
-
+.stats-small {
+    font-size: 12px;
+}
 .currentYear {
     margin: 0 10px;
+}
+@media only screen and (max-width: 600px) {
+    .stats-group {
+        width: 26%;
+    }
+    .stats {
+        font-size: 12px;
+    }
+    .currentYear {
+        margin: 0;
+        padding-bottom: 4px;
+    }
+    .year {
+        width: 50%;
+    }
+    .settings {
+        width: 15%;
+    }
 }

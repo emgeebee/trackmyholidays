@@ -10,6 +10,8 @@ import {
   LOAD_DATES_FROM_SERVER,
   ADD_NEW_BANK_HOLIDAY,
   UPDATE_BANK_HOLIDAYS,
+  DATES_UPDATE_CARRIED_OVER,
+  DATES_UPDATE_PER_YEAR,
 } from './action-types';
 
 export const deselectAction = createAction(DATES_DESELECT);
@@ -23,6 +25,10 @@ export const addNewBH = createAction(ADD_NEW_BANK_HOLIDAY);
 export const updateBH = createAction(UPDATE_BANK_HOLIDAYS);
 
 export const selectHoliday = createAction(DATES_SELECT_HOLIDAY);
+
+export const updatePerYearAction = createAction(DATES_UPDATE_PER_YEAR, (co) => co);
+
+export const updateCarriedOverAction = createAction(DATES_UPDATE_CARRIED_OVER);
 
 export const deselectDay = (payload) => {
     return async (dispatch, getState) => {

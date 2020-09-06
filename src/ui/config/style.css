@@ -5,18 +5,42 @@
     z-index: 20;
     top: 0;
     background: white;
+    overflow-y: scroll;
 }
 .controls {
     max-width: 320px;
     margin: 30px auto;
-    overflow-y: scroll;
     height: 100vh;
+    padding: 0 10px;
 }
 .control {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 40px;
+    justify-content: space-between;
+    align-items: center;
 }
 .control button {
     width: 25%;
+    margin: 10px;
+    border-radius: 10px;
+}
+.control input,
+.control select {
+    width: 30%;
+    padding: 10px;
+    border-radius: 10px;
+}
+.bh .control input {
+    width: 100%;
+}
+
+
+.react-tabs__tab-list {
+    display: flex;
+    justify-content: space-between;
+}
+.react-tabs__tab-panel--selected {
+    background-color: #F6f6f6;
+    padding: 10px 10px 40px;
 }

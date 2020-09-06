@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import { CHANGE_CONFIG } from '../../core/config/action-types';
-import { DATES_SELECT_START_MONTH, DATES_UPDATE_CARRIED_OVER } from '../../core/dates/action-types';
-import { addNewBH, updateBH } from '../../core/dates/actions';
+import { DATES_SELECT_START_MONTH } from '../../core/dates/action-types';
+import { addNewBH, updateBH, updatePerYearAction, updateCarriedOverAction } from '../../core/dates/actions';
 import { getIsConfig, getBankHolidayOptions } from '../../core/config/selectors';
-import { getCurrentCO, getHolidayMapForYear, getBankHolidaysForYear } from '../../core/dates/selectors';
+import { getCurrentPY, getCurrentCO, getHolidayMapForYear, getBankHolidaysForYear } from '../../core/dates/selectors';
 
 import 'react-tabs/style/react-tabs.css';
 import './style.css';
@@ -17,6 +17,7 @@ moment().format();
 export const Config = () => {
   const isConfig = useSelector(getIsConfig);
   let co = useSelector(getCurrentCO);
+  let py = useSelector(getCurrentPY);
   const bhDates = useSelector(getBankHolidaysForYear);
   const holidayMap = useSelector(getHolidayMapForYear);
   const uiDates = bhDates.reduce((agg, date, key) => ({
@@ -28,17 +29,18 @@ export const Config = () => {
       }
   }), {});
   const dispatch = useDispatch();
-  const closeConfig = useCallback(() => dispatch({
-      type: CHANGE_CONFIG,
-  }), [dispatch]);
+  const closeConfig = useCallback(() => {
+      dispatch({
+          type: CHANGE_CONFIG,
+      });
+      document.body.classList.remove('modal-open');
+  }, [dispatch]);
   const chooseMonth = useCallback((month) => dispatch({
       type: DATES_SELECT_START_MONTH,
       payload: month
   }), [dispatch]);
-  const updateCarriedOver = useCallback((newCo) => dispatch({
-      type: DATES_UPDATE_CARRIED_OVER,
-      payload: newCo
-  }), [dispatch]);
+  const updatePerYear = useCallback((newPy) => dispatch(updatePerYearAction(newPy)), [dispatch]);
+  const updateCarriedOver = useCallback((newCo) => dispatch(updateCarriedOverAction(newCo)), [dispatch]);
 
   const updateBHDay = useCallback((event) => {
       const { target } = event;
@@ -58,8 +60,6 @@ export const Config = () => {
   }, [dispatch, uiDates]);
 
   const addBHDate = useCallback((event) => {
-      const { target } = event;
-      const { name, value } = target;
       event.persist();
       dispatch(addNewBH());
   }, [dispatch]);
@@ -82,14 +82,17 @@ export const Config = () => {
         <button onClick={() => chooseMonth(11)}>Dec</button>
       </div>
       <div className="control">
-        <label for="co">Carried Over: </label>
+        <label htmlFor="py">Holidays per year: </label>
+        <input id="py"  type="number" onChange={(event) => updatePerYear(event.target.value)} value={py} />
+      </div>
+      <div className="control">
+        <label htmlFor="co">Carried Over: </label>
         <input id="co"  type="number" onChange={(event) => updateCarriedOver(event.target.value)} value={co} />
       </div>
     </>
   )
 
   const getBankHolidayControls = () => {
-    console.log('rrender');
     return (
 
     <>
@@ -126,7 +129,7 @@ export const Config = () => {
         <TabPanel>
           { getDateControls() }
         </TabPanel>
-        <TabPanel>
+        <TabPanel className='bh'>
           { getBankHolidayControls() }
         </TabPanel>
         <TabPanel>

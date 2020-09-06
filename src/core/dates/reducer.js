@@ -11,6 +11,7 @@ import {
   DATES_SELECT_START_MONTH,
   DATES_DESELECT,
   DATES_UPDATE_CARRIED_OVER,
+  DATES_UPDATE_PER_YEAR,
   LOAD_DATES_FROM_SERVER,
   FETCH_DATES_FROM_SERVER,
   ADD_NEW_BANK_HOLIDAY,
@@ -65,6 +66,13 @@ export const dates = handleActions({
         ...state,
         endOfCurrent: payload,
     }),
+    [DATES_UPDATE_PER_YEAR]: (state, {payload}) => {
+        const newState = {
+            ...state,
+            daysPerYear: parseInt(payload)
+        };
+        return newState;
+    },
     [DATES_UPDATE_CARRIED_OVER]: (state, {payload}) => {
         const newState = {
             ...state,
