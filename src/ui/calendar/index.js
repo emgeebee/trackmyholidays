@@ -28,7 +28,7 @@ export const Calendar = () => {
                 dates.map((month) => (<Month key={month} month={month} />)) :
                 (<div className="welcome">
                     <p>Welcome to the new trackmyholidays.com</p>
-                    <p>Here you can track you holidays in one yearly view, making it easy to see how many days you have left to plan</p>
+                    <p>Here your can track you holidays in one yearly view, making it easy to see how many days you have left to plan</p>
                     <p>Please log in with your google account, so we can sync your holidays and allow you to access them on any device</p>
                     <GoogleLogin
                         clientId="195751140228-9tkaoajmqv2ghuh0p1gs0a974aufffuo.apps.googleusercontent.com"
