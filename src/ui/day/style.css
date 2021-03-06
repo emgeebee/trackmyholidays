@@ -3,7 +3,7 @@
     padding: 3px 1px;
     border: none;
     height: 25px;
-    border-radius: 0;
+
 }
 .day:focus {
     outline: none;
@@ -50,4 +50,7 @@
     grid-column: 7;
     background-color: #B0C4DE;
     border-radius: 0;
+}
+.day.today {
+    border: 1px solid #2700ff;
 }

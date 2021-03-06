@@ -7,6 +7,7 @@ import { getCurrentStartDay, getBankHolidaysForYear, getHolidaysForYear, getProv
 import './style.css';
 
 const moment = require('moment');
+const today = moment().format('YY-MM-DD');
 
 export const Day = ({day}) => {
   const mday = moment(day);
@@ -21,6 +22,7 @@ export const Day = ({day}) => {
   const holidayClass = isHoliday ? 'hol' : '';
   const isBHoliday = bhDates.indexOf(formattedDay) > -1;
   const bHolidayClass = isBHoliday ? 'bhol' : '';
+  const todayClass = formattedDay === today ? 'today' : '';
 
   const provisionalHolidays = useSelector(getProvisionalHolidaysForYear);
   const isProvHoliday = provisionalHolidays.indexOf(formattedDay) > -1;
@@ -58,7 +60,7 @@ export const Day = ({day}) => {
   );
 
   return (
-     <button className={`day day-${mday.format('d')} ${isCurrentStartDateClass} ${selectClass} ${provHolidayClass} ${holidayClass} ${bHolidayClass}`} onClick={clickEventHandler} onMouseOver={hoverEventHandler}>
+     <button className={`day day-${mday.format('d')} ${todayClass} ${isCurrentStartDateClass} ${selectClass} ${provHolidayClass} ${holidayClass} ${bHolidayClass}`} onClick={clickEventHandler} onMouseOver={hoverEventHandler}>
         {mday.format('DD')}
      </button>
   )
