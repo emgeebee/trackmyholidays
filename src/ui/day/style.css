@@ -23,6 +23,9 @@
 .start-of-hol {
     background-color: #fff3b0;
 }
+.half {
+    background: linear-gradient(to bottom right, #fff 0%, #fff 50%, #FFD700 50%, #FFD700 100%);
+}
 .day-0 {
     grid-column: 0;
 }

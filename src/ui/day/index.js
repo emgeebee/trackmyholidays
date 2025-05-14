@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { selectDay, selectHoliday } from '../../core/dates/actions';
 import { DATES_SELECT_END_OF_CURRENT } from '../../core/dates/action-types';
-import { getCurrentStartDay, getBankHolidaysForYear, getHolidaysForYear, getProvisionalHolidaysForYear, isInSelectMode } from '../../core/dates/selectors';
+import { getCurrentStartDay, getBankHolidaysForYear, getHolidaysForYear, getProvisionalHolidaysForYear, isInSelectMode, getHolidayMapForYear } from '../../core/dates/selectors';
 import './style.css';
 
 const moment = require('moment');
@@ -25,6 +25,11 @@ export const Day = ({day}) => {
   const todayClass = formattedDay === today ? 'today' : '';
 
   const provisionalHolidays = useSelector(getProvisionalHolidaysForYear);
+  
+  const holidayMap = useSelector(getHolidayMapForYear);
+  const isHalfDay = holidayMap[formattedDay] && holidayMap[formattedDay].hol.half;
+  const halfDayClass = isHalfDay ? 'half' : '';
+
   const isProvHoliday = provisionalHolidays.indexOf(formattedDay) > -1;
   const provHolidayClass = isProvHoliday ? 'provhol' : '';
 
@@ -50,6 +55,7 @@ export const Day = ({day}) => {
       () => clickEvent ? dispatch(clickEvent(payload)) : null,
       [ dispatch, clickEvent, payload ]
   );
+
   let onHoverEvent = false;
   if (iISM) {
       onHoverEvent = { type: DATES_SELECT_END_OF_CURRENT, payload: formattedDay };
@@ -60,7 +66,7 @@ export const Day = ({day}) => {
   );
 
   return (
-     <button className={`day day-${mday.format('d')} ${todayClass} ${isCurrentStartDateClass} ${selectClass} ${provHolidayClass} ${holidayClass} ${bHolidayClass}`} onClick={clickEventHandler} onMouseOver={hoverEventHandler}>
+     <button className={`day day-${mday.format('d')} ${todayClass} ${isCurrentStartDateClass} ${selectClass} ${provHolidayClass} ${holidayClass} ${bHolidayClass} ${halfDayClass}`} onClick={clickEventHandler} onMouseOver={hoverEventHandler}>
         {mday.format('DD')}
      </button>
   )

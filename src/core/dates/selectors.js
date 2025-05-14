@@ -143,10 +143,11 @@ export const getBankHolidaysForYear = createSelector(
 )
 
 export const getPlanned = createSelector(
-    getHolidaysForYear,
+    getHolidayMapForYear,
     getProvisionalHolidaysForYear,
     (holidays, provisionalHolidays) => {
-        return holidays.length - provisionalHolidays.length;
+        const numOfHolidays = Object.values(holidays).filter(hol => !hol.hol.isBHoliday).reduce((acc, hol) => acc + (!!hol.hol.half ? 0.5 : 1), 0)
+        return numOfHolidays - provisionalHolidays.length;
     }
 );
 
@@ -154,11 +155,12 @@ export const getRemaining = createSelector(
     state => state.dates.carriedOver,
     state => state.dates.currentYear,
     state => state.dates.daysPerYear,
-    getHolidaysForYear,
+    getHolidayMapForYear,
     getProvisionalHolidaysForYear,
     (co, year, dpy, holidays, provisionalHolidays) => {
         const carried = co[year] || 0;
-        return carried + dpy - holidays.length - provisionalHolidays.length;
+        const numOfHolidays = Object.values(holidays).filter(hol => !hol.hol.isBHoliday).reduce((acc, hol) => acc + (!!hol.hol.half ? 0.5 : 1), 0)
+        return carried + dpy - numOfHolidays - provisionalHolidays.length;
     }
 );
 

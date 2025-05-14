@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getSelected } from '../../core/dates/selectors';
-import { deselectDay } from '../../core/dates/actions';
+import { deselectDay, halfDayToggle } from '../../core/dates/actions';
 
 import './style.css';
 
@@ -13,6 +13,13 @@ export const Controls = () => {
       (selected) => dispatch(deselectDay(selected)),
       [ dispatch ]
   );
+
+  const half = useCallback(
+    (selected) => dispatch(halfDayToggle(selected)),
+    [ dispatch ]
+  );
+  
+  const isSingleDay = selected.hol ? selected.hol.start === selected.hol.end : false
 
   return ( !selected ? null :
     <footer>
@@ -25,6 +32,7 @@ export const Controls = () => {
             <span className="from">From: {selected.hol.start}</span>
             <span className="to">To: {selected.hol.end}</span>
             <span className="length">({selected.length} days)</span>
+            {isSingleDay && <button onClick={half.bind(null, selected)}>Half day</button>}
             <button onClick={deselect.bind(null, selected)}>Deselect</button>
           </>
          )

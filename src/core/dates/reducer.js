@@ -16,6 +16,7 @@ import {
   FETCH_DATES_FROM_SERVER,
   ADD_NEW_BANK_HOLIDAY,
   UPDATE_BANK_HOLIDAYS,
+  DATES_HALF_DAY
 } from './action-types';
 
 if ( typeof defaultState.carriedOver === 'number' ) {
@@ -103,4 +104,18 @@ export const dates = handleActions({
         };
         return newState;
     },
-}, defaultState);
+    [DATES_HALF_DAY]: (state, {payload}) => {
+        const newState = {
+            ...state,
+            holidays: state.holidays.map(hol => {
+                if (hol.start === payload.hol.start) {
+                    return {
+                        ...hol,
+                        half: !hol.half
+                    }
+                }
+                return hol
+            })
+        };
+        return newState;
+    },}, defaultState);

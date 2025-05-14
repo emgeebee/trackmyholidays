@@ -12,9 +12,12 @@ import {
   UPDATE_BANK_HOLIDAYS,
   DATES_UPDATE_CARRIED_OVER,
   DATES_UPDATE_PER_YEAR,
+  DATES_HALF_DAY
 } from './action-types';
 
 export const deselectAction = createAction(DATES_DESELECT);
+
+export const halfDayToggleAction = createAction(DATES_HALF_DAY);
 
 export const fetchDatesAction = createAction(FETCH_DATES_FROM_SERVER);
 
@@ -33,6 +36,17 @@ export const updateCarriedOverAction = createAction(DATES_UPDATE_CARRIED_OVER);
 export const deselectDay = (payload) => {
     return async (dispatch, getState) => {
         await dispatch(deselectAction(payload));
+        const state = getState();
+        dispatch(saveDates(JSON.stringify({
+            ...state.dates,
+            selected: ''
+        }), state));
+    }
+}
+
+export const halfDayToggle = (payload) => {
+    return async (dispatch, getState) => {
+        await dispatch(halfDayToggleAction(payload));
         const state = getState();
         dispatch(saveDates(JSON.stringify({
             ...state.dates,
@@ -68,6 +82,7 @@ export const selectDay = (payload) => {
             payload: newState
         })
         if (state.startDay !== '') {
+            dispatch(selectHoliday({ formattedDay: payload, isBankHoliday: false } ))
             dispatch(saveDates(JSON.stringify({
                 ...newState,
                 selected: ''
@@ -80,7 +95,8 @@ export const fetchDates = () => {
     return (dispatch, getState) => {
         const token = getToken(getState());
         dispatch(fetchDatesAction())
-        return fetch(`https://78b76ebpsj.execute-api.us-west-2.amazonaws.com/dev/holidays`, {
+        return fetch(`/holidays`, {
+        // return fetch(`https://78b76ebpsj.execute-api.us-west-2.amazonaws.com/dev/holidays`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -97,7 +113,8 @@ export const saveDates = (data, state) => {
     return (dispatch) => {
         console.log(state);
         const token = getToken(state);
-        return fetch(`https://78b76ebpsj.execute-api.us-west-2.amazonaws.com/dev/holidays`, {
+        return fetch(`/holidays`, {
+        // return fetch(`https://78b76ebpsj.execute-api.us-west-2.amazonaws.com/dev/holidays`, {
             method: 'POST',
             body: data,
             headers: {
