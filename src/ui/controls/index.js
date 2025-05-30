@@ -32,7 +32,13 @@ export const Controls = () => {
             <span className="from">From: {selected.hol.start}</span>
             <span className="to">To: {selected.hol.end}</span>
             <span className="length">({selected.length} days)</span>
-            {isSingleDay && <button onClick={half.bind(null, selected)}>Half day</button>}
+            {isSingleDay && (
+              <button onClick={half.bind(null, selected)}>
+                {selected.hol.half === 'first' ? 'Last Half' : 
+                 selected.hol.half === 'last' ? 'Full Day' : 
+                 'Half Day'}
+              </button>
+            )}
             <button onClick={deselect.bind(null, selected)}>Deselect</button>
           </>
          )

@@ -28,7 +28,8 @@ export const Day = ({day}) => {
   
   const holidayMap = useSelector(getHolidayMapForYear);
   const isHalfDay = holidayMap[formattedDay] && holidayMap[formattedDay].hol.half;
-  const halfDayClass = isHalfDay ? 'half' : '';
+  const halfDayClass = isHalfDay ? 
+    (holidayMap[formattedDay].hol.half === 'first' ? 'half-first' : 'half-last') : '';
 
   const isProvHoliday = provisionalHolidays.indexOf(formattedDay) > -1;
   const provHolidayClass = isProvHoliday ? 'provhol' : '';

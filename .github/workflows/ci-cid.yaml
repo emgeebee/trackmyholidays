@@ -1,0 +1,55 @@
+name: Deploy for preview
+
+on: [pull_request, push]
+
+jobs:
+    preview:
+        runs-on: ubuntu-latest
+
+        permissions:
+            contents: read
+            deployments: write
+
+        steps:
+            - uses: actions/checkout@master
+
+            - name: Extract branch name
+              shell: bash
+              run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+              id: extract_branch
+
+            - uses: chrnorm/deployment-action@releases/v1
+              name: Create GitHub deployment
+              id: test
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN}}
+                  description: 'Preview branch ${{ steps.extract_branch.outputs.branch }}'
+                  environment: preview
+
+
+            - name: build
+              run: |
+                  npm install
+                  npm run build
+
+            - uses: shallwefootball/s3-upload-action@master
+              name: Upload S3
+              id: S3
+              with:
+                  aws_key_id: ${{ secrets.AWS_KEY_ID }}
+                  aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+                  aws_bucket: ${{ vars.AWS_BUCKET }}
+                  source_dir: 'out'
+                  aws-region: us-east-1
+                  destination_dir: ''
+
+
+
+            - name: Update deployment status (success)
+              if: success()
+              uses: chrnorm/deployment-status@releases/v1
+              with:
+                  token: ${{ secrets.GITHUB_TOKEN }}
+                  target_url: https://aws-bucket.s3.ap-northeast-2.amazonaws.com/${{steps.S3.outputs.object_key}}/index.html
+                  state: 'success'
+                  deployment_id: ${{ steps.test.outputs.deployment_id }}

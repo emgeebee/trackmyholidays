@@ -109,9 +109,19 @@ export const dates = handleActions({
             ...state,
             holidays: state.holidays.map(hol => {
                 if (hol.start === payload.hol.start) {
+                    // If already a half day, cycle through: full -> first half -> last half -> full
+                    const currentHalf = hol.half;
+                    let newHalf;
+                    if (!currentHalf) {
+                        newHalf = 'first';
+                    } else if (currentHalf === 'first') {
+                        newHalf = 'last';
+                    } else {
+                        newHalf = false;
+                    }
                     return {
                         ...hol,
-                        half: !hol.half
+                        half: newHalf
                     }
                 }
                 return hol

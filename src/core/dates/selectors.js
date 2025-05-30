@@ -72,9 +72,11 @@ export const getBankHolidayMapForYear = createSelector(
 
 export const getHolidayMapForYear = createSelector(
     state => state.dates.holidays,
+    state => state.dates.currentYear,
+    state => state.dates.startMonth,
     getBankHolidayMapForYear,
-    (holidays, bankHolidays) => {
-        const hols = holidays.reduce(loopOverHolidaysAndFindEligibleDays(bankHolidays), {});
+    (holidays, currentYear, startMonth, bankHolidays) => {
+        const hols = holidays.filter(filterToCurrentYear(currentYear, startMonth)).reduce(loopOverHolidaysAndFindEligibleDays(bankHolidays), {});
         return {...hols, ...bankHolidays};
     }
 )

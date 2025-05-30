@@ -22,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build && ./postbuild.sh",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "echo 'upload to https://us-west-2.console.aws.amazon.com/s3/upload/holidays-prod-holidaysstaticfilesbucket-1e54dkgr2bspt?region=us-west-2'"
   },
   "eslintConfig": {
     "extends": "react-app"

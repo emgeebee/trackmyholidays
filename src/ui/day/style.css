@@ -26,6 +26,12 @@
 .half {
     background: linear-gradient(to bottom right, #fff 0%, #fff 50%, #FFD700 50%, #FFD700 100%);
 }
+.half-first {
+    background: linear-gradient(to bottom right, #FFD700 0%, #FFD700 50%, #fff 50%, #fff 100%);
+}
+.half-last {
+    background: linear-gradient(to bottom right, #fff 0%, #fff 50%, #FFD700 50%, #FFD700 100%);
+}
 .day-0 {
     grid-column: 0;
 }
