@@ -41,6 +41,7 @@
     ]
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "redux-generators": "^1.0.1"
   }
 }

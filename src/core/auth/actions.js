@@ -13,6 +13,5 @@ export const LoginAction = createAction(LOGIN_AND_LOAD_DATA, async (payload) => 
         type: LOGIN,
         payload
     });
-    console.log(payload)
     storeInstance.dispatch(fetchDates(payload.tokenObj.id_token))
 });
