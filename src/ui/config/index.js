@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
@@ -7,6 +7,7 @@ import { DATES_SELECT_START_MONTH } from '../../core/dates/action-types';
 import { addNewBH, updateBH, updatePerYearAction, updateCarriedOverAction } from '../../core/dates/actions';
 import { getIsConfig, getBankHolidayOptions } from '../../core/config/selectors';
 import { getCurrentPY, getCurrentCO, getHolidayMapForYear, getBankHolidaysForYear } from '../../core/dates/selectors';
+import { bankHolidayCountries } from '../../config';
 
 import 'react-tabs/style/react-tabs.css';
 import './style.css';
@@ -15,6 +16,7 @@ const moment = require('moment');
 moment().format();
 
 export const Config = () => {
+  const [selectedCountry, setSelectedCountry] = useState('uk');
   const isConfig = useSelector(getIsConfig);
   let co = useSelector(getCurrentCO);
   let py = useSelector(getCurrentPY);
@@ -64,6 +66,11 @@ export const Config = () => {
       dispatch(addNewBH());
   }, [dispatch]);
 
+  const resetBankHolidays = useCallback(() => {
+    const holidays = bankHolidayCountries[selectedCountry].dates;
+    dispatch(updateBH(holidays));
+  }, [dispatch, selectedCountry]);
+
   const getDateControls = () => (
     <>
       <div className="control">
@@ -94,16 +101,19 @@ export const Config = () => {
 
   const getBankHolidayControls = () => {
     return (
-
     <>
       <div className="control">
-      <label for="reset-dates">Reset bank holiday dates to country:</label>
-        <select id="reset-dates" value={'uk'} onChange={() => {}}>
+      <label htmlFor="reset-dates">Reset bank holiday dates to country:</label>
+        <select 
+          id="reset-dates" 
+          value={selectedCountry} 
+          onChange={(e) => setSelectedCountry(e.target.value)}
+        >
           { getBankHolidayOptions().map((country) => (
             ( <option key={country.key} value={country.key} >{country.display}</option> )
           )) }
         </select>
-        <button onClick={closeConfig}>Reset</button>
+        <button onClick={resetBankHolidays}>Reset</button>
       </div>
         { Object.values(uiDates).map((date) => (
          <div key={date.key} className="control">
