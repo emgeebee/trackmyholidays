@@ -105,11 +105,6 @@ export const Config = () => {
     dispatch(updateBH(holidays));
   }, [dispatch, selectedCountry]);
 
-  const resetBankHolidays = useCallback(() => {
-    const holidays = bankHolidayCountries[selectedCountry].dates;
-    dispatch(updateBH(holidays));
-  }, [dispatch, selectedCountry]);
-
   const getDateControls = () => (
     <>
       <div className="control">
