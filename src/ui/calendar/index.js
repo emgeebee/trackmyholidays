@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { GoogleLogin } from "react-google-login";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
 import { getDays, getIsLoading } from "../../core/dates/selectors";
 import { getIsConfigLoading, getConfigData } from "../../core/config/selectors";
@@ -32,7 +32,7 @@ export const Calendar = () => {
   );
 
   return (
-    <>
+    <GoogleOAuthProvider clientId={configData.google_account}>
       <Header />
       <div className="container">
         {loading || configLoading ? (
@@ -50,26 +50,20 @@ export const Calendar = () => {
               Please log in with your google account, so we can sync your
               holidays and allow you to access them on any device
             </p>
-
-            <GoogleLogin
-              clientId={configData.google_account}
-              render={(renderProps) => (
-                <button
-                  onClick={renderProps.onClick}
-                  disabled={renderProps.disabled}
-                >
-                  Login with Google
-                </button>
-              )}
-              buttonText="Login"
-              onSuccess={responseGoogle}
-              onFailure={responseGoogle}
-              cookiePolicy={"single_host_origin"}
-            />
+            {configData.google_account && (
+              <div className="button">
+                <GoogleLogin
+                  auto_select
+                  buttonText="Login"
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                />
+              </div>
+            )}
           </div>
         )}
       </div>
       <Controls />
-    </>
+    </GoogleOAuthProvider>
   );
 };
