@@ -1,1 +1,3 @@
-export const CHANGE_CONFIG = 'CHANGE_CONFIG';
+export const CHANGE_CONFIG = "CHANGE_CONFIG";
+export const LOAD_CONFIG = "LOAD_CONFIG";
+export const CONFIG_LOADED = "CONFIG_LOADED";
