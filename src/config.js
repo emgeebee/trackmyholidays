@@ -2,7 +2,8 @@ export const bankHolidayCountries = {
     uk: {
         display: 'UK',
         dates: [
-            { start: '24-01-01', name: 'New Year\'s Day' },
+            // 2024
+            { start: '24-01-01', name: "New Year's Day" },
             { start: '24-03-29', name: 'Good Friday' },
             { start: '24-04-01', name: 'Easter Monday' },
             { start: '24-05-06', name: 'Early May Bank Holiday' },
@@ -10,22 +11,51 @@ export const bankHolidayCountries = {
             { start: '24-08-26', name: 'Summer Bank Holiday' },
             { start: '24-12-25', name: 'Christmas Day' },
             { start: '24-12-26', name: 'Boxing Day' },
-            { start: '25-01-01', name: 'New Year\'s Day' },
+            // 2025
+            { start: '25-01-01', name: "New Year's Day" },
             { start: '25-04-18', name: 'Good Friday' },
             { start: '25-04-21', name: 'Easter Monday' },
             { start: '25-05-05', name: 'Early May Bank Holiday' },
             { start: '25-05-26', name: 'Spring Bank Holiday' },
             { start: '25-08-25', name: 'Summer Bank Holiday' },
             { start: '25-12-25', name: 'Christmas Day' },
-            { start: '25-12-26', name: 'Boxing Day' }
-        ]
+            { start: '25-12-26', name: 'Boxing Day' },
+            // 2026
+            { start: '26-01-01', name: "New Year's Day" },
+            { start: '26-04-03', name: 'Good Friday' },
+            { start: '26-04-06', name: 'Easter Monday' },
+            { start: '26-05-04', name: 'Early May Bank Holiday' },
+            { start: '26-05-25', name: 'Spring Bank Holiday' },
+            { start: '26-08-31', name: 'Summer Bank Holiday' },
+            { start: '26-12-25', name: 'Christmas Day' },
+            { start: '26-12-28', name: 'Boxing Day' },
+            // 2027
+            { start: '27-01-01', name: "New Year's Day" },
+            { start: '27-03-26', name: 'Good Friday' },
+            { start: '27-03-29', name: 'Easter Monday' },
+            { start: '27-05-03', name: 'Early May Bank Holiday' },
+            { start: '27-05-31', name: 'Spring Bank Holiday' },
+            { start: '27-08-30', name: 'Summer Bank Holiday' },
+            { start: '27-12-27', name: 'Christmas Day' },
+            { start: '27-12-28', name: 'Boxing Day' },
+            // 2028
+            { start: '28-01-03', name: "New Year's Day" },
+            { start: '28-04-14', name: 'Good Friday' },
+            { start: '28-04-17', name: 'Easter Monday' },
+            { start: '28-05-01', name: 'Early May Bank Holiday' },
+            { start: '28-05-29', name: 'Spring Bank Holiday' },
+            { start: '28-08-28', name: 'Summer Bank Holiday' },
+            { start: '28-12-25', name: 'Christmas Day' },
+            { start: '28-12-26', name: 'Boxing Day' },
+        ],
     },
     usa: {
         display: 'USA',
         dates: [
-            { start: '24-01-01', name: 'New Year\'s Day' },
+            // 2024
+            { start: '24-01-01', name: "New Year's Day" },
             { start: '24-01-15', name: 'Martin Luther King Jr. Day' },
-            { start: '24-02-19', name: 'Presidents\' Day' },
+            { start: '24-02-19', name: "Presidents' Day" },
             { start: '24-05-27', name: 'Memorial Day' },
             { start: '24-06-19', name: 'Juneteenth' },
             { start: '24-07-04', name: 'Independence Day' },
@@ -34,9 +64,10 @@ export const bankHolidayCountries = {
             { start: '24-11-11', name: 'Veterans Day' },
             { start: '24-11-28', name: 'Thanksgiving Day' },
             { start: '24-12-25', name: 'Christmas Day' },
-            { start: '25-01-01', name: 'New Year\'s Day' },
+            // 2025
+            { start: '25-01-01', name: "New Year's Day" },
             { start: '25-01-20', name: 'Martin Luther King Jr. Day' },
-            { start: '25-02-17', name: 'Presidents\' Day' },
+            { start: '25-02-17', name: "Presidents' Day" },
             { start: '25-05-26', name: 'Memorial Day' },
             { start: '25-06-19', name: 'Juneteenth' },
             { start: '25-07-04', name: 'Independence Day' },
@@ -44,7 +75,43 @@ export const bankHolidayCountries = {
             { start: '25-10-13', name: 'Columbus Day' },
             { start: '25-11-11', name: 'Veterans Day' },
             { start: '25-11-27', name: 'Thanksgiving Day' },
-            { start: '25-12-25', name: 'Christmas Day' }
-        ]
-    }
-}
+            { start: '25-12-25', name: 'Christmas Day' },
+            // 2026
+            { start: '26-01-01', name: "New Year's Day" },
+            { start: '26-01-19', name: 'Martin Luther King Jr. Day' },
+            { start: '26-02-16', name: "Presidents' Day" },
+            { start: '26-05-25', name: 'Memorial Day' },
+            { start: '26-06-19', name: 'Juneteenth' },
+            { start: '26-07-04', name: 'Independence Day' },
+            { start: '26-09-07', name: 'Labor Day' },
+            { start: '26-10-12', name: 'Columbus Day' },
+            { start: '26-11-11', name: 'Veterans Day' },
+            { start: '26-11-26', name: 'Thanksgiving Day' },
+            { start: '26-12-25', name: 'Christmas Day' },
+            // 2027
+            { start: '27-01-01', name: "New Year's Day" },
+            { start: '27-01-18', name: 'Martin Luther King Jr. Day' },
+            { start: '27-02-15', name: "Presidents' Day" },
+            { start: '27-05-31', name: 'Memorial Day' },
+            { start: '27-06-19', name: 'Juneteenth' },
+            { start: '27-07-04', name: 'Independence Day' },
+            { start: '27-09-06', name: 'Labor Day' },
+            { start: '27-10-11', name: 'Columbus Day' },
+            { start: '27-11-11', name: 'Veterans Day' },
+            { start: '27-11-25', name: 'Thanksgiving Day' },
+            { start: '27-12-25', name: 'Christmas Day' },
+            // 2028
+            { start: '28-01-01', name: "New Year's Day" },
+            { start: '28-01-17', name: 'Martin Luther King Jr. Day' },
+            { start: '28-02-21', name: "Presidents' Day" },
+            { start: '28-05-29', name: 'Memorial Day' },
+            { start: '28-06-19', name: 'Juneteenth' },
+            { start: '28-07-04', name: 'Independence Day' },
+            { start: '28-09-04', name: 'Labor Day' },
+            { start: '28-10-09', name: 'Columbus Day' },
+            { start: '28-11-11', name: 'Veterans Day' },
+            { start: '28-11-23', name: 'Thanksgiving Day' },
+            { start: '28-12-25', name: 'Christmas Day' },
+        ],
+    },
+};
