@@ -1,6 +1,6 @@
 import { createAction } from "redux-actions";
 import { getToken } from "../auth/selectors";
-import { defaultState } from "./constants";
+import { base, defaultState } from "./constants";
 
 import {
   DATES_DESELECT,
@@ -89,6 +89,10 @@ export const selectDay = (payload) => {
     }
     const newState = {
       ...state,
+      selected:
+        state.selected?.formattedDay === payload || payload === null
+          ? null
+          : state.selected,
       startDay: newStartDay,
       holidays: [...newHolidays],
       endOfCurrent: "",
@@ -116,7 +120,7 @@ export const fetchDates = () => {
   return (dispatch, getState) => {
     const token = getToken(getState());
     dispatch(fetchDatesAction());
-    return fetch(`/holidays`, {
+    return fetch(`${base}/holidays`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -130,10 +134,9 @@ export const fetchDates = () => {
 };
 
 export const saveDates = (data, state) => {
-  return (dispatch) => {
-    console.log(state);
+  return () => {
     const token = getToken(state);
-    return fetch(`/holidays`, {
+    return fetch(`${base}/holidays`, {
       method: "POST",
       body: data,
       headers: {

@@ -150,8 +150,19 @@ export const getHolidaysForYear = createSelector(
   (holidays, currentYear, startMonth, bankHolidays) =>
     holidays
       .filter(filterToCurrentYear(currentYear, startMonth))
-      .map(findHolidayDays(bankHolidays))
-      .flat()
+      .flatMap(findHolidayDays(bankHolidays))
+);
+
+export const getHolidaysForYearInPast = createSelector(
+  getHolidayMapForYear,
+  (holidays) => {
+    const current = moment();
+
+    return Object.values(holidays)
+      .filter((hol) => !hol.hol.isBHoliday)
+      .filter((hol) => moment(hol.hol.start, "YY-MM-DD") < current)
+      .reduce((acc, hol) => acc + (!!hol.hol.half ? 0.5 : 1), 0);
+  }
 );
 
 export const getBankHolidaysForYear = createSelector(
