@@ -7,11 +7,11 @@ import { LOGIN, LOGIN_AND_LOAD_DATA } from "./action-types";
 
 export const LoginAction = createAction(
   LOGIN_AND_LOAD_DATA,
-  async (payload) => {
+  async (payload: { credential?: string | undefined }) => {
     await storeInstance.dispatch({
       type: LOGIN,
       payload,
     });
-    storeInstance.dispatch(fetchDates(payload.credential));
+    storeInstance.dispatch(fetchDates() as any);
   }
 );

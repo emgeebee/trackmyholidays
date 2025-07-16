@@ -2,6 +2,7 @@
 import { handleActions } from "redux-actions";
 import { filterOutCurrentYear } from "./selectors";
 import { defaultState } from "./constants";
+import { HolidayState, Action } from "../../types/holiday";
 
 import {
   DATES_CHANGE_YEAR,
@@ -22,16 +23,16 @@ import {
 if (typeof defaultState.carriedOver === "number") {
   const co = defaultState.carriedOver;
   defaultState.carriedOver = {};
-  defaultState[defaultState.currentYear] = co;
+  defaultState.carriedOver[defaultState.currentYear] = co;
 }
 
-export const dates = handleActions(
+export const dates = handleActions<HolidayState, any>(
   {
-    [FETCH_DATES_FROM_SERVER]: (state, { payload }) => ({
+    [FETCH_DATES_FROM_SERVER]: (state: HolidayState) => ({
       ...state,
       loading: true,
     }),
-    [ADD_NEW_BANK_HOLIDAY]: (state) => ({
+    [ADD_NEW_BANK_HOLIDAY]: (state: HolidayState) => ({
       ...state,
       bankHolidays: [
         ...state.bankHolidays,
@@ -43,7 +44,7 @@ export const dates = handleActions(
         },
       ],
     }),
-    [UPDATE_BANK_HOLIDAYS]: (state, { payload }) => {
+    [UPDATE_BANK_HOLIDAYS]: (state, { payload }: Action) => {
       const others = state.bankHolidays.filter(
         filterOutCurrentYear(state.currentYear, state.startMonth)
       );
@@ -52,7 +53,7 @@ export const dates = handleActions(
         bankHolidays: [...others, ...payload],
       };
     },
-    [LOAD_DATES_FROM_SERVER]: (state, { payload }) => {
+    [LOAD_DATES_FROM_SERVER]: (state, { payload }: Action) => {
       const data = payload.text;
       return {
         ...state,
@@ -65,21 +66,24 @@ export const dates = handleActions(
         loading: false,
       };
     },
-    [DATES_SELECT_DAY]: (state = defaultState, { payload }) => {
+    [DATES_SELECT_DAY]: (_state: HolidayState, { payload }: Action) => {
       return payload;
     },
-    [DATES_SELECT_END_OF_CURRENT]: (state, { payload }) => ({
+    [DATES_SELECT_END_OF_CURRENT]: (
+      state: HolidayState,
+      { payload }: Action
+    ) => ({
       ...state,
       endOfCurrent: payload,
     }),
-    [DATES_UPDATE_PER_YEAR]: (state, { payload }) => {
+    [DATES_UPDATE_PER_YEAR]: (state: HolidayState, { payload }: Action) => {
       const newState = {
         ...state,
         daysPerYear: parseInt(payload),
       };
       return newState;
     },
-    [DATES_UPDATE_CARRIED_OVER]: (state, { payload }) => {
+    [DATES_UPDATE_CARRIED_OVER]: (state: HolidayState, { payload }: Action) => {
       const newState = {
         ...state,
         carriedOver: {
@@ -89,20 +93,20 @@ export const dates = handleActions(
       };
       return newState;
     },
-    [DATES_SELECT_START_MONTH]: (state, { payload }) => ({
+    [DATES_SELECT_START_MONTH]: (state: HolidayState, { payload }: Action) => ({
       ...state,
       startMonth: payload,
     }),
-    [DATES_SELECT_HOLIDAY]: (state, { payload }) => ({
+    [DATES_SELECT_HOLIDAY]: (state: HolidayState, { payload }: Action) => ({
       ...state,
       selected: payload === state.selected ? null : payload,
     }),
-    [DATES_CHANGE_YEAR]: (state, { payload }) => ({
+    [DATES_CHANGE_YEAR]: (state: HolidayState, { payload }: Action) => ({
       ...state,
       currentYear: state.currentYear + payload,
       startDay: "",
     }),
-    [DATES_DESELECT]: (state, { payload }) => {
+    [DATES_DESELECT]: (state: HolidayState, { payload }: Action) => {
       const newState = {
         ...state,
         holidays: state.holidays.filter(
@@ -111,7 +115,10 @@ export const dates = handleActions(
       };
       return newState;
     },
-    [DATES_HALF_DAY]: (state, { payload }) => {
+    [DATES_HALF_DAY]: (
+      state: HolidayState,
+      { payload }: Action
+    ): HolidayState => {
       const newState = {
         ...state,
         holidays: state.holidays.map((hol) => {
@@ -120,11 +127,11 @@ export const dates = handleActions(
             const currentHalf = hol.half;
             let newHalf;
             if (!currentHalf) {
-              newHalf = "first";
+              newHalf = "first" as "first";
             } else if (currentHalf === "first") {
-              newHalf = "last";
+              newHalf = "last" as "last";
             } else {
-              newHalf = false;
+              newHalf = null as null;
             }
             return {
               ...hol,

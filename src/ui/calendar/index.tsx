@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 
@@ -23,11 +23,12 @@ export const Calendar = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchConfig());
+    dispatch(fetchConfig() as any);
   }, [dispatch]);
 
   const responseGoogle = useCallback(
-    (payload) => dispatch(LoginAction(payload)),
+    (payload: { credential?: string | undefined }) =>
+      dispatch(LoginAction(payload)),
     [dispatch]
   );
 
@@ -52,12 +53,7 @@ export const Calendar = () => {
             </p>
             {configData.google_account && (
               <div className="button">
-                <GoogleLogin
-                  auto_select
-                  buttonText="Login"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
-                />
+                <GoogleLogin auto_select onSuccess={responseGoogle} />
               </div>
             )}
           </div>

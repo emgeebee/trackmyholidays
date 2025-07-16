@@ -15,7 +15,7 @@ export const defaultState = {
   currentYear,
   daysPerYear: 30,
   carriedOver: {
-    2019: 0,
+    [currentYear]: 0,
   },
   startDay: "",
   endOfCurrent: "",
