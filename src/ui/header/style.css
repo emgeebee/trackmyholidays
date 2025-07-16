@@ -1,86 +1,87 @@
 header {
-    position: fixed;
-    background: white;
-    width: 99vw;
-    z-index: 10;
+  position: fixed;
+  background: white;
+  width: 99vw;
+  z-index: 10;
 }
 
 .year button,
 .settings button {
-    background-color: transparent;
-    border: none;
-    vertical-align: middle;
-    cursor: pointer;
+  background-color: transparent;
+  border: none;
+  vertical-align: middle;
+  cursor: pointer;
 }
 
 .header-controls {
-    display: inline-block;
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-items: center;
-    font-weight: bold;
+  display: inline-block;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
 }
 @media screen and (min-width: 1440px) {
-    .header-controls {
-        height: 60px;
-    }
+  .header-controls {
+    height: 60px;
+  }
 }
 
 .settings {
-    width: 15%;
-    width: 33%;
-    position: relative;
-    left: 10px;
-    height: 38px;
-    display: flex;
-    overflow-y: hidden;
-    align-items: center;
+  width: 15%;
+  width: 33%;
+  position: relative;
+  left: 10px;
+  height: 38px;
+  display: flex;
+  overflow-y: hidden;
+  align-items: center;
 }
 
 .settings button {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 
 .year {
-    display: flex;
-    width: 33%;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  width: 33%;
+  align-items: center;
+  justify-content: center;
 }
 
 .stats-group {
-    width: 33%;
-    position: relative;
-    right: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+  width: 33%;
+  position: relative;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 .stats-small {
-    font-size: 12px;
+  font-size: 12px;
 }
 .currentYear {
-    margin: 0 10px;
+  margin: 0 10px;
 }
 @media only screen and (max-width: 600px) {
-    .stats-group {
-        width: 26%;
-    }
-    .stats {
-        font-size: 12px;
-    }
-    .currentYear {
-        margin: 0;
-        padding-bottom: 4px;
-    }
-    .year {
-        width: 50%;
-    }
-    .settings {
-        width: 15%;
-    }
+  .stats-group {
+    width: 26%;
+  }
+  .stats {
+    font-size: 12px;
+  }
+  .currentYear {
+    margin: 0;
+    padding-bottom: 4px;
+  }
+  .year {
+    width: 50%;
+  }
+  .settings {
+    width: 15%;
+    overflow: visible;
+  }
 }

@@ -66,7 +66,7 @@ export const Controls = () => {
           </span>
           <span className="length">({selected.length} days)</span>
           {isSingleDay && (
-            <button onClick={half.bind(null, selected)}>
+            <button type="button" onClick={half.bind(null, selected)}>
               {selected.hol.half === "first"
                 ? "Last Half"
                 : selected.hol.half === "last"
@@ -74,7 +74,9 @@ export const Controls = () => {
                 : "Half Day"}
             </button>
           )}
-          <button onClick={deselect.bind(null, selected)}>Deselect</button>
+          <button type="button" onClick={deselect.bind(null, selected)}>
+            Deselect
+          </button>
         </>
       )}
     </footer>

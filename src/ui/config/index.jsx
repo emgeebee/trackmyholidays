@@ -25,7 +25,8 @@ import { bankHolidayCountries } from "../../config";
 import "react-tabs/style/react-tabs.css";
 import "./style.css";
 
-const moment = require("moment");
+import moment from "moment";
+
 moment().format();
 
 export const Config = () => {

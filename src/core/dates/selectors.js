@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-const moment = require("moment");
+import moment from "moment";
 moment().format();
 
 const dateState = (state) => state.dates;
