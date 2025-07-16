@@ -4,29 +4,34 @@
   "private": true,
   "dependencies": {
     "@react-oauth/google": "^0.12.2",
-    "moment": "^2.24.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "moment": "^2.29.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-google-login": "^5.0.4",
     "react-icons": "^3.7.0",
-    "react-redux": "^7.1.0",
-    "react-scripts": "5.0.1",
-    "react-tabs": "^3.1.1",
-    "redux": "^4.0.1",
+    "react-redux": "^8.1.3",
+    "react-tabs": "^6.1.0",
+    "redux": "^4.2.1",
     "redux-actions": "^2.6.5",
     "redux-localstorage-simple": "^2.1.6",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.1.8"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@types/redux-actions": "^2.6.5",
+    "@types/redux-logger": "^3.0.13",
+    "@vitejs/plugin-react": "^4.2.1",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build && ./postbuild.sh",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "echo 'upload to https://us-west-2.console.aws.amazon.com/s3/upload/holidays-prod-holidaysstaticfilesbucket-1e54dkgr2bspt?region=us-west-2'"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
+    "dev": "vite",
+    "build": "tsc --noEmit  && vite build",
+    "preview": "vite preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "browserslist": {
     "production": [
@@ -39,9 +44,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@biomejs/biome": "1.9.4",
-    "redux-generators": "^1.0.1"
   }
 }

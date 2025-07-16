@@ -1,20 +1,34 @@
 footer {
-    position: fixed;
-    display: flex;
-    align-items: center;
-    background-color: #2F96B4;
-    color: white;
-    width: 100vw;
-    z-index: 10;
-    bottom: 0;
-    height: 40px;
-    justify-content: center;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  background-color: #2f96b4;
+  color: white;
+  width: 100vw;
+  z-index: 10;
+  bottom: 0;
+  height: 40px;
+  justify-content: center;
 }
-.from, .to, .length {
-    margin: 0 10px;
+.from,
+.to,
+.length {
+  margin: 0 10px;
+}
+@media screen and (max-width: 768px) {
+  .from-to {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+  }
+  .from,
+  .to,
+  .length {
+    font-size: small;
+  }
 }
 @media screen and (min-width: 1440px) {
-    footer {
-        height: 60px;
-    }
+  footer {
+    height: 60px;
+  }
 }
