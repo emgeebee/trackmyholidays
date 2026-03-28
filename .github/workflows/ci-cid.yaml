@@ -29,8 +29,8 @@ jobs:
 
       - name: Install and build
         env:
-          # Project Pages: https://<user>.github.io/<repo>/ — override via repo var PAGES_BASE_PATH if needed (e.g. "/" for a user site repo).
-          VITE_BASE_PATH: ${{ vars.PAGES_BASE_PATH || format('/{0}/', github.event.repository.name) }}
+          # Optional: set PAGES_BASE_PATH only if you need an absolute base (rare). Default build uses relative ./ in vite.config.
+          VITE_BASE_PATH: ${{ vars.PAGES_BASE_PATH }}
         run: |
           npm ci
           npm run build
