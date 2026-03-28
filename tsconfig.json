@@ -23,5 +23,5 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false
   },
-  "include": ["src/index.tsx"]
+  "include": ["src"]
 }

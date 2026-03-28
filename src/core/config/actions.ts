@@ -10,7 +10,7 @@ export const fetchConfig = () => {
   return async (dispatch: Dispatch) => {
     dispatch(loadConfig());
     try {
-      const response = await fetch("/env.json");
+      const response = await fetch(`${import.meta.env.BASE_URL}env.json`);
       const config = await response.json();
       dispatch(configLoaded(config));
     } catch (error) {

@@ -34,6 +34,8 @@ export interface ConfigState {
   loading: boolean;
   data: {
     google_account: string;
+    /** API Gateway base (stage path only), e.g. https://xxx.execute-api.region.amazonaws.com/prod */
+    api_base_url?: string;
   };
 }
 
