@@ -1,6 +1,7 @@
 import { Action, createAction } from "redux-actions";
 import { getToken } from "../auth/selectors";
-import { base, defaultState } from "./constants";
+import { getHolidaysApiBase } from "./api-base";
+import { defaultState } from "./constants";
 
 type GetState = () => RootState;
 type Dispatch = (action: Action<any>) => void;
@@ -122,9 +123,11 @@ export const selectDay = (payload: string) => {
 
 export const fetchDates = () => {
   return (dispatch: Dispatch, getState: GetState) => {
-    const token = getToken(getState());
+    const state = getState();
+    const token = getToken(state);
+    const apiBase = getHolidaysApiBase(state);
     dispatch(fetchDatesAction());
-    return fetch(`${base}/holidays`, {
+    return fetch(`${apiBase}/holidays`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -143,7 +146,8 @@ export const fetchDates = () => {
 export const saveDates = (data: string, state: RootState) => {
   return () => {
     const token = getToken(state);
-    return fetch(`${base}/holidays`, {
+    const apiBase = getHolidaysApiBase(state);
+    return fetch(`${apiBase}/holidays`, {
       method: "POST",
       body: data,
       headers: {

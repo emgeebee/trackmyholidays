@@ -4,11 +4,6 @@ const startMonth = 9;
 const currentYear =
   moment().month() < startMonth ? moment().year() - 1 : moment().year();
 
-export const base =
-  window.location.origin === "http://localhost:3000"
-    ? "https://dev.trackmyholidays.com"
-    : "";
-
 export const defaultState = {
   loading: false,
   startMonth,

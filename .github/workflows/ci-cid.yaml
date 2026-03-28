@@ -1,62 +1,62 @@
-name: Deploy for preview
+name: CI and Deploy Pages
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    branches: [main]
   push:
-    branches:
-      - main
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  preview:
+  build:
     runs-on: ubuntu-latest
     environment: ${{ github.event_name == 'pull_request' && 'preview' || 'main' }}
-
-    permissions:
-      contents: read
-      deployments: write
-
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v4
 
-      - name: Extract branch name
-        shell: bash
-        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-        id: extract_branch
-
-      - uses: chrnorm/deployment-action@releases/v1
-        name: Create GitHub deployment
-        id: test
+      - uses: actions/setup-node@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN}}
-          description: "Preview branch ${{ steps.extract_branch.outputs.branch }}"
-          environment: preview
+          node-version: "20"
+          cache: npm
 
-      - name: build
+      - name: Install and build
+        env:
+          # Project Pages: https://<user>.github.io/<repo>/ — override via repo var PAGES_BASE_PATH if needed (e.g. "/" for a user site repo).
+          VITE_BASE_PATH: ${{ vars.PAGES_BASE_PATH || format('/{0}/', github.event.repository.name) }}
         run: |
-          npm install
+          npm ci
           npm run build
           echo '{
             "environment": "${{ github.event_name == 'pull_request' && 'preview' || 'main' }}",
-            "aws_bucket": "${{ vars.AWS_BUCKET }}",
-            "google_account": "${{ vars.GOOGLE_ACCOUNT }}"
+            "google_account": "${{ vars.GOOGLE_ACCOUNT }}",
+            "api_base_url": "${{ vars.HOLIDAYS_API_BASE }}"
           }' > build/env.json
 
-      - uses: shallwefootball/s3-upload-action@master
-        name: Upload S3
-        id: S3
+      - name: Upload Pages artifact
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
         with:
-          aws_key_id: ${{ secrets.AWS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_bucket: ${{ vars.AWS_BUCKET }}
-          source_dir: "build"
-          destination_dir: ""
+          path: build
 
-      - name: Update deployment status (success)
-        if: success()
-        uses: chrnorm/deployment-status@releases/v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          target_url: https://aws-bucket.s3.ap-northeast-2.amazonaws.com/${{steps.S3.outputs.object_key}}/index.html
-          state: "success"
-          deployment_id: ${{ steps.test.outputs.deployment_id }}
+  deploy:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
