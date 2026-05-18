@@ -1,65 +1,105 @@
 .day {
-    text-align: center;
-    padding: 3px 1px;
-    border: none;
-    height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 26px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: none;
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+}
 
-}
 .day:focus {
-    outline: none;
+  outline: none;
 }
-.hol {
-    background-color: #FFD700;
+
+.day:focus-visible {
+  z-index: 1;
+  box-shadow: inset 0 0 0 2px var(--color-today-ring);
 }
-.bhol {
-    background-color: #B0C4DE;
-}
-.provhol {
-    background-color: #fff3b0;
-}
-.select-mode:hover {
-    background-color: #fff3b0;
-}
-.start-of-hol {
-    background-color: #fff3b0;
-}
-.half {
-    background: linear-gradient(to bottom right, #fff 0%, #fff 50%, #FFD700 50%, #FFD700 100%);
-}
-.half-first {
-    background: linear-gradient(to bottom right, #FFD700 0%, #FFD700 50%, #fff 50%, #fff 100%);
-}
-.half-last {
-    background: linear-gradient(to bottom right, #fff 0%, #fff 50%, #FFD700 50%, #FFD700 100%);
-}
+
+.day-6,
 .day-0 {
-    grid-column: 0;
+  background-color: var(--color-weekend);
+  color: var(--color-text-muted);
 }
+
+.day.hol {
+  background-color: var(--color-holiday);
+  color: var(--color-holiday-text);
+  font-weight: 600;
+}
+
+.day.bhol {
+  background-color: var(--color-bank-hol);
+  color: var(--color-bank-hol-text);
+  font-weight: 600;
+}
+
+.day.provhol,
+.day.start-of-hol {
+  background-color: var(--color-provisional);
+  color: var(--color-holiday-text);
+}
+
+.day.select-mode:hover:not(.day-0):not(.day-6) {
+  background-color: var(--color-provisional-hover);
+}
+
+.day.half-first {
+  background: linear-gradient(
+    to bottom right,
+    var(--color-holiday) 0%,
+    var(--color-holiday) 50%,
+    var(--color-surface) 50%,
+    var(--color-surface) 100%
+  );
+}
+
+.day.half-last,
+.day.half {
+  background: linear-gradient(
+    to bottom right,
+    var(--color-surface) 0%,
+    var(--color-surface) 50%,
+    var(--color-holiday) 50%,
+    var(--color-holiday) 100%
+  );
+}
+
+.day.today {
+  position: relative;
+  z-index: 1;
+  box-shadow: inset 0 0 0 2px var(--color-today-ring);
+  font-weight: 700;
+  color: var(--color-today-ring);
+}
+
 .day-1 {
-    grid-column: 1;
+  grid-column: 1;
 }
 .day-2 {
-    grid-column: 2;
+  grid-column: 2;
 }
 .day-3 {
-    grid-column: 3;
+  grid-column: 3;
 }
 .day-4 {
-    grid-column: 4;
+  grid-column: 4;
 }
 .day-5 {
-    grid-column: 5;
+  grid-column: 5;
 }
 .day-6 {
-    grid-column: 6;
-    background-color: #B0C4DE;
-    border-radius: 0;
+  grid-column: 6;
 }
 .day-0 {
-    grid-column: 7;
-    background-color: #B0C4DE;
-    border-radius: 0;
-}
-.day.today {
-    border: 1px solid #2700ff;
+  grid-column: 7;
 }

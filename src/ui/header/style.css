@@ -1,87 +1,119 @@
 header {
   position: fixed;
-  background: white;
-  width: 99vw;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 10;
+  background: transparent;
+}
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: var(--header-height);
+  padding: 0 1rem;
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--color-header-from) 0%,
+    var(--color-header-to) 100%
+  );
+  box-shadow: var(--shadow-md);
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .year button,
 .settings button {
-  background-color: transparent;
-  border: none;
-  vertical-align: middle;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.header-controls {
-  display: inline-block;
-  left: 50%;
-  position: absolute;
-  transform: translateX(-50%);
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  align-items: center;
-  font-weight: bold;
-}
-@media screen and (min-width: 1440px) {
-  .header-controls {
-    height: 60px;
-  }
+.year button:hover,
+.settings button:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .settings {
-  width: 15%;
-  width: 33%;
-  position: relative;
-  left: 10px;
-  height: 38px;
+  flex: 0 0 33%;
   display: flex;
-  overflow-y: hidden;
   align-items: center;
+  min-height: 38px;
 }
 
 .settings button {
-  margin-left: 10px;
+  margin-left: 0;
 }
 
 .year {
+  flex: 0 0 33%;
   display: flex;
-  width: 33%;
   align-items: center;
   justify-content: center;
+  gap: 0.25rem;
+}
+
+.currentYear {
+  margin: 0 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 .stats-group {
-  width: 33%;
-  position: relative;
-  right: 10px;
+  flex: 0 0 33%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  gap: 0.125rem;
 }
+
 .stats-small {
-  font-size: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  opacity: 0.88;
 }
-.currentYear {
-  margin: 0 10px;
+
+.stats {
+  font-size: 0.875rem;
+  font-weight: 600;
 }
+
 @media only screen and (max-width: 600px) {
+  .header-controls {
+    padding: 0 0.5rem;
+  }
+
   .stats-group {
-    width: 26%;
+    flex: 0 0 26%;
   }
+
   .stats {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
+
   .currentYear {
     margin: 0;
-    padding-bottom: 4px;
+    font-size: 0.875rem;
   }
+
   .year {
-    width: 50%;
+    flex: 0 0 50%;
   }
+
   .settings {
-    width: 15%;
-    overflow: visible;
+    flex: 0 0 15%;
   }
 }
