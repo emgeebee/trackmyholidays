@@ -1,46 +1,378 @@
+/* —— Modal shell —— */
 .modal {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    z-index: 20;
-    top: 0;
-    background: white;
-    overflow-y: scroll;
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0.75rem;
+  overflow-y: auto;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
+
 .controls {
-    max-width: 320px;
-    margin: 30px auto;
-    height: 100vh;
-    padding: 0 10px;
+  width: 100%;
+  max-width: 400px;
+  max-height: calc(100vh - 1.5rem);
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
 }
-.control {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 40px;
-    justify-content: space-between;
+
+@media screen and (min-width: 480px) {
+  .modal {
     align-items: center;
-}
-.control button {
-    width: 25%;
-    margin: 10px;
-    border-radius: 10px;
-}
-.control input,
-.control select {
-    width: 30%;
-    padding: 10px;
-    border-radius: 10px;
-}
-.bh .control input {
-    width: 40%;
+    padding: 1.5rem;
+  }
+
+  .controls {
+    max-height: min(90vh, 720px);
+  }
 }
 
-
-.react-tabs__tab-list {
-    display: flex;
-    justify-content: space-between;
+/* —— Sheet header —— */
+.config-sheet__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  padding: 1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  background: linear-gradient(
+    180deg,
+    #f8fafc 0%,
+    var(--color-surface) 100%
+  );
 }
-.react-tabs__tab-panel--selected {
-    background-color: #F6f6f6;
-    padding: 10px 10px 40px;
+
+.config-sheet__title {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
+}
+
+.config-sheet__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.config-sheet__close:hover {
+  color: var(--color-text);
+  background: #fff;
+  border-color: #cbd5e1;
+}
+
+/* —— Tabs —— */
+.config-tabs {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.config-tabs__list {
+  display: flex;
+  flex-shrink: 0;
+  gap: 0.375rem;
+  margin: 0;
+  padding: 0.75rem 1rem 0;
+  list-style: none;
+  border: none;
+}
+
+.config-tabs__tab {
+  flex: 1;
+  margin: 0;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: center;
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.config-tabs__tab:hover {
+  color: var(--color-brand-dark);
+  background: #fff;
+}
+
+.config-tabs__tab.react-tabs__tab--selected {
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--color-header-from) 0%,
+    var(--color-header-to) 100%
+  );
+  border-color: transparent;
+  box-shadow: var(--shadow-sm);
+}
+
+.config-tabs__tab:focus {
+  outline: none;
+}
+
+.config-tabs__tab:focus-visible {
+  box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.35);
+}
+
+.config-tabs__panel {
+  flex: 1;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  outline: none;
+}
+
+.config-tabs__panel.react-tabs__tab-panel--selected {
+  padding: 0;
+}
+
+/* —— Panel content —— */
+.config-panel {
+  padding: 1rem 1.25rem 1.5rem;
+}
+
+.config-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.config-section:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.config-section__title {
+  margin: 0 0 0.375rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.config-section__hint {
+  margin: 0 0 1rem;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+/* —— Month picker —— */
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.month-grid__btn {
+  min-width: 0;
+  height: 2.5rem;
+  margin: 0;
+  padding: 0 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-brand-dark);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+  cursor: pointer;
+  transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease,
+    box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.month-grid__btn:hover {
+  background: #e0f2fe;
+  border-color: #7dd3fc;
+}
+
+.month-grid__btn--active {
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--color-header-from) 0%,
+    var(--color-header-to) 100%
+  );
+  border-color: transparent;
+  box-shadow: var(--shadow-sm);
+}
+
+.month-grid__btn--active:hover {
+  background: linear-gradient(
+    135deg,
+    var(--color-header-from) 0%,
+    var(--color-header-to) 100%
+  );
+  border-color: transparent;
+}
+
+/* —— Form fields —— */
+.field-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.field-row:last-child {
+  margin-bottom: 0;
+}
+
+.field-row--stacked {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.375rem;
+  margin-bottom: 1rem;
+}
+
+.field-row__label {
+  flex-shrink: 0;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.field-row__input {
+  width: 5.5rem;
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-text);
+  text-align: right;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field-row__input--grow {
+  width: 100%;
+  text-align: left;
+}
+
+.field-row__input:focus {
+  outline: none;
+  border-color: var(--color-brand);
+  box-shadow: 0 0 0 3px rgba(14, 116, 144, 0.2);
+}
+
+.field-row--stacked .field-row__input {
+  width: 100%;
+  text-align: left;
+}
+
+/* —— Buttons —— */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  margin: 0;
+  padding: 0 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn--primary {
+  color: #fff;
+  background: linear-gradient(
+    135deg,
+    var(--color-header-from) 0%,
+    var(--color-header-to) 100%
+  );
+  box-shadow: var(--shadow-sm);
+}
+
+.btn--primary:hover {
+  filter: brightness(1.05);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--secondary {
+  color: var(--color-brand-dark);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+.btn--secondary:hover {
+  background: #e0f2fe;
+  border-color: #7dd3fc;
+}
+
+/* —— Bank holiday list —— */
+.bh-list {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.bh-list__item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.625rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.bh-list__item:last-child {
+  margin-bottom: 0;
+}
+
+.bh-list__item .field-row__input[type="date"] {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 9rem;
+  text-align: left;
+}
+
+.bh-list__item .field-row__input--grow {
+  flex: 1 1 8rem;
+}
+
+/* Legacy hooks (unused markup) */
+.control {
+  display: none;
 }

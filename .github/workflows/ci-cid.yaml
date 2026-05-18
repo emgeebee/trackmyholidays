@@ -34,6 +34,9 @@ jobs:
         run: |
           npm ci
           npm run build
+          # HOLIDAYS_API_BASE must include the stage path (no /holidays suffix), e.g.
+          # https://xxxx.execute-api.us-west-2.amazonaws.com/prod
+          # CORS for https://www.trackmyholidays.com must be enabled on that API (Authorization header ⇒ preflight OPTIONS).
           echo '{
             "environment": "${{ github.event_name == 'pull_request' && 'preview' || 'main' }}",
             "google_account": "${{ vars.GOOGLE_ACCOUNT }}",

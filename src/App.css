@@ -1,9 +1,17 @@
-button {
-    height: 38px;
-    background-color: white;
-    border-radius: 3px;
+.App {
+  min-height: 100vh;
+}
+
+.App button {
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    color 0.15s ease, box-shadow 0.15s ease, transform 0.1s ease;
+}
+
+.App button:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 .react-icons {
-    vertical-align: middle;
+  vertical-align: middle;
 }
