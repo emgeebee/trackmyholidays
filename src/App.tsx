@@ -1,3 +1,4 @@
+import type { JSX } from "react";
 import { Calendar, Config } from "./ui";
 import "./App.css";
 

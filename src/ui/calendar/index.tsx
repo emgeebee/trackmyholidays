@@ -33,7 +33,7 @@ export const Calendar = () => {
 
   const responseGoogle = useCallback(
     (payload: { credential?: string | undefined }) =>
-      dispatch(LoginAction(payload)),
+      dispatch(LoginAction(payload) as any),
     [dispatch]
   );
 

@@ -1,13 +1,14 @@
 import { handleActions } from "redux-actions";
 import { CHANGE_CONFIG, LOAD_CONFIG, CONFIG_LOADED } from "./action-types";
+import { ConfigState } from "../../types/holiday";
 
-const defaultState = {
+const defaultState: ConfigState = {
   configIsOpen: false,
   loading: false,
-  data: {},
+  data: {} as ConfigState["data"],
 };
 
-export const config = handleActions(
+export const config = handleActions<ConfigState, any>(
   {
     [CHANGE_CONFIG]: (state) => ({
       ...state,
