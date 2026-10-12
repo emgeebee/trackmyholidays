@@ -4,6 +4,7 @@ import { RootState } from "../../types/holiday";
 
 export const getIsConfig = (state: RootState) =>
   state ? state.config.configIsOpen : false;
+export const getConfigTab = (state: RootState) => state.config.configTab;
 export const getIsConfigLoading = (state: RootState) =>
   state ? state.config.loading : false;
 export const getConfigData: (

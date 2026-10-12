@@ -8,9 +8,10 @@ import {
   updatePerYearAction,
   updateCarriedOverAction,
 } from "../../core/dates/actions";
-import { getIsConfig } from "../../core/config/selectors";
+import { getConfigTab, getIsConfig } from "../../core/config/selectors";
 import { getCurrentPY, getCurrentCO } from "../../core/dates/selectors";
 import { BankHolidaySettings } from "./bank-holidays";
+import { MemorableDateSettings } from "./memorable-dates";
 import { AppearanceSettings } from "./appearance";
 
 import "./style.css";
@@ -32,6 +33,7 @@ const MONTHS = [
 
 export const Config = () => {
   const isConfig = useSelector(getIsConfig);
+  const initialTab = useSelector(getConfigTab);
   const startMonth = useSelector((state) => state.dates.startMonth);
   let co = useSelector(getCurrentCO);
   let py = useSelector(getCurrentPY);
@@ -136,10 +138,11 @@ export const Config = () => {
             ×
           </button>
         </div>
-        <Tabs className="config-tabs">
+        <Tabs className="config-tabs" defaultIndex={initialTab}>
           <TabList className="config-tabs__list">
             <Tab className="config-tabs__tab">Dates</Tab>
             <Tab className="config-tabs__tab">Bank holidays</Tab>
+            <Tab className="config-tabs__tab">Memorable</Tab>
             <Tab className="config-tabs__tab">Appearance</Tab>
           </TabList>
           <TabPanel className="config-tabs__panel">
@@ -147,6 +150,9 @@ export const Config = () => {
           </TabPanel>
           <TabPanel className="config-tabs__panel config-tabs__panel--bh">
             <BankHolidaySettings />
+          </TabPanel>
+          <TabPanel className="config-tabs__panel">
+            <MemorableDateSettings />
           </TabPanel>
           <TabPanel className="config-tabs__panel">
             <AppearanceSettings />

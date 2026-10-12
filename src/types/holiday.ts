@@ -24,11 +24,44 @@ export interface HolidayMapEntry {
 export interface SelectedDay {
   formattedDay: string;
   isBHoliday?: boolean;
+  /** Set when the memorable-date dot (rather than the day itself) was clicked. */
+  isMemorable?: boolean;
+}
+
+export type MemorableRepeat = "once" | "monthly" | "yearly";
+
+/** A user-defined group of memorable dates, e.g. "Birthdays", with its own dot colour. */
+export interface MemorableCalendar {
+  id: string;
+  name: string;
+  /** CSS hex colour, e.g. "#ec4899". */
+  colour: string;
+}
+
+export interface MemorableDate {
+  id: string;
+  calendarId: string;
+  name: string;
+  /** Anchor date in YYYY-MM-DD (full year so birth years before 2000 round-trip). */
+  date: string;
+  repeat: MemorableRepeat;
+}
+
+/** A memorable date resolved onto a specific calendar day. */
+export interface MemorableOccurrence {
+  entry: MemorableDate;
+  calendar: MemorableCalendar;
+  /** Day the occurrence falls on, formatted YY-MM-DD like the rest of the calendar. */
+  day: string;
+  /** Whole years since the anchor date for yearly repeats; 0 for the anchor year itself. */
+  years: number;
 }
 
 export interface HolidayState {
   holidays: Holiday[];
   bankHolidays: Holiday[];
+  memorableCalendars: MemorableCalendar[];
+  memorableDates: MemorableDate[];
   selected: SelectedDay | null;
   startDay: string;
   endOfCurrent: string;
@@ -41,6 +74,8 @@ export interface HolidayState {
 
 export interface ConfigState {
   configIsOpen: boolean;
+  /** Tab the settings sheet opens on (index into the settings tab list). */
+  configTab: number;
   loading: boolean;
   data: {
     google_account?: string;
@@ -74,6 +109,9 @@ export interface ServerData {
     carriedOver: Record<number, number>;
     holidays: Holiday[];
     bankHolidays: Holiday[];
+    /** Absent for users whose data predates memorable dates. */
+    memorableCalendars?: MemorableCalendar[];
+    memorableDates?: MemorableDate[];
   };
 }
 

@@ -5,24 +5,35 @@ import moment from "moment";
 import {
   getHolidaysForYearInPast,
   getSelected,
+  getSelectedMemorable,
 } from "../../core/dates/selectors";
 import {
   convertToBankHoliday,
   deselectDay,
   halfDayToggle,
   removeBankHoliday,
+  removeMemorableDate,
   renameBankHoliday,
   renameHoliday,
   selectDay,
 } from "../../core/dates/actions";
+import { openSettings, SETTINGS_TAB } from "../../core/config/actions";
+import { describeOccurrence, REPEAT_OPTIONS } from "../../core/dates/memorable";
 import { useAppDispatch } from "../../core/hooks";
 import { CommitInput } from "../commit-input";
-import type { HolidayMapEntry } from "../../types/holiday";
+import type {
+  HolidayMapEntry,
+  MemorableOccurrence,
+} from "../../types/holiday";
 
 import "./style.css";
 
 const formatDay = (day?: string) =>
   day ? moment(day, "YY-MM-DD").format("ddd D MMM") : "";
+
+const repeatLabel = (occurrence: MemorableOccurrence) =>
+  REPEAT_OPTIONS.find((option) => option.value === occurrence.entry.repeat)
+    ?.label ?? occurrence.entry.repeat;
 
 const DaysTakenYTD = () => {
   const holidays = useSelector(getHolidaysForYearInPast);
@@ -48,6 +59,53 @@ const CloseButton = () => {
     >
       ×
     </button>
+  );
+};
+
+const MemorableControls = ({
+  occurrences,
+}: {
+  occurrences: MemorableOccurrence[];
+}) => {
+  const dispatch = useAppDispatch();
+
+  return (
+    <footer>
+      <CloseButton />
+      <span className="from">{formatDay(occurrences[0].day)}</span>
+      <ul className="memorable-list">
+        {occurrences.map((occurrence) => (
+          <li key={occurrence.entry.id} className="memorable-item">
+            <span
+              className="memorable-item__dot"
+              style={{ background: occurrence.calendar.colour }}
+              aria-hidden="true"
+            />
+            <span className="memorable-item__name">
+              {describeOccurrence(occurrence)}
+            </span>
+            <span className="memorable-item__meta">
+              {occurrence.calendar.name} · {repeatLabel(occurrence)}
+            </span>
+            <button
+              type="button"
+              className="memorable-item__remove"
+              onClick={() => dispatch(removeMemorableDate(occurrence.entry.id))}
+              aria-label={`Remove ${occurrence.entry.name}`}
+              title="Remove this memorable date"
+            >
+              ×
+            </button>
+          </li>
+        ))}
+      </ul>
+      <button
+        type="button"
+        onClick={() => dispatch(openSettings(SETTINGS_TAB.memorableDates))}
+      >
+        Edit memorable dates
+      </button>
+    </footer>
   );
 };
 
@@ -174,7 +232,13 @@ const HolidayControls = ({ entry }: { entry: HolidayMapEntry }) => {
 
 export const Controls = () => {
   const selected = useSelector(getSelected);
+  const memorable = useSelector(getSelectedMemorable);
 
+  if (memorable.length > 0) {
+    return (
+      <MemorableControls key={memorable[0].day} occurrences={memorable} />
+    );
+  }
   if (!selected) {
     return <DaysTakenYTD />;
   }
