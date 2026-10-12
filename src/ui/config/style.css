@@ -30,7 +30,7 @@
 
 @media screen and (min-width: 480px) {
   .modal {
-    align-items: center;
+    align-items: flex-start;
     padding: 1.5rem;
   }
 
