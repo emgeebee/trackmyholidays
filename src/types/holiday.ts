@@ -1,4 +1,6 @@
-import { AuthState } from "../core/auth/reducer";
+import type { UnknownAction } from "redux";
+import type { ThunkAction, ThunkDispatch } from "redux-thunk";
+import type { AuthState } from "../core/auth/reducer";
 
 export interface Holiday {
   start: string;
@@ -14,12 +16,15 @@ export interface HolidayMapEntry {
   length: number;
 }
 
+export interface SelectedDay {
+  formattedDay: string;
+  isBHoliday?: boolean;
+}
+
 export interface HolidayState {
   holidays: Holiday[];
   bankHolidays: Holiday[];
-  selected: {
-    formattedDay: string;
-  } | null;
+  selected: SelectedDay | null;
   startDay: string;
   endOfCurrent: string;
   currentYear: number;
@@ -33,7 +38,7 @@ export interface ConfigState {
   configIsOpen: boolean;
   loading: boolean;
   data: {
-    google_account: string;
+    google_account?: string;
     /** API Gateway base (stage path only), e.g. https://xxx.execute-api.region.amazonaws.com/prod */
     api_base_url?: string;
   };
@@ -47,10 +52,14 @@ export interface RootState {
   config: ConfigState;
 }
 
-export interface Action {
-  type: string;
-  payload?: any;
-}
+export type AppDispatch = ThunkDispatch<RootState, undefined, UnknownAction>;
+
+export type AppThunk<R = void> = ThunkAction<
+  R,
+  RootState,
+  undefined,
+  UnknownAction
+>;
 
 export interface ServerData {
   text: {

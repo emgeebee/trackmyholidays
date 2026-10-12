@@ -1,8 +1,13 @@
-// import { combineReducers } from 'redux';
-import { handleActions } from "redux-actions";
+import { createReducer } from "../action-helpers";
 import { filterOutCurrentYear } from "./selectors";
 import { defaultState } from "./constants";
-import { HolidayState, Action } from "../../types/holiday";
+import {
+  Holiday,
+  HolidayMapEntry,
+  HolidayState,
+  SelectedDay,
+  ServerData,
+} from "../../types/holiday";
 
 import {
   DATES_CHANGE_YEAR,
@@ -26,13 +31,30 @@ if (typeof defaultState.carriedOver === "number") {
   defaultState.carriedOver[defaultState.currentYear] = co;
 }
 
-export const dates = handleActions<HolidayState, any>(
+type DatesPayloads = {
+  [FETCH_DATES_FROM_SERVER]: void;
+  [ADD_NEW_BANK_HOLIDAY]: void;
+  [UPDATE_BANK_HOLIDAYS]: Holiday[];
+  [LOAD_DATES_FROM_SERVER]: ServerData;
+  [DATES_SELECT_DAY]: HolidayState;
+  [DATES_SELECT_END_OF_CURRENT]: string;
+  [DATES_UPDATE_PER_YEAR]: string;
+  [DATES_UPDATE_CARRIED_OVER]: string;
+  [DATES_SELECT_START_MONTH]: number;
+  [DATES_SELECT_HOLIDAY]: SelectedDay;
+  [DATES_CHANGE_YEAR]: number;
+  [DATES_DESELECT]: HolidayMapEntry;
+  [DATES_HALF_DAY]: HolidayMapEntry;
+};
+
+export const dates = createReducer<HolidayState, DatesPayloads>(
+  defaultState,
   {
-    [FETCH_DATES_FROM_SERVER]: (state: HolidayState) => ({
+    [FETCH_DATES_FROM_SERVER]: (state) => ({
       ...state,
       loading: true,
     }),
-    [ADD_NEW_BANK_HOLIDAY]: (state: HolidayState) => ({
+    [ADD_NEW_BANK_HOLIDAY]: (state) => ({
       ...state,
       bankHolidays: [
         ...state.bankHolidays,
@@ -44,7 +66,7 @@ export const dates = handleActions<HolidayState, any>(
         },
       ],
     }),
-    [UPDATE_BANK_HOLIDAYS]: (state, { payload }: Action) => {
+    [UPDATE_BANK_HOLIDAYS]: (state, { payload }) => {
       const others = state.bankHolidays.filter(
         filterOutCurrentYear(state.currentYear, state.startMonth)
       );
@@ -53,7 +75,7 @@ export const dates = handleActions<HolidayState, any>(
         bankHolidays: [...others, ...payload],
       };
     },
-    [LOAD_DATES_FROM_SERVER]: (state, { payload }: Action) => {
+    [LOAD_DATES_FROM_SERVER]: (state, { payload }) => {
       const data = payload.text;
       return {
         ...state,
@@ -66,24 +88,21 @@ export const dates = handleActions<HolidayState, any>(
         loading: false,
       };
     },
-    [DATES_SELECT_DAY]: (_state: HolidayState, { payload }: Action) => {
+    [DATES_SELECT_DAY]: (_state, { payload }) => {
       return payload;
     },
-    [DATES_SELECT_END_OF_CURRENT]: (
-      state: HolidayState,
-      { payload }: Action
-    ) => ({
+    [DATES_SELECT_END_OF_CURRENT]: (state, { payload }) => ({
       ...state,
       endOfCurrent: payload,
     }),
-    [DATES_UPDATE_PER_YEAR]: (state: HolidayState, { payload }: Action) => {
+    [DATES_UPDATE_PER_YEAR]: (state, { payload }) => {
       const newState = {
         ...state,
         daysPerYear: parseInt(payload),
       };
       return newState;
     },
-    [DATES_UPDATE_CARRIED_OVER]: (state: HolidayState, { payload }: Action) => {
+    [DATES_UPDATE_CARRIED_OVER]: (state, { payload }) => {
       const newState = {
         ...state,
         carriedOver: {
@@ -93,20 +112,20 @@ export const dates = handleActions<HolidayState, any>(
       };
       return newState;
     },
-    [DATES_SELECT_START_MONTH]: (state: HolidayState, { payload }: Action) => ({
+    [DATES_SELECT_START_MONTH]: (state, { payload }) => ({
       ...state,
       startMonth: payload,
     }),
-    [DATES_SELECT_HOLIDAY]: (state: HolidayState, { payload }: Action) => ({
+    [DATES_SELECT_HOLIDAY]: (state, { payload }) => ({
       ...state,
       selected: payload === state.selected ? null : payload,
     }),
-    [DATES_CHANGE_YEAR]: (state: HolidayState, { payload }: Action) => ({
+    [DATES_CHANGE_YEAR]: (state, { payload }) => ({
       ...state,
       currentYear: state.currentYear + payload,
       startDay: "",
     }),
-    [DATES_DESELECT]: (state: HolidayState, { payload }: Action) => {
+    [DATES_DESELECT]: (state, { payload }) => {
       const newState = {
         ...state,
         holidays: state.holidays.filter(
@@ -115,10 +134,7 @@ export const dates = handleActions<HolidayState, any>(
       };
       return newState;
     },
-    [DATES_HALF_DAY]: (
-      state: HolidayState,
-      { payload }: Action
-    ): HolidayState => {
+    [DATES_HALF_DAY]: (state, { payload }): HolidayState => {
       const newState = {
         ...state,
         holidays: state.holidays.map((hol) => {
@@ -143,6 +159,5 @@ export const dates = handleActions<HolidayState, any>(
       };
       return newState;
     },
-  },
-  defaultState
+  }
 );

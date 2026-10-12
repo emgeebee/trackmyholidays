@@ -1,12 +1,17 @@
 import { useCallback, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import { useSelector } from "react-redux";
+import {
+  GoogleOAuthProvider,
+  GoogleLogin,
+  CredentialResponse,
+} from "@react-oauth/google";
 
 import { getDays, getIsLoading } from "../../core/dates/selectors";
 import { getIsConfigLoading, getConfigData } from "../../core/config/selectors";
 import { getIsLoggedIn } from "../../core/auth/selectors";
 // import { DATES_SELECT_DAY } from '../../core/dates/action-types';
-import { LoginAction } from "../../core/auth/actions";
+import { login } from "../../core/auth/actions";
+import { useAppDispatch } from "../../core/hooks";
 import { fetchConfig } from "../../core/config/actions";
 import { fetchDates } from "../../core/dates/actions";
 import { Controls, Header, Month } from "..";
@@ -21,24 +26,23 @@ export const Calendar = () => {
 
   const configData = useSelector(getConfigData);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    (dispatch(fetchConfig() as any) as unknown as Promise<void>).then(() => {
+    dispatch(fetchConfig()).then(() => {
       if (loggedIn) {
-        dispatch(fetchDates() as any);
+        dispatch(fetchDates());
       }
     });
   }, [dispatch]);
 
   const responseGoogle = useCallback(
-    (payload: { credential?: string | undefined }) =>
-      dispatch(LoginAction(payload) as any),
+    (payload: CredentialResponse) => dispatch(login(payload)),
     [dispatch]
   );
 
   return (
-    <GoogleOAuthProvider clientId={configData.google_account}>
+    <GoogleOAuthProvider clientId={configData.google_account ?? ""}>
       <Header />
       <div className="container">
         {loading || configLoading ? (
