@@ -49,6 +49,33 @@ export const updateCarriedOverAction = createAction<string>(
   DATES_UPDATE_CARRIED_OVER
 );
 
+const saveCurrentDates = (): AppThunk => (dispatch, getState) => {
+  const state = getState();
+  dispatch(
+    saveDates(
+      JSON.stringify({
+        ...state.dates,
+        selected: "",
+      }),
+      state
+    )
+  );
+};
+
+export const saveDaysPerYear =
+  (value: string): AppThunk =>
+  (dispatch) => {
+    dispatch(updatePerYearAction(value));
+    dispatch(saveCurrentDates());
+  };
+
+export const saveCarriedOver =
+  (value: string): AppThunk =>
+  (dispatch) => {
+    dispatch(updateCarriedOverAction(value));
+    dispatch(saveCurrentDates());
+  };
+
 export const deselectDay =
   (payload: HolidayMapEntry): AppThunk =>
   (dispatch, getState) => {

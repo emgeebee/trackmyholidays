@@ -10,9 +10,12 @@ import {
   getYear,
   getPlanned,
   getCurrentCO,
+  getCurrentPY,
   getTotalAllowance,
 } from '../../core/dates/selectors';
+import { saveCarriedOver, saveDaysPerYear } from '../../core/dates/actions';
 import { getIsLoggedIn } from '../../core/auth/selectors';
+import { EditableStat } from './editable-stat';
 
 import './style.css';
 
@@ -21,6 +24,7 @@ export const Header = () => {
   const planned = useSelector(getPlanned);
   const carriedIn = useSelector(getCurrentCO);
   const totalAllowance = useSelector(getTotalAllowance);
+  const perYear = useSelector(getCurrentPY);
   const currentYear = useSelector(getYear);
   const loggedIn = useSelector(getIsLoggedIn);
 
@@ -29,6 +33,8 @@ export const Header = () => {
       type: DATES_CHANGE_YEAR,
       payload
   }), [dispatch]);
+  const saveCO = useCallback((value) => dispatch(saveCarriedOver(value)), [dispatch]);
+  const savePY = useCallback((value) => dispatch(saveDaysPerYear(value)), [dispatch]);
   const openConfig = useCallback(() => {
       dispatch({
           type: CHANGE_CONFIG,
@@ -48,14 +54,22 @@ export const Header = () => {
             <button label="next year" onClick={changeYear.bind(null, +1)}><FaAngleRight color="white" size="2em" /></button>
         </span>
         <div className="stats-group">
-            <span className="stat stat--wide-only">
-                <span className="stat-label">Carried in</span>
-                <span className="stat-value">{carriedIn}</span>
-            </span>
-            <span className="stat stat--wide-only">
-                <span className="stat-label">Total allowance</span>
-                <span className="stat-value">{totalAllowance}</span>
-            </span>
+            <EditableStat
+                label="Carried in"
+                value={carriedIn}
+                inputLabel="Days carried in from last year"
+                initialInputValue={carriedIn}
+                onSave={saveCO}
+                renderHint={(co) => `${perYear} per year + ${co} carried in = ${perYear + co} total`}
+            />
+            <EditableStat
+                label="Total allowance"
+                value={totalAllowance}
+                inputLabel="Holidays per year"
+                initialInputValue={perYear}
+                onSave={savePY}
+                renderHint={(py) => `${py} per year + ${carriedIn} carried in = ${py + carriedIn} total`}
+            />
             <span className="stat stats-small">
                 <span className="stat-label">Planned</span>
                 <span className="stat-value">{planned}</span>
