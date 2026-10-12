@@ -207,6 +207,7 @@
 
 .config-tabs__panel {
   flex: 1;
+  min-height: 0;
   margin: 0;
   padding: 0;
   overflow-y: auto;
