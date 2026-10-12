@@ -46,18 +46,24 @@
 .day.provhol,
 .day.start-of-hol {
   background-color: var(--color-provisional);
-  color: var(--color-holiday-text);
+  color: var(--color-provisional-text);
 }
 
 .day.select-mode:hover:not(.day-0):not(.day-6) {
   background-color: var(--color-provisional-hover);
 }
 
+.day.half-first,
+.day.half-last,
+.day.half {
+  color: var(--color-half-hol-text);
+}
+
 .day.half-first {
   background: linear-gradient(
     to bottom right,
-    var(--color-holiday) 0%,
-    var(--color-holiday) 50%,
+    var(--color-half-hol) 0%,
+    var(--color-half-hol) 50%,
     var(--color-surface) 50%,
     var(--color-surface) 100%
   );
@@ -69,8 +75,8 @@
     to bottom right,
     var(--color-surface) 0%,
     var(--color-surface) 50%,
-    var(--color-holiday) 50%,
-    var(--color-holiday) 100%
+    var(--color-half-hol) 50%,
+    var(--color-half-hol) 100%
   );
 }
 
