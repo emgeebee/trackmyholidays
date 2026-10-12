@@ -6,6 +6,37 @@
     calc(var(--footer-height) + 1rem);
 }
 
+/* Column counts are divisors of 12 so every row of months is full. */
+.months {
+  display: grid;
+  grid-template-columns: repeat(1, auto);
+  justify-content: center;
+}
+
+@media screen and (min-width: 700px) {
+  .months {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+@media screen and (min-width: 1020px) {
+  .months {
+    grid-template-columns: repeat(3, auto);
+  }
+}
+
+@media screen and (min-width: 1350px) {
+  .months {
+    grid-template-columns: repeat(4, auto);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .months {
+    grid-template-columns: repeat(6, auto);
+  }
+}
+
 .welcome {
   max-width: 420px;
   margin: 2rem auto;

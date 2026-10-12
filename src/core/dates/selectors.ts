@@ -262,6 +262,12 @@ export const getCurrentCO = createSelector(
   (year: number, co: Record<number, number>) => co[year] || 0
 );
 
+export const getTotalAllowance = createSelector(
+  getCurrentPY,
+  getCurrentCO,
+  (py: number, co: number) => py + co
+);
+
 export const getYear = createSelector(
   (state: RootState) => state.dates.currentYear,
   (year: number) => year || 0

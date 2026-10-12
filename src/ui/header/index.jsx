@@ -5,7 +5,13 @@ import { FaCogs, FaAngleRight, FaAngleLeft } from 'react-icons/fa';
 
 import { CHANGE_CONFIG } from '../../core/config/action-types';
 import { DATES_CHANGE_YEAR } from '../../core/dates/action-types';
-import { getRemaining, getYear, getPlanned } from '../../core/dates/selectors';
+import {
+  getRemaining,
+  getYear,
+  getPlanned,
+  getCurrentCO,
+  getTotalAllowance,
+} from '../../core/dates/selectors';
 import { getIsLoggedIn } from '../../core/auth/selectors';
 
 import './style.css';
@@ -13,6 +19,8 @@ import './style.css';
 export const Header = () => {
   const remaining = useSelector(getRemaining);
   const planned = useSelector(getPlanned);
+  const carriedIn = useSelector(getCurrentCO);
+  const totalAllowance = useSelector(getTotalAllowance);
   const currentYear = useSelector(getYear);
   const loggedIn = useSelector(getIsLoggedIn);
 
@@ -40,8 +48,22 @@ export const Header = () => {
             <button label="next year" onClick={changeYear.bind(null, +1)}><FaAngleRight color="white" size="2em" /></button>
         </span>
         <div className="stats-group">
-            <span className="stats-small">Planned: {planned} </span>
-            <span className="stats">Left to plan: {remaining} </span>
+            <span className="stat stat--wide-only">
+                <span className="stat-label">Carried in</span>
+                <span className="stat-value">{carriedIn}</span>
+            </span>
+            <span className="stat stat--wide-only">
+                <span className="stat-label">Total allowance</span>
+                <span className="stat-value">{totalAllowance}</span>
+            </span>
+            <span className="stat stats-small">
+                <span className="stat-label">Planned</span>
+                <span className="stat-value">{planned}</span>
+            </span>
+            <span className="stat stats">
+                <span className="stat-label">Left to plan</span>
+                <span className="stat-value">{remaining}</span>
+            </span>
         </div>
     </span>) : (
         <span className="header-controls">
