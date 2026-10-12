@@ -2,8 +2,11 @@ import React from "react";
 import { Container, createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
 import { mainStore } from "./core/store";
+import { initTheme } from "./core/theme";
 import "./index.css";
 import App from "./App";
+
+initTheme();
 
 const container = document.getElementById("root");
 const root = createRoot(container as Container);

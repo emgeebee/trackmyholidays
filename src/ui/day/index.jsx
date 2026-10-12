@@ -85,6 +85,7 @@ export const Day = ({ day }) => {
       )} ${todayClass} ${isCurrentStartDateClass} ${selectClass} ${provHolidayClass} ${holidayClass} ${bHolidayClass} ${halfDayClass}`}
       onClick={clickEventHandler}
       onMouseOver={hoverEventHandler}
+      title={holidayMap[formattedDay]?.hol.name || undefined}
     >
       {mday.format("DD")}
     </button>

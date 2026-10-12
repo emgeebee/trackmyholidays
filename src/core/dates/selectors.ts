@@ -108,7 +108,7 @@ export const filterOutCurrentYear =
     return hol;
   };
 
-const filterToCurrentYear =
+export const filterToCurrentYear =
   (currentYear: number, startMonth: number) => (hol: Holiday) => {
     const day = moment(hol.start, "YY-MM-DD");
     const start = moment(`${currentYear}-${startMonth + 1}-01`, "YYYY-MM-DD");
@@ -189,6 +189,16 @@ export const getHolidaysForYearInPast = createSelector(
         0
       );
   }
+);
+
+export const getBankHolidayEntriesForYear = createSelector(
+  (state: RootState) => state.dates.bankHolidays,
+  (state: RootState) => state.dates.currentYear,
+  (state: RootState) => state.dates.startMonth,
+  (holidays: Holiday[], currentYear: number, startMonth: number) =>
+    holidays
+      .filter(filterToCurrentYear(currentYear, startMonth))
+      .sort((a, b) => a.start.localeCompare(b.start))
 );
 
 export const getBankHolidaysForYear = createSelector(

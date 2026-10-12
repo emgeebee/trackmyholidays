@@ -5,6 +5,7 @@ import {
   Holiday,
   HolidayMapEntry,
   HolidayState,
+  NamedDay,
   SelectedDay,
   ServerData,
 } from "../../types/holiday";
@@ -20,9 +21,12 @@ import {
   DATES_UPDATE_PER_YEAR,
   LOAD_DATES_FROM_SERVER,
   FETCH_DATES_FROM_SERVER,
-  ADD_NEW_BANK_HOLIDAY,
   UPDATE_BANK_HOLIDAYS,
   DATES_HALF_DAY,
+  DATES_RENAME_HOLIDAY,
+  DATES_RENAME_BANK_HOLIDAY,
+  DATES_CONVERT_TO_BANK_HOLIDAY,
+  DATES_REMOVE_BANK_HOLIDAY,
 } from "./action-types";
 
 if (typeof defaultState.carriedOver === "number") {
@@ -31,9 +35,17 @@ if (typeof defaultState.carriedOver === "number") {
   defaultState.carriedOver[defaultState.currentYear] = co;
 }
 
+const withName = (hol: Holiday, name: string): Holiday => {
+  const { name: _previous, ...rest } = hol;
+  return name ? { ...rest, name } : rest;
+};
+
 type DatesPayloads = {
   [FETCH_DATES_FROM_SERVER]: void;
-  [ADD_NEW_BANK_HOLIDAY]: void;
+  [DATES_RENAME_HOLIDAY]: NamedDay;
+  [DATES_RENAME_BANK_HOLIDAY]: NamedDay;
+  [DATES_CONVERT_TO_BANK_HOLIDAY]: NamedDay;
+  [DATES_REMOVE_BANK_HOLIDAY]: string;
   [UPDATE_BANK_HOLIDAYS]: Holiday[];
   [LOAD_DATES_FROM_SERVER]: ServerData;
   [DATES_SELECT_DAY]: HolidayState;
@@ -54,17 +66,30 @@ export const dates = createReducer<HolidayState, DatesPayloads>(
       ...state,
       loading: true,
     }),
-    [ADD_NEW_BANK_HOLIDAY]: (state) => ({
+    [DATES_RENAME_HOLIDAY]: (state, { payload }) => ({
       ...state,
+      holidays: state.holidays.map((hol) =>
+        hol.start === payload.start ? withName(hol, payload.name) : hol
+      ),
+    }),
+    [DATES_RENAME_BANK_HOLIDAY]: (state, { payload }) => ({
+      ...state,
+      bankHolidays: state.bankHolidays.map((bh) =>
+        bh.start === payload.start ? withName(bh, payload.name) : bh
+      ),
+    }),
+    [DATES_CONVERT_TO_BANK_HOLIDAY]: (state, { payload }) => ({
+      ...state,
+      holidays: state.holidays.filter((hol) => hol.start !== payload.start),
       bankHolidays: [
         ...state.bankHolidays,
-        {
-          start: `${String(state.currentYear).slice(2, 4)}-${
-            state.startMonth + 1
-          }-01`,
-          name: "a",
-        },
+        { start: payload.start, name: payload.name },
       ],
+    }),
+    [DATES_REMOVE_BANK_HOLIDAY]: (state, { payload }) => ({
+      ...state,
+      bankHolidays: state.bankHolidays.filter((bh) => bh.start !== payload),
+      selected: null,
     }),
     [UPDATE_BANK_HOLIDAYS]: (state, { payload }) => {
       const others = state.bankHolidays.filter(

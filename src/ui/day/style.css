@@ -53,17 +53,11 @@
   background-color: var(--color-provisional-hover);
 }
 
-.day.half-first,
-.day.half-last,
-.day.half {
-  color: var(--color-half-hol-text);
-}
-
 .day.half-first {
   background: linear-gradient(
     to bottom right,
-    var(--color-half-hol) 0%,
-    var(--color-half-hol) 50%,
+    var(--color-holiday) 0%,
+    var(--color-holiday) 50%,
     var(--color-surface) 50%,
     var(--color-surface) 100%
   );
@@ -75,8 +69,8 @@
     to bottom right,
     var(--color-surface) 0%,
     var(--color-surface) 50%,
-    var(--color-half-hol) 50%,
-    var(--color-half-hol) 100%
+    var(--color-holiday) 50%,
+    var(--color-holiday) 100%
   );
 }
 
