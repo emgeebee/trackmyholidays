@@ -27,15 +27,15 @@ footer button {
   padding: 0 0.75rem;
   font-size: 0.8125rem;
   font-weight: 600;
-  color: var(--color-brand-dark);
-  background: #fff;
+  color: var(--color-brand-text);
+  background: var(--color-surface);
   border: none;
   border-radius: var(--radius-sm);
   box-shadow: var(--shadow-sm);
 }
 
 footer button:hover {
-  background: #f8fafc;
+  background: var(--color-surface-hover);
 }
 
 .from,
