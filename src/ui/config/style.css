@@ -236,6 +236,12 @@
   border-color: transparent;
 }
 
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+}
+
 /* —— Form fields —— */
 .field-row {
   display: flex;

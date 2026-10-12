@@ -2,7 +2,7 @@
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
 
-  color-scheme: light dark;
+  color-scheme: light;
 
   --color-bg: #f0f4f8;
   --color-surface: #ffffff;
@@ -45,38 +45,38 @@
   --footer-height: 44px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-bg: #0b1220;
-    --color-surface: #162032;
-    --color-surface-hover: #1e2a3f;
-    --color-text: #e2e8f0;
-    --color-text-muted: #94a3b8;
-    --color-border: #263247;
-    --color-border-strong: #3b4a63;
-    --color-backdrop: rgba(0, 0, 0, 0.6);
+:root[data-theme="dark"] {
+  color-scheme: dark;
 
-    --color-brand-text: #67e8f9;
-    --color-accent-soft: #10324a;
-    --color-accent-soft-border: #1f6f8b;
+  --color-bg: #0b1220;
+  --color-surface: #162032;
+  --color-surface-hover: #1e2a3f;
+  --color-text: #e2e8f0;
+  --color-text-muted: #94a3b8;
+  --color-border: #263247;
+  --color-border-strong: #3b4a63;
+  --color-backdrop: rgba(0, 0, 0, 0.6);
 
-    --color-header-from: #0a3440;
-    --color-header-to: #0c5a6e;
+  --color-brand-text: #67e8f9;
+  --color-accent-soft: #10324a;
+  --color-accent-soft-border: #1f6f8b;
 
-    --color-weekend: #1a2840;
-    --color-holiday: #b45309;
-    --color-holiday-text: #fff7e6;
-    --color-bank-hol: #4f46e5;
-    --color-bank-hol-text: #eef2ff;
-    --color-provisional: #43260c;
-    --color-provisional-hover: #5e3510;
-    --color-provisional-text: #fdba74;
-    --color-today-ring: #a5b4fc;
+  --color-header-from: #0a3440;
+  --color-header-to: #0c5a6e;
 
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
-    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45);
-  }
+  --color-weekend: #1a2840;
+  --color-holiday: #b45309;
+  --color-holiday-text: #fff7e6;
+  --color-bank-hol: #4f46e5;
+  --color-bank-hol-text: #eef2ff;
+  --color-provisional: #43260c;
+  --color-provisional-hover: #5e3510;
+  --color-provisional-text: #fdba74;
+  --color-today-ring: #a5b4fc;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.45);
 }
 
 @media screen and (min-width: 1440px) {

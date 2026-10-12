@@ -11,6 +11,7 @@ import {
 import { getIsConfig } from "../../core/config/selectors";
 import { getCurrentPY, getCurrentCO } from "../../core/dates/selectors";
 import { BankHolidaySettings } from "./bank-holidays";
+import { AppearanceSettings } from "./appearance";
 
 import "./style.css";
 
@@ -139,12 +140,16 @@ export const Config = () => {
           <TabList className="config-tabs__list">
             <Tab className="config-tabs__tab">Dates</Tab>
             <Tab className="config-tabs__tab">Bank holidays</Tab>
+            <Tab className="config-tabs__tab">Appearance</Tab>
           </TabList>
           <TabPanel className="config-tabs__panel">
             {getDateControls()}
           </TabPanel>
           <TabPanel className="config-tabs__panel config-tabs__panel--bh">
             <BankHolidaySettings />
+          </TabPanel>
+          <TabPanel className="config-tabs__panel">
+            <AppearanceSettings />
           </TabPanel>
         </Tabs>
       </div>
