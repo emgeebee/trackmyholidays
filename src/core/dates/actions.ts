@@ -1,12 +1,9 @@
-import { Action, createAction } from "redux-actions";
+import { createAction } from "../action-helpers";
 import { getToken } from "../auth/selectors";
 import { LOGOUT } from "../auth/action-types";
 import { clearAuth } from "../auth/storage";
 import { getHolidaysApiBase } from "./api-base";
 import { defaultState } from "./constants";
-
-type GetState = () => RootState;
-type Dispatch = (action: Action<any>) => void;
 
 import {
   DATES_DESELECT,
@@ -20,32 +17,42 @@ import {
   DATES_UPDATE_PER_YEAR,
   DATES_HALF_DAY,
 } from "./action-types";
-import { RootState } from "../../types/holiday";
+import type {
+  AppThunk,
+  Holiday,
+  HolidayMapEntry,
+  HolidayState,
+  RootState,
+  SelectedDay,
+  ServerData,
+} from "../../types/holiday";
 
-export const deselectAction = createAction(DATES_DESELECT);
+export const deselectAction = createAction<HolidayMapEntry>(DATES_DESELECT);
 
-export const halfDayToggleAction = createAction(DATES_HALF_DAY);
+export const halfDayToggleAction = createAction<HolidayMapEntry>(DATES_HALF_DAY);
 
 export const fetchDatesAction = createAction(FETCH_DATES_FROM_SERVER);
 
-export const loadDatesAction = createAction(LOAD_DATES_FROM_SERVER);
+export const loadDatesAction = createAction<ServerData>(LOAD_DATES_FROM_SERVER);
 
 export const addNewBH = createAction(ADD_NEW_BANK_HOLIDAY);
 
-export const updateBH = createAction(UPDATE_BANK_HOLIDAYS);
+export const updateBH = createAction<Holiday[]>(UPDATE_BANK_HOLIDAYS);
 
-export const selectHoliday = createAction(DATES_SELECT_HOLIDAY);
+export const selectHoliday = createAction<SelectedDay>(DATES_SELECT_HOLIDAY);
 
-export const updatePerYearAction = createAction(
-  DATES_UPDATE_PER_YEAR,
-  (co: number) => co
+export const selectDayAction = createAction<HolidayState>(DATES_SELECT_DAY);
+
+export const updatePerYearAction = createAction<string>(DATES_UPDATE_PER_YEAR);
+
+export const updateCarriedOverAction = createAction<string>(
+  DATES_UPDATE_CARRIED_OVER
 );
 
-export const updateCarriedOverAction = createAction(DATES_UPDATE_CARRIED_OVER);
-
-export const deselectDay = (payload: string) => {
-  return async (dispatch: Dispatch, getState: GetState) => {
-    await dispatch(deselectAction(payload));
+export const deselectDay =
+  (payload: HolidayMapEntry): AppThunk =>
+  (dispatch, getState) => {
+    dispatch(deselectAction(payload));
     const state = getState();
     dispatch(
       saveDates(
@@ -54,14 +61,14 @@ export const deselectDay = (payload: string) => {
           selected: "",
         }),
         state
-      ) as any
+      )
     );
   };
-};
 
-export const halfDayToggle = (payload: string) => {
-  return async (dispatch: Dispatch, getState: GetState) => {
-    await dispatch(halfDayToggleAction(payload));
+export const halfDayToggle =
+  (payload: HolidayMapEntry): AppThunk =>
+  (dispatch, getState) => {
+    dispatch(halfDayToggleAction(payload));
     const state = getState();
     dispatch(
       saveDates(
@@ -70,19 +77,19 @@ export const halfDayToggle = (payload: string) => {
           selected: "",
         }),
         state
-      ) as any
+      )
     );
   };
-};
 
-export const selectDay = (payload: string) => {
-  return async (dispatch: Dispatch, getState: GetState) => {
+export const selectDay =
+  (payload: string | null): AppThunk =>
+  (dispatch, getState) => {
     const fullState = getState();
     const state = fullState.dates;
-    let newHolidays;
-    let newStartDay;
-    if (state.startDay === "") {
-      newStartDay = payload;
+    let newHolidays: Holiday[];
+    let newStartDay: string;
+    if (state.startDay === "" || payload === null) {
+      newStartDay = state.startDay === "" && payload !== null ? payload : "";
       newHolidays = state.holidays;
     } else {
       newStartDay = "";
@@ -94,7 +101,7 @@ export const selectDay = (payload: string) => {
         },
       ];
     }
-    const newState = {
+    const newState: HolidayState = {
       ...state,
       selected:
         state.selected?.formattedDay === payload || payload === null
@@ -104,12 +111,9 @@ export const selectDay = (payload: string) => {
       holidays: [...newHolidays],
       endOfCurrent: "",
     };
-    await dispatch({
-      type: DATES_SELECT_DAY,
-      payload: newState,
-    });
-    if (state.startDay !== "") {
-      dispatch(selectHoliday({ formattedDay: payload, isBankHoliday: false }));
+    dispatch(selectDayAction(newState));
+    if (state.startDay !== "" && payload !== null) {
+      dispatch(selectHoliday({ formattedDay: payload, isBHoliday: false }));
       dispatch(
         saveDates(
           JSON.stringify({
@@ -117,45 +121,42 @@ export const selectDay = (payload: string) => {
             selected: "",
           }),
           fullState
-        ) as any
+        )
       );
     }
   };
-};
 
-export const fetchDates = () => {
-  return (dispatch: Dispatch, getState: GetState) => {
+export const fetchDates =
+  (): AppThunk<Promise<void>> => async (dispatch, getState) => {
     const state = getState();
     const token = getToken(state);
     const apiBase = getHolidaysApiBase(state);
     dispatch(fetchDatesAction());
-    return fetch(`${apiBase}/holidays`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => {
-        if (response.status === 401) {
-          clearAuth();
-          dispatch({ type: LOGOUT, payload: undefined });
-          dispatch(loadDatesAction({ text: defaultState }));
-          return;
-        }
-        return response
-          .json()
-          .then((json) => dispatch(loadDatesAction(json)));
-      })
-      .catch((e) => {
-        console.log(e);
-        dispatch(loadDatesAction({ text: defaultState }));
+    try {
+      const response = await fetch(`${apiBase}/holidays`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       });
+      if (response.status === 401) {
+        clearAuth();
+        dispatch({ type: LOGOUT });
+        dispatch(loadDatesAction({ text: defaultState }));
+        return;
+      }
+      const json: ServerData = await response.json();
+      dispatch(loadDatesAction(json));
+    } catch (e) {
+      console.log(e);
+      dispatch(loadDatesAction({ text: defaultState }));
+    }
   };
-};
 
-export const saveDates = (data: string, state: RootState) => {
-  return () => {
+export const saveDates =
+  (data: string, state: RootState): AppThunk<Promise<Response>> =>
+  () => {
     const token = getToken(state);
     const apiBase = getHolidaysApiBase(state);
     return fetch(`${apiBase}/holidays`, {
@@ -167,4 +168,3 @@ export const saveDates = (data: string, state: RootState) => {
       },
     });
   };
-};

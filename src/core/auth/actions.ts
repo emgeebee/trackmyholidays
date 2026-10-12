@@ -1,24 +1,23 @@
-import { createAction } from "redux-actions";
-
-import { storeInstance } from "../..";
+import { createAction } from "../action-helpers";
 import { fetchDates } from "../dates/actions";
+import type { AppThunk } from "../../types/holiday";
 
-import { LOGIN, LOGIN_AND_LOAD_DATA, LOGOUT } from "./action-types";
+import { LOGIN, LOGOUT } from "./action-types";
+import type { AuthState } from "./reducer";
 import { clearAuth, saveAuth } from "./storage";
 
-export const LoginAction = createAction(
-  LOGIN_AND_LOAD_DATA,
-  async (payload: { credential?: string | undefined }) => {
-    saveAuth(payload);
-    await storeInstance.dispatch({
-      type: LOGIN,
-      payload,
-    });
-    storeInstance.dispatch(fetchDates() as any);
-  }
-);
+export const loginAction = createAction<AuthState>(LOGIN);
+export const logoutAction = createAction(LOGOUT);
 
-export const logout = () => {
+export const login =
+  (payload: AuthState): AppThunk<Promise<void>> =>
+  async (dispatch) => {
+    saveAuth(payload);
+    dispatch(loginAction(payload));
+    await dispatch(fetchDates());
+  };
+
+export const logout = (): AppThunk => (dispatch) => {
   clearAuth();
-  return { type: LOGOUT };
+  dispatch(logoutAction());
 };

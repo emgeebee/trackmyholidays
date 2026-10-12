@@ -1,13 +1,21 @@
-import { handleActions } from "redux-actions";
+import { createReducer } from "../action-helpers";
 import { CHANGE_CONFIG, LOAD_CONFIG, CONFIG_LOADED } from "./action-types";
+import { ConfigState } from "../../types/holiday";
 
-const defaultState = {
+type ConfigPayloads = {
+  [CHANGE_CONFIG]: void;
+  [LOAD_CONFIG]: void;
+  [CONFIG_LOADED]: ConfigState["data"];
+};
+
+const defaultState: ConfigState = {
   configIsOpen: false,
   loading: false,
   data: {},
 };
 
-export const config = handleActions(
+export const config = createReducer<ConfigState, ConfigPayloads>(
+  defaultState,
   {
     [CHANGE_CONFIG]: (state) => ({
       ...state,
@@ -22,6 +30,5 @@ export const config = handleActions(
       loading: false,
       data: payload,
     }),
-  },
-  defaultState
+  }
 );
