@@ -1,5 +1,7 @@
 import { Action, createAction } from "redux-actions";
 import { getToken } from "../auth/selectors";
+import { LOGOUT } from "../auth/action-types";
+import { clearAuth } from "../auth/storage";
 import { getHolidaysApiBase } from "./api-base";
 import { defaultState } from "./constants";
 
@@ -134,8 +136,17 @@ export const fetchDates = () => {
         "Content-Type": "application/json",
       },
     })
-      .then((response) => response.json())
-      .then((json) => dispatch(loadDatesAction(json)))
+      .then((response) => {
+        if (response.status === 401) {
+          clearAuth();
+          dispatch({ type: LOGOUT, payload: undefined });
+          dispatch(loadDatesAction({ text: defaultState }));
+          return;
+        }
+        return response
+          .json()
+          .then((json) => dispatch(loadDatesAction(json)));
+      })
       .catch((e) => {
         console.log(e);
         dispatch(loadDatesAction({ text: defaultState }));

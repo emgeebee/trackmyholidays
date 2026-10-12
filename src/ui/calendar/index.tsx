@@ -8,6 +8,7 @@ import { getIsLoggedIn } from "../../core/auth/selectors";
 // import { DATES_SELECT_DAY } from '../../core/dates/action-types';
 import { LoginAction } from "../../core/auth/actions";
 import { fetchConfig } from "../../core/config/actions";
+import { fetchDates } from "../../core/dates/actions";
 import { Controls, Header, Month } from "..";
 
 import "./style.css";
@@ -23,7 +24,11 @@ export const Calendar = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchConfig() as any);
+    (dispatch(fetchConfig() as any) as unknown as Promise<void>).then(() => {
+      if (loggedIn) {
+        dispatch(fetchDates() as any);
+      }
+    });
   }, [dispatch]);
 
   const responseGoogle = useCallback(
