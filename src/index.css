@@ -28,8 +28,6 @@
   --color-holiday-text: #78350f;
   --color-bank-hol: #c7d2fe;
   --color-bank-hol-text: #312e81;
-  --color-half-hol: var(--color-holiday);
-  --color-half-hol-text: var(--color-holiday-text);
   --color-provisional: #fef3c7;
   --color-provisional-hover: #fde68a;
   --color-provisional-text: var(--color-holiday-text);
@@ -66,15 +64,13 @@
     --color-header-to: #0c5a6e;
 
     --color-weekend: #1a2840;
-    --color-holiday: #f2b829;
-    --color-holiday-text: #3b1d04;
+    --color-holiday: #b45309;
+    --color-holiday-text: #fff7e6;
     --color-bank-hol: #4f46e5;
     --color-bank-hol-text: #eef2ff;
-    --color-half-hol: #b45309;
-    --color-half-hol-text: #fff7e6;
-    --color-provisional: #4a3a14;
-    --color-provisional-hover: #6b531b;
-    --color-provisional-text: #fde68a;
+    --color-provisional: #43260c;
+    --color-provisional-hover: #5e3510;
+    --color-provisional-text: #fdba74;
     --color-today-ring: #a5b4fc;
 
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
