@@ -1,8 +1,9 @@
 import { handleActions } from "redux-actions";
 import "./actions";
 
-import { LOGIN } from "./action-types";
+import { LOGIN, LOGOUT } from "./action-types";
 import { Action } from "../../types/holiday";
+import { loadAuth } from "./storage";
 
 export type AuthState = {
   credential?: string;
@@ -14,7 +15,7 @@ export type AuthState = {
 const defaultState: {
   ww: AuthState;
 } = {
-  ww: {},
+  ww: loadAuth(),
 };
 
 export const auth = handleActions<{ ww: AuthState }, any>(
@@ -23,6 +24,12 @@ export const auth = handleActions<{ ww: AuthState }, any>(
       return {
         ...state,
         ww: payload,
+      };
+    },
+    [LOGOUT]: (state = defaultState) => {
+      return {
+        ...state,
+        ww: {},
       };
     },
   },
