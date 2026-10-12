@@ -219,6 +219,7 @@
 
 /* —— Panel content —— */
 .config-panel {
+  min-height: 100%;
   padding: 1rem 1.25rem 1.5rem;
 }
 
