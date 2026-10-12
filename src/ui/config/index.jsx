@@ -137,8 +137,11 @@ export const Config = () => {
           </button>
         </div>
         <Tabs className="config-tabs">
-          <TabList className="config-tabs__list">
-            <Tab className="config-tabs__tab">Dates</Tab>
+          <TabList
+            className="config-tabs__list"
+            aria-label="Settings sections"
+          >
+            <Tab className="config-tabs__tab">Holiday year</Tab>
             <Tab className="config-tabs__tab">Bank holidays</Tab>
             <Tab className="config-tabs__tab">Appearance</Tab>
           </TabList>
