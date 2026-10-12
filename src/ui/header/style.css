@@ -91,6 +91,69 @@ header {
   font-weight: 600;
 }
 
+.stat-label::after {
+  content: ": ";
+}
+
+.stat--wide-only {
+  display: none;
+}
+
+@media only screen and (min-width: 1200px) {
+  .settings {
+    flex: 1 1 0;
+  }
+
+  .year {
+    flex: 0 0 auto;
+  }
+
+  .stats-group {
+    flex: 1 1 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .stat,
+  .stat--wide-only {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 4.5rem;
+    padding: 0.25rem 0.625rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    opacity: 1;
+  }
+
+  .stat-label {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    opacity: 0.8;
+  }
+
+  .stat-label::after {
+    content: none;
+  }
+
+  .stat-value {
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  .stats {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .header-controls {
     padding: 0 0.5rem;

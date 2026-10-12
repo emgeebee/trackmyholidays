@@ -48,7 +48,11 @@ export const Calendar = () => {
         {loading || configLoading ? (
           <div className="loader"></div>
         ) : loggedIn ? (
-          dates.map((month) => <Month key={month} month={month} />)
+          <div className="months">
+            {dates.map((month) => (
+              <Month key={month} month={month} />
+            ))}
+          </div>
         ) : (
           <div className="welcome">
             <p>Welcome to the new trackmyholidays.com</p>
