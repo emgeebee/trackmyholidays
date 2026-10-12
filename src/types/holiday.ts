@@ -11,6 +11,11 @@ export interface Holiday {
   length?: number;
 }
 
+export interface NamedDay {
+  start: string;
+  name: string;
+}
+
 export interface HolidayMapEntry {
   hol: Holiday;
   length: number;

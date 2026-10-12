@@ -11,8 +11,11 @@ import {
   DATES_SELECT_DAY,
   FETCH_DATES_FROM_SERVER,
   LOAD_DATES_FROM_SERVER,
-  ADD_NEW_BANK_HOLIDAY,
   UPDATE_BANK_HOLIDAYS,
+  DATES_RENAME_HOLIDAY,
+  DATES_RENAME_BANK_HOLIDAY,
+  DATES_CONVERT_TO_BANK_HOLIDAY,
+  DATES_REMOVE_BANK_HOLIDAY,
   DATES_UPDATE_CARRIED_OVER,
   DATES_UPDATE_PER_YEAR,
   DATES_HALF_DAY,
@@ -22,6 +25,7 @@ import type {
   Holiday,
   HolidayMapEntry,
   HolidayState,
+  NamedDay,
   RootState,
   SelectedDay,
   ServerData,
@@ -35,9 +39,21 @@ export const fetchDatesAction = createAction(FETCH_DATES_FROM_SERVER);
 
 export const loadDatesAction = createAction<ServerData>(LOAD_DATES_FROM_SERVER);
 
-export const addNewBH = createAction(ADD_NEW_BANK_HOLIDAY);
-
 export const updateBH = createAction<Holiday[]>(UPDATE_BANK_HOLIDAYS);
+
+export const renameHolidayAction = createAction<NamedDay>(DATES_RENAME_HOLIDAY);
+
+export const renameBankHolidayAction = createAction<NamedDay>(
+  DATES_RENAME_BANK_HOLIDAY
+);
+
+export const convertToBankHolidayAction = createAction<NamedDay>(
+  DATES_CONVERT_TO_BANK_HOLIDAY
+);
+
+export const removeBankHolidayAction = createAction<string>(
+  DATES_REMOVE_BANK_HOLIDAY
+);
 
 export const selectHoliday = createAction<SelectedDay>(DATES_SELECT_HOLIDAY);
 
@@ -73,6 +89,42 @@ export const saveCarriedOver =
   (value: string): AppThunk =>
   (dispatch) => {
     dispatch(updateCarriedOverAction(value));
+    dispatch(saveCurrentDates());
+  };
+
+export const renameHoliday =
+  (day: NamedDay): AppThunk =>
+  (dispatch) => {
+    dispatch(renameHolidayAction(day));
+    dispatch(saveCurrentDates());
+  };
+
+export const renameBankHoliday =
+  (day: NamedDay): AppThunk =>
+  (dispatch) => {
+    dispatch(renameBankHolidayAction(day));
+    dispatch(saveCurrentDates());
+  };
+
+export const convertToBankHoliday =
+  (day: NamedDay): AppThunk =>
+  (dispatch) => {
+    dispatch(convertToBankHolidayAction(day));
+    dispatch(saveCurrentDates());
+  };
+
+export const removeBankHoliday =
+  (start: string): AppThunk =>
+  (dispatch) => {
+    dispatch(removeBankHolidayAction(start));
+    dispatch(saveCurrentDates());
+  };
+
+/** Replaces the bank holidays for the current holiday year. */
+export const saveBankHolidays =
+  (bankHolidays: Holiday[]): AppThunk =>
+  (dispatch) => {
+    dispatch(updateBH(bankHolidays));
     dispatch(saveCurrentDates());
   };
 

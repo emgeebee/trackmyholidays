@@ -1,30 +1,18 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
 import { CHANGE_CONFIG } from "../../core/config/action-types";
 import { DATES_SELECT_START_MONTH } from "../../core/dates/action-types";
 import {
-  addNewBH,
-  updateBH,
   updatePerYearAction,
   updateCarriedOverAction,
 } from "../../core/dates/actions";
-import {
-  getIsConfig,
-  getBankHolidayOptions,
-} from "../../core/config/selectors";
-import {
-  getCurrentPY,
-  getCurrentCO,
-  getHolidayMapForYear,
-  getBankHolidaysForYear,
-} from "../../core/dates/selectors";
-import { bankHolidayCountries } from "../../config";
+import { getIsConfig } from "../../core/config/selectors";
+import { getCurrentPY, getCurrentCO } from "../../core/dates/selectors";
+import { BankHolidaySettings } from "./bank-holidays";
 
 import "./style.css";
-
-import moment from "moment";
 
 const MONTHS = [
   { label: "Jan", value: 0 },
@@ -42,24 +30,10 @@ const MONTHS = [
 ];
 
 export const Config = () => {
-  const [selectedCountry, setSelectedCountry] = useState("uk");
   const isConfig = useSelector(getIsConfig);
   const startMonth = useSelector((state) => state.dates.startMonth);
   let co = useSelector(getCurrentCO);
   let py = useSelector(getCurrentPY);
-  const bhDates = useSelector(getBankHolidaysForYear);
-  const holidayMap = useSelector(getHolidayMapForYear);
-  const uiDates = bhDates.reduce(
-    (agg, date, key) => ({
-      ...agg,
-      [key]: {
-        key,
-        name: holidayMap[date].hol.name,
-        start: holidayMap[date].hol.start,
-      },
-    }),
-    {}
-  );
   const dispatch = useDispatch();
   const closeConfig = useCallback(() => {
     dispatch({
@@ -83,41 +57,6 @@ export const Config = () => {
     (newCo) => dispatch(updateCarriedOverAction(newCo)),
     [dispatch]
   );
-
-  const updateBHDay = useCallback(
-    (event) => {
-      const { target } = event;
-      const { name, value } = target;
-      event.persist();
-      const newDate = {
-        ...uiDates[name],
-        start: target.type === "text" ? uiDates[name].start : value,
-        name: target.type === "text" ? value : uiDates[name].name,
-      };
-      dispatch(
-        updateBH(
-          Object.values({ ...uiDates, [name]: newDate }).map((date) => ({
-            name: date.name,
-            start: date.start.length === 10 ? date.start.slice(2) : date.start,
-          }))
-        )
-      );
-    },
-    [dispatch, uiDates]
-  );
-
-  const addBHDate = useCallback(
-    (event) => {
-      event.persist();
-      dispatch(addNewBH());
-    },
-    [dispatch]
-  );
-
-  const resetBankHolidays = useCallback(() => {
-    const holidays = bankHolidayCountries[selectedCountry].dates;
-    dispatch(updateBH(holidays));
-  }, [dispatch, selectedCountry]);
 
   const getDateControls = () => (
     <div className="config-panel">
@@ -176,75 +115,6 @@ export const Config = () => {
     </div>
   );
 
-  const getBankHolidayControls = () => (
-    <div className="config-panel">
-      <section className="config-section">
-        <h4 className="config-section__title">Country presets</h4>
-        <p className="config-section__hint">
-          Replace your bank holidays with the default set for a country.
-        </p>
-        <div className="field-row field-row--stacked">
-          <label className="field-row__label" htmlFor="reset-dates">
-            Country
-          </label>
-          <select
-            id="reset-dates"
-            className="field-row__input field-row__input--grow"
-            value={selectedCountry}
-            onChange={(e) => setSelectedCountry(e.target.value)}
-          >
-            {getBankHolidayOptions().map((country) => (
-              <option key={country.key} value={country.key}>
-                {country.display}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button
-          type="button"
-          className="btn btn--primary btn--block"
-          onClick={resetBankHolidays}
-        >
-          Reset bank holidays
-        </button>
-      </section>
-
-      <section className="config-section">
-        <h4 className="config-section__title">Your bank holidays</h4>
-        <ul className="bh-list">
-          {Object.values(uiDates).map((date) => (
-            <li key={date.key} className="bh-list__item">
-              <input
-                className="field-row__input"
-                type="date"
-                name={date.key}
-                value={moment(date.start, "YY-MM-DD").format("YYYY-MM-DD")}
-                onChange={updateBHDay}
-                aria-label={`Date for ${date.name}`}
-              />
-              <input
-                className="field-row__input field-row__input--grow"
-                type="text"
-                name={date.key}
-                value={date.name}
-                onChange={updateBHDay}
-                placeholder="Holiday name"
-                aria-label="Holiday name"
-              />
-            </li>
-          ))}
-        </ul>
-        <button
-          type="button"
-          className="btn btn--secondary btn--block"
-          onClick={addBHDate}
-        >
-          Add bank holiday
-        </button>
-      </section>
-    </div>
-  );
-
   return !isConfig ? null : (
     <div
       className="modal"
@@ -274,7 +144,7 @@ export const Config = () => {
             {getDateControls()}
           </TabPanel>
           <TabPanel className="config-tabs__panel config-tabs__panel--bh">
-            {getBankHolidayControls()}
+            <BankHolidaySettings />
           </TabPanel>
         </Tabs>
       </div>
