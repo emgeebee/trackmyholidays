@@ -159,8 +159,9 @@
 }
 
 .config-tabs__panel {
+  display: none;
   flex: 1;
-  min-height: 0;
+  min-height: 100%;
   margin: 0;
   padding: 0;
   overflow-y: auto;
@@ -168,6 +169,7 @@
 }
 
 .config-tabs__panel.react-tabs__tab-panel--selected {
+  display: block;
   padding: 0;
 }
 
