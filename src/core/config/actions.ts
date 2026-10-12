@@ -2,7 +2,23 @@ import { createAction } from "../action-helpers";
 import { CHANGE_CONFIG, LOAD_CONFIG, CONFIG_LOADED } from "./action-types";
 import type { AppThunk, ConfigState } from "../../types/holiday";
 
-export const changeConfig = createAction(CHANGE_CONFIG);
+/** Toggles the settings sheet; pass a tab index to open on that tab. */
+export const changeConfig = createAction<number | undefined>(CHANGE_CONFIG);
+
+export const SETTINGS_TAB = {
+  dates: 0,
+  bankHolidays: 1,
+  memorableDates: 2,
+  appearance: 3,
+} as const;
+
+export const openSettings =
+  (tab: number = SETTINGS_TAB.dates): AppThunk =>
+  (dispatch, getState) => {
+    if (getState().config.configIsOpen) return;
+    dispatch(changeConfig(tab));
+    document.body.classList.add("modal-open");
+  };
 export const loadConfig = createAction(LOAD_CONFIG);
 export const configLoaded = createAction<ConfigState["data"]>(CONFIG_LOADED);
 

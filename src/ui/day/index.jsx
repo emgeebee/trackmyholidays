@@ -1,7 +1,11 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectDay, selectHoliday } from "../../core/dates/actions";
+import {
+  selectDay,
+  selectHoliday,
+  selectMemorableDay,
+} from "../../core/dates/actions";
 import { DATES_SELECT_END_OF_CURRENT } from "../../core/dates/action-types";
 import {
   getCurrentStartDay,
@@ -10,12 +14,51 @@ import {
   getProvisionalHolidaysForYear,
   isInSelectMode,
   getHolidayMapForYear,
+  getMemorableMapForYear,
 } from "../../core/dates/selectors";
+import { describeOccurrence } from "../../core/dates/memorable";
 import "./style.css";
 
 import moment from "moment";
 
 const today = moment().format("YY-MM-DD");
+const MAX_DOTS = 3;
+
+/** Small coloured dots for the memorable dates on a day; click for details. */
+const MemorableDots = ({ formattedDay, occurrences, selected }) => {
+  const dispatch = useDispatch();
+  const summary = occurrences
+    .map((occ) => `${describeOccurrence(occ)} (${occ.calendar.name})`)
+    .join("\n");
+  const onClick = useCallback(
+    (event) => {
+      event.stopPropagation();
+      dispatch(selectMemorableDay(formattedDay));
+    },
+    [dispatch, formattedDay]
+  );
+
+  return (
+    <button
+      type="button"
+      className={`day-dots${selected ? " day-dots--selected" : ""}`}
+      onClick={onClick}
+      title={summary}
+      aria-label={`${occurrences.length} memorable date${
+        occurrences.length === 1 ? "" : "s"
+      }: ${summary.replace(/\n/g, ", ")}`}
+      aria-pressed={selected}
+    >
+      {occurrences.slice(0, MAX_DOTS).map((occ) => (
+        <span
+          key={occ.entry.id}
+          className="day-dot"
+          style={{ background: occ.calendar.colour }}
+        />
+      ))}
+    </button>
+  );
+};
 
 export const Day = ({ day }) => {
   const mday = moment(day);
@@ -78,16 +121,30 @@ export const Day = ({ day }) => {
     [dispatch, onHoverEvent]
   );
 
+  const memorableMap = useSelector(getMemorableMapForYear);
+  const memorable = memorableMap[formattedDay];
+  const selected = useSelector((state) => state.dates.selected);
+  const memorableSelected =
+    !!selected?.isMemorable && selected.formattedDay === formattedDay;
+
+  const dow = mday.format("d");
+
   return (
-    <button
-      className={`day day-${mday.format(
-        "d"
-      )} ${todayClass} ${isCurrentStartDateClass} ${selectClass} ${provHolidayClass} ${holidayClass} ${bHolidayClass} ${halfDayClass}`}
-      onClick={clickEventHandler}
-      onMouseOver={hoverEventHandler}
-      title={holidayMap[formattedDay]?.hol.name || undefined}
-    >
-      {mday.format("DD")}
-    </button>
+    <div className={`day-cell day-${dow}`} onMouseOver={hoverEventHandler}>
+      <button
+        className={`day day-${dow} ${todayClass} ${isCurrentStartDateClass} ${selectClass} ${provHolidayClass} ${holidayClass} ${bHolidayClass} ${halfDayClass}`}
+        onClick={clickEventHandler}
+        title={holidayMap[formattedDay]?.hol.name || undefined}
+      >
+        {mday.format("DD")}
+      </button>
+      {memorable && (
+        <MemorableDots
+          formattedDay={formattedDay}
+          occurrences={memorable}
+          selected={memorableSelected}
+        />
+      )}
+    </div>
   );
 };

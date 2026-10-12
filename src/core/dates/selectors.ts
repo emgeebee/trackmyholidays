@@ -1,10 +1,54 @@
 import { createSelector } from "reselect";
 import moment, { Moment } from "moment";
-import { RootState, Holiday, HolidayMapEntry } from "../../types/holiday";
+import {
+  RootState,
+  Holiday,
+  HolidayMapEntry,
+  MemorableCalendar,
+  MemorableDate,
+  MemorableOccurrence,
+  SelectedDay,
+} from "../../types/holiday";
+import { expandMemorableDates } from "./memorable";
 
 moment().format();
 
 const dateState = (state: RootState) => state.dates;
+
+const NO_OCCURRENCES: MemorableOccurrence[] = [];
+
+export const getMemorableCalendars = (state: RootState) =>
+  state.dates.memorableCalendars;
+
+export const getMemorableDates = (state: RootState) =>
+  state.dates.memorableDates;
+
+/** Memorable-date occurrences in the displayed holiday year, keyed by YY-MM-DD. */
+export const getMemorableMapForYear = createSelector(
+  getMemorableDates,
+  getMemorableCalendars,
+  (state: RootState) => state.dates.currentYear,
+  (state: RootState) => state.dates.startMonth,
+  (
+    dates: MemorableDate[],
+    calendars: MemorableCalendar[],
+    currentYear: number,
+    startMonth: number
+  ) => expandMemorableDates(dates, calendars, moment([currentYear, startMonth, 1]))
+);
+
+/** Occurrences for the day whose memorable dot was clicked, if any. */
+export const getSelectedMemorable = createSelector(
+  (state: RootState) => state.dates.selected,
+  getMemorableMapForYear,
+  (
+    selected: SelectedDay | null,
+    map: Record<string, MemorableOccurrence[]>
+  ) =>
+    selected?.isMemorable
+      ? map[selected.formattedDay] ?? NO_OCCURRENCES
+      : NO_OCCURRENCES
+);
 
 export const getIsLoading = createSelector(dateState, (state) => state.loading);
 
@@ -256,9 +300,12 @@ export const getSelected = createSelector(
   (state: RootState) => state.dates.selected,
   getHolidayMapForYear,
   (
-    selected: { formattedDay: string } | null,
+    selected: SelectedDay | null,
     listOfHolidays: Record<string, HolidayMapEntry>
-  ) => (selected ? listOfHolidays[selected.formattedDay] : false)
+  ) =>
+    selected && !selected.isMemorable
+      ? listOfHolidays[selected.formattedDay]
+      : false
 );
 
 export const getCurrentPY = createSelector(

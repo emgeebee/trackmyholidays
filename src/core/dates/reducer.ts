@@ -1,10 +1,12 @@
 import { createReducer } from "../action-helpers";
 import { filterOutCurrentYear } from "./selectors";
-import { defaultState } from "./constants";
+import { defaultMemorableCalendars, defaultState } from "./constants";
 import {
   Holiday,
   HolidayMapEntry,
   HolidayState,
+  MemorableCalendar,
+  MemorableDate,
   NamedDay,
   SelectedDay,
   ServerData,
@@ -27,6 +29,10 @@ import {
   DATES_RENAME_BANK_HOLIDAY,
   DATES_CONVERT_TO_BANK_HOLIDAY,
   DATES_REMOVE_BANK_HOLIDAY,
+  DATES_UPSERT_MEMORABLE_CALENDAR,
+  DATES_REMOVE_MEMORABLE_CALENDAR,
+  DATES_UPSERT_MEMORABLE_DATE,
+  DATES_REMOVE_MEMORABLE_DATE,
 } from "./action-types";
 
 if (typeof defaultState.carriedOver === "number") {
@@ -39,6 +45,12 @@ const withName = (hol: Holiday, name: string): Holiday => {
   const { name: _previous, ...rest } = hol;
   return name ? { ...rest, name } : rest;
 };
+
+/** Replaces the item with a matching id, or appends it if there is none. */
+const upsertById = <T extends { id: string }>(list: T[], item: T): T[] =>
+  list.some((existing) => existing.id === item.id)
+    ? list.map((existing) => (existing.id === item.id ? item : existing))
+    : [...list, item];
 
 type DatesPayloads = {
   [FETCH_DATES_FROM_SERVER]: void;
@@ -57,6 +69,10 @@ type DatesPayloads = {
   [DATES_CHANGE_YEAR]: number;
   [DATES_DESELECT]: HolidayMapEntry;
   [DATES_HALF_DAY]: HolidayMapEntry;
+  [DATES_UPSERT_MEMORABLE_CALENDAR]: MemorableCalendar;
+  [DATES_REMOVE_MEMORABLE_CALENDAR]: string;
+  [DATES_UPSERT_MEMORABLE_DATE]: MemorableDate;
+  [DATES_REMOVE_MEMORABLE_DATE]: string;
 };
 
 export const dates = createReducer<HolidayState, DatesPayloads>(
@@ -110,9 +126,35 @@ export const dates = createReducer<HolidayState, DatesPayloads>(
         carriedOver: data.carriedOver,
         holidays: data.holidays,
         bankHolidays: data.bankHolidays,
+        memorableCalendars: data.memorableCalendars ?? defaultMemorableCalendars,
+        memorableDates: data.memorableDates ?? [],
         loading: false,
       };
     },
+    [DATES_UPSERT_MEMORABLE_CALENDAR]: (state, { payload }) => ({
+      ...state,
+      memorableCalendars: upsertById(state.memorableCalendars, payload),
+    }),
+    [DATES_REMOVE_MEMORABLE_CALENDAR]: (state, { payload }) => ({
+      ...state,
+      memorableCalendars: state.memorableCalendars.filter(
+        (cal) => cal.id !== payload
+      ),
+      memorableDates: state.memorableDates.filter(
+        (date) => date.calendarId !== payload
+      ),
+      selected: state.selected?.isMemorable ? null : state.selected,
+    }),
+    [DATES_UPSERT_MEMORABLE_DATE]: (state, { payload }) => ({
+      ...state,
+      memorableDates: upsertById(state.memorableDates, payload),
+    }),
+    [DATES_REMOVE_MEMORABLE_DATE]: (state, { payload }) => ({
+      ...state,
+      memorableDates: state.memorableDates.filter(
+        (date) => date.id !== payload
+      ),
+    }),
     [DATES_SELECT_DAY]: (_state, { payload }) => {
       return payload;
     },

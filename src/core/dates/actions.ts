@@ -19,12 +19,18 @@ import {
   DATES_UPDATE_CARRIED_OVER,
   DATES_UPDATE_PER_YEAR,
   DATES_HALF_DAY,
+  DATES_UPSERT_MEMORABLE_CALENDAR,
+  DATES_REMOVE_MEMORABLE_CALENDAR,
+  DATES_UPSERT_MEMORABLE_DATE,
+  DATES_REMOVE_MEMORABLE_DATE,
 } from "./action-types";
 import type {
   AppThunk,
   Holiday,
   HolidayMapEntry,
   HolidayState,
+  MemorableCalendar,
+  MemorableDate,
   NamedDay,
   RootState,
   SelectedDay,
@@ -63,6 +69,22 @@ export const updatePerYearAction = createAction<string>(DATES_UPDATE_PER_YEAR);
 
 export const updateCarriedOverAction = createAction<string>(
   DATES_UPDATE_CARRIED_OVER
+);
+
+export const upsertMemorableCalendarAction = createAction<MemorableCalendar>(
+  DATES_UPSERT_MEMORABLE_CALENDAR
+);
+
+export const removeMemorableCalendarAction = createAction<string>(
+  DATES_REMOVE_MEMORABLE_CALENDAR
+);
+
+export const upsertMemorableDateAction = createAction<MemorableDate>(
+  DATES_UPSERT_MEMORABLE_DATE
+);
+
+export const removeMemorableDateAction = createAction<string>(
+  DATES_REMOVE_MEMORABLE_DATE
 );
 
 const saveCurrentDates = (): AppThunk => (dispatch, getState) => {
@@ -127,6 +149,39 @@ export const saveBankHolidays =
     dispatch(updateBH(bankHolidays));
     dispatch(saveCurrentDates());
   };
+
+export const saveMemorableCalendar =
+  (calendar: MemorableCalendar): AppThunk =>
+  (dispatch) => {
+    dispatch(upsertMemorableCalendarAction(calendar));
+    dispatch(saveCurrentDates());
+  };
+
+/** Removes a calendar together with every memorable date in it. */
+export const removeMemorableCalendar =
+  (id: string): AppThunk =>
+  (dispatch) => {
+    dispatch(removeMemorableCalendarAction(id));
+    dispatch(saveCurrentDates());
+  };
+
+export const saveMemorableDate =
+  (date: MemorableDate): AppThunk =>
+  (dispatch) => {
+    dispatch(upsertMemorableDateAction(date));
+    dispatch(saveCurrentDates());
+  };
+
+export const removeMemorableDate =
+  (id: string): AppThunk =>
+  (dispatch) => {
+    dispatch(removeMemorableDateAction(id));
+    dispatch(saveCurrentDates());
+  };
+
+/** Opens the footer details for the memorable dates falling on `formattedDay`. */
+export const selectMemorableDay = (formattedDay: string) =>
+  selectHoliday({ formattedDay, isMemorable: true });
 
 export const deselectDay =
   (payload: HolidayMapEntry): AppThunk =>
