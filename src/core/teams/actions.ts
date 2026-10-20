@@ -76,7 +76,8 @@ export const fetchTeams =
       if (!response.ok) {
         throw new Error(`Failed to fetch teams: ${response.statusText}`);
       }
-      const teams: Team[] = await response.json();
+      const data = await response.json();
+      const teams: Team[] = Array.isArray(data) ? data : (data.teams || []);
       dispatch(loadTeamsAction(teams));
     } catch (e) {
       console.error(e);
@@ -209,7 +210,8 @@ export const fetchTeamMembers =
       if (!response.ok) {
         throw new Error(`Failed to fetch team members: ${response.statusText}`);
       }
-      const members: TeamMember[] = await response.json();
+      const data = await response.json();
+      const members: TeamMember[] = Array.isArray(data) ? data : (data.members || []);
       dispatch(loadTeamMembersAction(members));
       return members;
     } catch (e) {
@@ -271,7 +273,8 @@ export const fetchTeamInvites =
       if (!response.ok) {
         throw new Error(`Failed to fetch team invites: ${response.statusText}`);
       }
-      const invites: TeamInvite[] = await response.json();
+      const data = await response.json();
+      const invites: TeamInvite[] = Array.isArray(data) ? data : (data.invites || []);
       dispatch(loadTeamInvitesAction(invites));
     } catch (e) {
       console.error(e);
@@ -374,7 +377,8 @@ export const fetchTeamHolidays =
       if (!response.ok) {
         throw new Error(`Failed to fetch team holidays: ${response.statusText}`);
       }
-      const holidays: TeamHoliday[] = await response.json();
+      const data = await response.json();
+      const holidays: TeamHoliday[] = Array.isArray(data) ? data : (data.holidays || []);
       dispatch(loadTeamHolidaysAction(holidays));
     } catch (e) {
       console.error(e);
