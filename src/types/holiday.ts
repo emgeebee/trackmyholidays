@@ -90,6 +90,7 @@ export interface RootState {
     ww: AuthState;
   };
   config: ConfigState;
+  teams: TeamsState;
 }
 
 export type AppDispatch = ThunkDispatch<RootState, undefined, UnknownAction>;
@@ -122,4 +123,53 @@ export interface BankHolidayCountry {
     name: string;
     start: string;
   }>;
+}
+
+export interface Team {
+  id: string;
+  name: string;
+  parentId?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface TeamMember {
+  id: string;
+  teamId: string;
+  userId: string;
+  email: string;
+  role: "admin" | "member";
+  status: "pending" | "active";
+  joinedAt: string;
+}
+
+export interface TeamInvite {
+  id: string;
+  teamId: string;
+  teamName: string;
+  email: string;
+  invitedBy: string;
+  role: "admin" | "member";
+  status: "pending" | "accepted" | "declined";
+  expiresAt: string;
+  createdAt: string;
+}
+
+export interface TeamHoliday {
+  userId: string;
+  email: string;
+  start: string;
+  end?: string;
+  name?: string;
+  half?: "first" | "last" | null;
+}
+
+export interface TeamsState {
+  teams: Team[];
+  currentTeam: Team | null;
+  members: TeamMember[];
+  invites: TeamInvite[];
+  teamHolidays: TeamHoliday[];
+  loading: boolean;
+  error: string | null;
 }

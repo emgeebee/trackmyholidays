@@ -1,5 +1,6 @@
 import { createAction } from "../action-helpers";
 import { fetchDates } from "../dates/actions";
+import { fetchTeams, fetchTeamInvites } from "../teams/actions";
 import type { AppThunk } from "../../types/holiday";
 
 import { LOGIN, LOGOUT } from "./action-types";
@@ -15,6 +16,8 @@ export const login =
     saveAuth(payload);
     dispatch(loginAction(payload));
     await dispatch(fetchDates());
+    await dispatch(fetchTeams());
+    await dispatch(fetchTeamInvites());
   };
 
 export const logout = (): AppThunk => (dispatch) => {

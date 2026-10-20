@@ -13,6 +13,7 @@ import { getCurrentPY, getCurrentCO } from "../../core/dates/selectors";
 import { BankHolidaySettings } from "./bank-holidays";
 import { MemorableDateSettings } from "./memorable-dates";
 import { AppearanceSettings } from "./appearance";
+import { TeamsSettings } from "./teams";
 
 import "./style.css";
 
@@ -146,6 +147,7 @@ export const Config = () => {
             <Tab className="config-tabs__tab">Holiday year</Tab>
             <Tab className="config-tabs__tab">Bank holidays</Tab>
             <Tab className="config-tabs__tab">Memorable</Tab>
+            <Tab className="config-tabs__tab">Teams</Tab>
             <Tab className="config-tabs__tab">Appearance</Tab>
           </TabList>
           <TabPanel className="config-tabs__panel">
@@ -156,6 +158,9 @@ export const Config = () => {
           </TabPanel>
           <TabPanel className="config-tabs__panel">
             <MemorableDateSettings />
+          </TabPanel>
+          <TabPanel className="config-tabs__panel">
+            <TeamsSettings />
           </TabPanel>
           <TabPanel className="config-tabs__panel">
             <AppearanceSettings />
