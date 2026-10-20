@@ -834,3 +834,102 @@
 .control {
   display: none;
 }
+
+/* —— Teams Settings —— */
+.teams-error {
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: var(--radius-md);
+  color: #dc2626;
+  font-size: 0.875rem;
+}
+
+.teams-invites-list,
+.teams-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.teams-invite-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  gap: 1rem;
+}
+
+.teams-list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all 0.15s;
+  gap: 1rem;
+}
+
+.teams-list-item:hover {
+  border-color: var(--color-text-muted);
+}
+
+.teams-list-item__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.teams-list-item__name {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.teams-list-item__date {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.teams-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.teams-btn--accept {
+  background: #10b981;
+  color: white;
+}
+
+.teams-btn--accept:hover:not(:disabled) {
+  background: #059669;
+}
+
+.teams-btn--leave {
+  background: transparent;
+  color: #ef4444;
+  border: 1px solid #ef4444;
+}
+
+.teams-btn--leave:hover:not(:disabled) {
+  background: #ef4444;
+  color: white;
+}
+
+.teams-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
