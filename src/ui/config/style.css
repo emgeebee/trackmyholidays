@@ -836,6 +836,41 @@
 }
 
 /* —— Teams Settings —— */
+.teams-info-box {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.teams-info-box p {
+  margin: 0 0 0.75rem 0;
+}
+
+.teams-info-box p:last-child {
+  margin-bottom: 0;
+}
+
+.teams-info-box strong {
+  font-size: 0.9375rem;
+  color: var(--color-text);
+}
+
+.teams-admin-link {
+  color: var(--color-primary, #3b82f6);
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.15s;
+}
+
+.teams-admin-link:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
 .teams-error {
   padding: 0.75rem;
   margin-bottom: 1rem;

@@ -65,6 +65,29 @@ export function TeamsSettings(): JSX.Element {
 
   return (
     <div className="config-panel">
+      <section className="config-section">
+        <div className="teams-info-box">
+          <p>
+            <strong>About Teams</strong>
+          </p>
+          <p>
+            A team admin needs to invite you to a team before you can join.
+            Once invited, you'll see pending invitations here that you can accept.
+          </p>
+          <p>
+            If you're a team admin, manage your teams at:{" "}
+            <a
+              href="https://teams.trackmyholidays.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="teams-admin-link"
+            >
+              teams.trackmyholidays.com
+            </a>
+          </p>
+        </div>
+      </section>
+
       {error && (
         <div className="teams-error">
           {error}
